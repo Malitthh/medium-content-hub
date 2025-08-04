@@ -21,5 +21,4 @@ To maintain a clean, version-controlled archive of all content and assets publis
 
 ##  Notes
 
-- Each article may have its own folder inside the relevant directories for better traceability.
 - Sensitive credentials or private data should **never** be included in this repository.

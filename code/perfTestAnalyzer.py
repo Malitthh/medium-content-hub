@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 
 # Step 1: Load CSV or Excel file without datetime parsing
-input_file = "987reqs_with_duration_summary.xlsx"  # Change to your input file path here
+input_file = "duration_summary.xlsx"  # Change to your input file path here
 
 if input_file.lower().endswith(".csv"):
     df = pd.read_csv(input_file)

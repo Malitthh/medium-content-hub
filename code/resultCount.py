@@ -1,56 +1,67 @@
 import json
+import csv
 
-def count_completed_and_non_empty_results(json_file):
-    # Initialize counters
-    completed_count = 0
-    completed_with_results_count = 0
-
-    # Try opening the file with different encodings
+def analyze_results(json_file):
     try:
+        # Try with utf-8 first
         with open(json_file, 'r', encoding='utf-8') as file:
             data = json.load(file)
     except UnicodeDecodeError:
-        print("UTF-8 encoding failed, trying with UTF-16 encoding...")
+        print("UTF-8 failed, trying UTF-16...")
         with open(json_file, 'r', encoding='utf-16') as file:
             data = json.load(file)
     except Exception as e:
-        print(f"An error occurred while reading the file: {e}")
+        print(f"Error reading file: {e}")
         return
 
-    # Print the keys of the outer dictionary to understand its structure
-    if isinstance(data, dict):
-        print(f"Data is a dictionary. Keys: {data.keys()}")
-    else:
-        print(f"Data is not a dictionary, it's a {type(data)}")
+    # Validate structure
+    if not isinstance(data, dict) or 'results' not in data:
+        print("Invalid JSON structure: expected a dictionary with 'results' key.")
         return
 
-    # Check if 'results' is the key containing the list of results
-    if 'results' in data:
-        results = data['results']
-        print(f"First result in 'results' list: {results[0]}")
-    else:
-        print("The expected key 'results' is not present in the data.")
-        return
+    results = data['results']
+    total_count = len(results)
 
-    # Now iterate through the 'results' list
+    completed_count = 0
+    completed_with_results_count = 0
+    error_count = 0
+    error_ids = []
+
     for result in results:
-        # Ensure each result is a dictionary and contains the key 'status'
-        if isinstance(result, dict) and 'status' in result:
-            if result['status'] == 'COMPLETED':
+        if isinstance(result, dict):
+            status = result.get('status', '')
+            request_id = result.get('requestId', 'N/A')
+
+            if status == 'Completed':
                 completed_count += 1
-                # Check if 'result' is not empty
                 if result.get('result') and isinstance(result['result'], list) and result['result']:
                     completed_with_results_count += 1
-        else:
-            print(f"Skipping invalid result: {result}")
-    
-    # Output the counts to a text file
-    with open("Completed Count.txt", 'w', encoding='utf-8') as output_file:
-        output_file.write(f"Total completed: {completed_count}\n")
-        output_file.write(f"Completed with non-empty results: {completed_with_results_count}\n")
-    
-    print("Processing complete! Results saved to 'output_count.txt'.")
+            elif status == 'Error':
+                error_count += 1
+                error_ids.append(request_id)
 
-# Replace 'your_json_file.json' with the path to your actual JSON file
-json_file_path = 'LatestDataAllOutput.json'
-count_completed_and_non_empty_results(json_file_path)
+    # Percentages (avoid division by zero)
+    completed_percent = (completed_count / total_count * 100) if total_count else 0
+    error_percent = (error_count / total_count * 100) if total_count else 0
+
+    # Save summary to CSV
+    with open("Results_Summary.csv", 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.writer(csvfile)
+        # Header
+        writer.writerow(["Metric", "Value"])
+        writer.writerow(["Total objects", total_count])
+        writer.writerow(["Completed", f"{completed_count} ({completed_percent:.2f}%)"])
+        writer.writerow(["Completed with non-empty results", completed_with_results_count])
+        writer.writerow(["Error", f"{error_count} ({error_percent:.2f}%)"])
+
+        # Empty line then errors
+        writer.writerow([])
+        writer.writerow(["Error Request IDs"])
+        for eid in error_ids:
+            writer.writerow([eid])
+
+    print("Processing complete! Results saved to 'Results_Summary.csv'.")
+
+# Run
+json_file_path = 'DataOutput.json'
+analyze_results(json_file_path)

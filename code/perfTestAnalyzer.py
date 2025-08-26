@@ -37,7 +37,7 @@ df = df[df["duration_sec"] >= 0]  # Filter valid durations
 total_requests_before_filter = len(df)
 
 # Step 4.5: Filter out unwanted statuses (exclude IN_PROGRESS and ACCEPTED)
-df = df[~df['status'].isin(['IN_PROGRESS', 'ACCEPTED'])]
+df = df[~df['status'].isin(['IN_PROGRESS', 'ACCEPTED', 'ERROR'])]
 
 # Completed requests count & percentage
 completed_requests = len(df)

@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import os
 
 # Step 1: Load CSV or Excel file without datetime parsing
-input_file = "duration_summary.xlsx"  # Change to your input file path here
+input_file = "20req1.csv"  # Change to your input file path here
 
 if input_file.lower().endswith(".csv"):
     df = pd.read_csv(input_file)
@@ -49,33 +49,71 @@ count_exceed_300s = (df["duration_sec"] > 300).sum()
 # Step 5.1: Calculate average response time
 avg_duration_sec = df["duration_sec"].mean()
 
+# Step 5.2: Variance & Standard Deviation
+variance = df["duration_sec"].var(ddof=0)  # Population variance
+std_dev = df["duration_sec"].std(ddof=0)   # Population standard deviation
+
+# Step 5.3: Coefficient of Variation (CV = σ / μ)
+cv = std_dev / avg_duration_sec if avg_duration_sec else None
+
+# Stability interpretation
+if cv is not None:
+    if cv < 0.1:
+        stability = "Very Stable"
+    elif cv <= 0.3:
+        stability = "Acceptable Variance"
+    else:
+        stability = "Unstable / Unpredictable"
+else:
+    stability = "N/A"
+
+print("Coefficient of Variation (CV):", round(cv, 3))
+print("System Stability:", stability)
+
+# Step 5.4: Little's Law
+arrival_rate = float(input("Enter arrival rate (req/sec): "))  # user input
+L = arrival_rate * avg_duration_sec if avg_duration_sec else 0
+
 # Console output
 print("Total Requests:", total_requests_before_filter)
 print("Completed Requests:", completed_requests)
 print(f"Completed Requests %: {completed_percentage:.2f}%")
 print("Requests > 300s:", count_exceed_300s)
 print("Average Response Time (seconds):", round(avg_duration_sec, 2))
+print("Variance (σ²):", round(variance, 2))
+print("Standard Deviation (σ):", round(std_dev, 2))
+print("Little's Law (L = λ × W):", round(L, 2))
 
 # Also print average time as MM:SS.s
 avg_minutes = int(avg_duration_sec // 60)
 avg_seconds = avg_duration_sec % 60
 print(f"Average Response Time (MM:SS.s): {avg_minutes}:{avg_seconds:.2f}")
 
-# Step 6: Prepare summary DataFrame including average duration
+# Step 6: Prepare summary DataFrame including average duration, variance, std dev, and Little’s Law
 summary_df = pd.DataFrame({
     "Metric": [
         "Total Requests",
         "Completed Requests",
         "Completed Requests (%)",
         "Requests > 300s",
-        "Average Response Time (s)"
+        "Average Response Time (s)",
+        "Variance (σ²)",
+        "Standard Deviation (σ)",
+        "Coefficient of Variation (CV)",
+        "System Stability",
+        "Little’s Law (L = λ × W)"
     ],
     "Value": [
         total_requests_before_filter,
         completed_requests,
         f"{completed_percentage:.2f}%",
         count_exceed_300s,
-        round(avg_duration_sec, 2)
+        round(avg_duration_sec, 2),
+        round(variance, 2),
+        round(std_dev, 2),
+        round(cv, 3) if cv is not None else "N/A",
+        stability,
+        round(L, 2)
     ]
 })
 
@@ -100,7 +138,41 @@ plt.xticks(rotation=0)
 plt.grid(axis="y", linestyle="--", alpha=0.7)
 plt.tight_layout()
 
-# Step 10: Save and show the chart
+# Save percentile chart
 chart_output = f"{base_filename}_percentile_chart.png"
 plt.savefig(chart_output)
-plt.show()
+print(f"Saved percentile chart: {chart_output}")
+plt.close()  # close so next plot doesn't overwrite
+
+# Step 10: Plot Mean vs Std Dev with CV annotation
+plt.figure(figsize=(6, 5))
+bars = plt.bar(
+    ["Mean (μ)", "Std Dev (σ)"],
+    [avg_duration_sec, std_dev],
+    color=["#0077b6", "#ffb703"],
+    edgecolor="black"
+)
+
+plt.title("Mean vs Standard Deviation", fontsize=14)
+plt.ylabel("Duration (seconds)")
+plt.grid(axis="y", linestyle="--", alpha=0.7)
+
+# Annotate bar values
+for bar in bars:
+    height = bar.get_height()
+    plt.text(bar.get_x() + bar.get_width()/2, height + (0.02 * height),
+             f"{height:.2f}", ha='center', va='bottom', fontsize=10)
+
+# Add CV annotation
+plt.text(0.5, max(avg_duration_sec, std_dev) * 0.9,
+         f"CV = {cv:.3f} → {stability}",
+         ha="center", va="center", fontsize=12,
+         bbox=dict(boxstyle="round,pad=0.3", fc="lightyellow", ec="black"))
+
+plt.tight_layout()
+
+# Save deviation chart
+deviation_chart_output = f"{base_filename}_mean_vs_stddev.png"
+plt.savefig(deviation_chart_output)
+print(f"Saved deviation chart: {deviation_chart_output}")
+plt.close()

@@ -1,9 +1,9 @@
 # Test Automation Engineering — Architect Reference
 
-> **Author:** Senior SDET · ISTQB CTAL-TAE v2.0 Certified
+> **Author:** Senior Test Engineer · ISTQB CTAL-TAE v2.0 Certified
 > **Purpose:** Living reference for test automation architecture, patterns, and standards.
 > Read this to onboard a project, design a TAF from scratch, answer interview questions, or refresh your knowledge as an architect.
-> **Last updated:** 2025
+> **Last updated:** 2026
 
 ---
 

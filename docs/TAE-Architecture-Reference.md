@@ -1,8 +1,10 @@
 # Test Automation Engineering — Architect Reference
 
 > **Author:** Senior Test Engineer · ISTQB CTAL-TAE v2.0 Certified
+
 > **Purpose:** Living reference for test automation architecture, patterns, and standards.
 > Read this to onboard a project, design a TAF from scratch, answer interview questions, or refresh your knowledge as an architect.
+
 > **Last updated:** 2026
 
 ---
@@ -83,22 +85,22 @@ This is the foundational architecture. Every project follows this regardless of 
 ```
 ┌─────────────────────────────────────────┐
 │          LAYER 1 — Test Scripts         │  ← what tests DO
-│   spec files · suites · annotations    │
+│   spec files · suites · annotations     │
 └──────────────────┬──────────────────────┘
                    │ calls only
 ┌──────────────────▼──────────────────────┐
 │        LAYER 2 — Business Logic         │  ← what the APP does
-│  Screen/Page Objects · Flow Models     │
+│  Screen/Page Objects · Flow Models      │
 └──────────────────┬──────────────────────┘
                    │ calls only
 ┌──────────────────▼──────────────────────┐
 │         LAYER 3 — Core Libraries        │  ← how automation WORKS
-│ DriverFactory · Logger · WaitHelper    │
+│ DriverFactory · Logger · WaitHelper     │
 └──────────────────┬──────────────────────┘
                    │ interfaces with
 ┌──────────────────▼──────────────────────┐
 │        System Under Test (SUT)          │
-│     Web App · Mobile App · API         │
+│     Web App · Mobile App · API          │
 └─────────────────────────────────────────┘
 ```
 

@@ -1024,5 +1024,5 @@ subscription OperationName($id: ID!) {
 
 ---
 
-*Last updated: April 2025*
+*Last updated: April 2026*
 *Author: Personal reference — feel free to contribute and expand*

@@ -55,11 +55,11 @@
 
     /* ═══ HERO ═══ */
     .hero {
-      min-height: 100vh;
+      min-height: 80vh;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
-      padding: 0 0 80px;
+      padding: 0 0 60px;
       position: relative;
       overflow: hidden;
       border-bottom: 1px solid var(--border2)
@@ -802,6 +802,51 @@
     }
 
     /* ═══ TIERS ═══ */
+    .priority-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 24px 0
+    }
+
+    .priority-item {
+      display: grid;
+      grid-template-columns: 56px 1fr;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden
+    }
+
+    .priority-rank {
+      font-family: var(--mono);
+      font-size: 24px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      border-right: 1px solid var(--border)
+    }
+
+    .priority-body {
+      padding: 16px 20px
+    }
+
+    .priority-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px
+    }
+
+    .priority-desc {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.6
+    }
+
     .tier-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -995,9 +1040,12 @@
       font-size: 12px;
       font-weight: 600;
       color: var(--pink);
-      white-space: nowrap;
       padding-top: 1px;
-      min-width: 100px
+      min-width: 110px;
+      max-width: 130px;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      white-space: normal
     }
 
     .term-def {
@@ -1062,6 +1110,200 @@
       .flag-entry {
         grid-template-columns: 70px 1fr
       }
+
+      .oio-track {
+        height: 260px
+      }
+    }
+
+    /* ═══ SCROLL REVEAL ═══ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s ease, transform .7s ease
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .reveal-delay-1 {
+      transition-delay: .1s
+    }
+
+    .reveal-delay-2 {
+      transition-delay: .2s
+    }
+
+    .reveal-delay-3 {
+      transition-delay: .3s
+    }
+
+    /* ═══ INTERACTIVE OUT-IN-OUT ═══ */
+    .oio-track {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      height: 320px;
+      margin: 24px 0;
+      cursor: default
+    }
+
+    .oio-track canvas {
+      width: 100%;
+      height: 100%;
+      display: block
+    }
+
+    .oio-controls {
+      display: flex;
+      gap: 8px;
+      margin: 8px 0 24px;
+      flex-wrap: wrap
+    }
+
+    .oio-btn {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .06em;
+      padding: 10px 18px;
+      border-radius: 8px;
+      border: 1px solid var(--border2);
+      background: var(--surface);
+      color: var(--gray);
+      cursor: pointer;
+      transition: .2s;
+      text-transform: uppercase
+    }
+
+    .oio-btn:hover {
+      color: var(--white);
+      border-color: var(--pink)
+    }
+
+    .oio-btn.active {
+      background: var(--pink-dim);
+      color: var(--pink);
+      border-color: var(--pink)
+    }
+
+    /* ═══ CUE IMAGE ═══ */
+    .cue-img {
+      width: 100%;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      opacity: .85;
+      transition: opacity .3s
+    }
+
+    .cue-img:hover {
+      opacity: 1
+    }
+
+    /* ═══ REFERENCE CARD ═══ */
+    .ref-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 12px;
+      margin: 24px 0
+    }
+
+    .ref-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px;
+      text-decoration: none;
+      display: block;
+      transition: border-color .2s, transform .2s
+    }
+
+    .ref-card:hover {
+      border-color: var(--pink);
+      transform: translateY(-2px)
+    }
+
+    .ref-card-type {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 8px
+    }
+
+    .ref-card-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px
+    }
+
+    .ref-card-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.5
+    }
+
+    /* ═══ MEDIUM BANNER ═══ */
+    .medium-banner {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: linear-gradient(135deg, var(--pink-dim), var(--surface));
+      border: 1px solid rgba(232, 56, 138, .2);
+      border-radius: 12px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      text-decoration: none;
+      transition: border-color .2s, transform .15s
+    }
+
+    .medium-banner:hover {
+      border-color: var(--pink);
+      transform: translateY(-1px)
+    }
+
+    .medium-icon {
+      width: 44px;
+      height: 44px;
+      background: var(--pink);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--white)
+    }
+
+    .medium-text {
+      flex: 1
+    }
+
+    .medium-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 2px
+    }
+
+    .medium-desc {
+      font-size: 13px;
+      color: var(--gray)
+    }
+
+    .medium-arrow {
+      font-size: 18px;
+      color: var(--pink);
+      flex-shrink: 0
     }
   </style>
 </head>
@@ -1223,6 +1465,15 @@
         <p>This single principle describes your position on track. It is the same idea as <strong>Entry &rarr; Apex
             &rarr; Exit</strong> and <strong>Brake &rarr; Turn &rarr; Gas</strong>. Three phrases, one concept, three
           angles.</p>
+
+        <div class="oio-controls">
+          <button class="oio-btn active" onclick="setOioMode('correct',this)">Correct Line</button>
+          <button class="oio-btn" onclick="setOioMode('early',this)">Turn-in Too Early</button>
+          <button class="oio-btn" onclick="setOioMode('late',this)">Late Apex</button>
+          <button class="oio-btn" onclick="setOioMode('compare',this)">Compare All</button>
+        </div>
+        <div class="oio-track"><canvas id="oioCanvas"></canvas></div>
+
         <div class="card-grid">
           <div class="card teal">
             <div class="card-num">OUT</div>
@@ -1292,8 +1543,34 @@
                 right-hand turn is coming. Before you see the corner, the boards are pointing you toward the correct
                 line. <span class="tag tag-sim">Sim: cockpit cam</span> <span class="tag tag-real">Real: track days
                   too</span></p>
+              <svg viewBox="0 0 600 110"
+                style="width:100%;max-width:580px;height:auto;margin-top:14px;border-radius:8px;background:var(--bg3);border:1px solid var(--border)">
+                <rect width="600" height="110" rx="6" fill="#141418" />
+                <rect x="0" y="50" width="600" height="60" fill="#1a1a20" />
+                <line x1="0" y1="80" x2="600" y2="80" stroke="#333" stroke-width="1" stroke-dasharray="20,14" />
+                <rect x="60" y="28" width="20" height="34" rx="2" fill="#cc3030" /><text x="70" y="50" fill="white"
+                  font-size="11" font-family="var(--mono)" text-anchor="middle" font-weight="600">3</text>
+                <rect x="140" y="28" width="20" height="34" rx="2" fill="#cc3030" /><text x="150" y="50" fill="white"
+                  font-size="11" font-family="var(--mono)" text-anchor="middle" font-weight="600">2</text>
+                <rect x="220" y="28" width="20" height="34" rx="2" fill="#cc3030" /><text x="230" y="50" fill="white"
+                  font-size="11" font-family="var(--mono)" text-anchor="middle" font-weight="600">1</text>
+                <text x="70" y="18" fill="#8a8a96" font-size="9" font-family="var(--mono)"
+                  text-anchor="middle">300m</text>
+                <text x="150" y="18" fill="#8a8a96" font-size="9" font-family="var(--mono)"
+                  text-anchor="middle">200m</text>
+                <text x="230" y="18" fill="#8a8a96" font-size="9" font-family="var(--mono)"
+                  text-anchor="middle">100m</text>
+                <text x="70" y="100" fill="#5a5a68" font-size="10" font-family="var(--mono)" text-anchor="middle">Boards
+                  on LEFT</text>
+                <path d="M 310,95 Q 420,95 500,50 Q 540,30 580,28" stroke="#2ec4b6" stroke-width="2.5" fill="none"
+                  stroke-dasharray="6,4" />
+                <circle cx="580" cy="28" r="4" fill="#2ec4b6" />
+                <text x="480" y="100" fill="#2ec4b6" font-size="10" font-family="var(--mono)"
+                  text-anchor="middle">Right-hand corner ahead &rarr;</text>
+              </svg>
             </div>
           </div>
+
           <div class="cue-item">
             <div class="cue-badge">2</div>
             <div>
@@ -1301,8 +1578,32 @@
               <p>Kerbs mark where the correct racing line is. Sudden kerbing on a straight means a corner is arriving.
                 Begin your preparation: position the car, start trail braking, locate your turn-in. <span
                   class="tag tag-sim">Sim: all titles</span> <span class="tag tag-real">Real: identical</span></p>
+              <svg viewBox="0 0 600 90"
+                style="width:100%;max-width:580px;height:auto;margin-top:14px;border-radius:8px;background:#141418;border:1px solid var(--border)">
+                <rect x="0" y="30" width="600" height="60" fill="#1a1a20" />
+                <g>
+                  <rect x="0" y="30" width="18" height="8" fill="#cc3030" />
+                  <rect x="18" y="30" width="18" height="8" fill="#fff" opacity=".9" />
+                  <rect x="36" y="30" width="18" height="8" fill="#cc3030" />
+                  <rect x="54" y="30" width="18" height="8" fill="#fff" opacity=".9" />
+                  <rect x="72" y="30" width="18" height="8" fill="#cc3030" />
+                  <rect x="90" y="30" width="18" height="8" fill="#fff" opacity=".9" />
+                  <rect x="108" y="30" width="18" height="8" fill="#cc3030" />
+                  <rect x="126" y="30" width="18" height="8" fill="#fff" opacity=".9" />
+                  <rect x="144" y="30" width="18" height="8" fill="#cc3030" />
+                  <rect x="162" y="30" width="18" height="8" fill="#fff" opacity=".9" />
+                </g>
+                <text x="90" y="22" fill="#e8388a" font-size="10" font-family="var(--mono)" text-anchor="middle">Kerbing
+                  appears</text>
+                <text x="350" y="22" fill="#8a8a96" font-size="10" font-family="var(--mono)"
+                  text-anchor="middle">Straight section &mdash; no kerbing</text>
+                <path d="M 190,66 L 350,66" stroke="#5a5a68" stroke-width="1" stroke-dasharray="14,10" />
+                <text x="350" y="78" fill="#2ec4b6" font-size="10" font-family="var(--mono)" text-anchor="middle"
+                  font-weight="500">Corner approaching &mdash; prepare now</text>
+              </svg>
             </div>
           </div>
+
           <div class="cue-item">
             <div class="cue-badge">3</div>
             <div>
@@ -1310,8 +1611,30 @@
               <p>Distance boards present = hard braking. No boards with slight compression = lift corner. No boards and
                 flat = full throttle or near-flat. Distinguishing these reduces lap time enormously. <span
                   class="tag tag-sim">Sim: FFB confirms over-braking</span></p>
+              <svg viewBox="0 0 600 80"
+                style="width:100%;max-width:580px;height:auto;margin-top:14px;border-radius:8px;background:#141418;border:1px solid var(--border)">
+                <rect x="20" y="20" width="160" height="44" rx="6" fill="rgba(232,56,138,.1)" stroke="var(--pink)"
+                  stroke-width="1" />
+                <text x="100" y="38" fill="#e8388a" font-size="10" font-family="var(--mono)" text-anchor="middle"
+                  font-weight="600">HARD BRAKE</text>
+                <text x="100" y="53" fill="#8a8a96" font-size="9" font-family="var(--mono)" text-anchor="middle">Boards
+                  present</text>
+                <rect x="220" y="20" width="160" height="44" rx="6" fill="rgba(232,93,48,.1)" stroke="var(--orange)"
+                  stroke-width="1" />
+                <text x="300" y="38" fill="#e85d30" font-size="10" font-family="var(--mono)" text-anchor="middle"
+                  font-weight="600">LIFT / FEATHER</text>
+                <text x="300" y="53" fill="#8a8a96" font-size="9" font-family="var(--mono)" text-anchor="middle">No
+                  boards, compression</text>
+                <rect x="420" y="20" width="160" height="44" rx="6" fill="rgba(46,196,182,.1)" stroke="var(--teal)"
+                  stroke-width="1" />
+                <text x="500" y="38" fill="#2ec4b6" font-size="10" font-family="var(--mono)" text-anchor="middle"
+                  font-weight="600">FLAT / COMMIT</text>
+                <text x="500" y="53" fill="#8a8a96" font-size="9" font-family="var(--mono)" text-anchor="middle">No
+                  boards, flat entry</text>
+              </svg>
             </div>
           </div>
+
           <div class="cue-item">
             <div class="cue-badge">4</div>
             <div>
@@ -1319,8 +1642,32 @@
               <p>2nd gear = slow, tight, hard braking. 3rd gear = medium, moderate braking. 4th gear = fast, sweeping,
                 light braking or lift. Once you know the gear, you have the complete picture. <span
                   class="tag tag-real">Real: how drivers describe corners to engineers</span></p>
+              <svg viewBox="0 0 600 80"
+                style="width:100%;max-width:580px;height:auto;margin-top:14px;border-radius:8px;background:#141418;border:1px solid var(--border)">
+                <text x="80" y="30" fill="#e8388a" font-size="32" font-family="var(--font)" text-anchor="middle"
+                  font-weight="800">2nd</text>
+                <text x="80" y="52" fill="#8a8a96" font-size="10" font-family="var(--mono)" text-anchor="middle">Slow /
+                  Hairpin</text>
+                <text x="80" y="66" fill="#5a5a68" font-size="9" font-family="var(--mono)" text-anchor="middle">Hard
+                  brake, late apex</text>
+                <line x1="170" y1="14" x2="170" y2="70" stroke="#333" stroke-width="1" />
+                <text x="300" y="30" fill="#e85d30" font-size="32" font-family="var(--font)" text-anchor="middle"
+                  font-weight="800">3rd</text>
+                <text x="300" y="52" fill="#8a8a96" font-size="10" font-family="var(--mono)" text-anchor="middle">Medium
+                  speed</text>
+                <text x="300" y="66" fill="#5a5a68" font-size="9" font-family="var(--mono)"
+                  text-anchor="middle">Moderate brake, standard line</text>
+                <line x1="420" y1="14" x2="420" y2="70" stroke="#333" stroke-width="1" />
+                <text x="520" y="30" fill="#2ec4b6" font-size="32" font-family="var(--font)" text-anchor="middle"
+                  font-weight="800">4th</text>
+                <text x="520" y="52" fill="#8a8a96" font-size="10" font-family="var(--mono)" text-anchor="middle">Fast /
+                  Sweeper</text>
+                <text x="520" y="66" fill="#5a5a68" font-size="9" font-family="var(--mono)" text-anchor="middle">Light
+                  brake or lift only</text>
+              </svg>
             </div>
           </div>
+
           <div class="cue-item">
             <div class="cue-badge">5</div>
             <div>
@@ -1328,6 +1675,29 @@
               <p>See the apex kerb early = tight, slow corner, wait for a late apex. Cannot see the apex kerb = long
                 sweeper, be patient, carry speed. Prevents the most common beginner mistake: turning in too early. <span
                   class="tag tag-sim">Sim: cockpit or bumper cam</span></p>
+              <svg viewBox="0 0 600 100"
+                style="width:100%;max-width:580px;height:auto;margin-top:14px;border-radius:8px;background:#141418;border:1px solid var(--border)">
+                <text x="20" y="18" fill="#5a5a68" font-size="9" font-family="var(--mono)">TIGHT CORNER</text>
+                <path d="M 40,80 Q 40,35 90,35 L 140,35" stroke="#e8388a" stroke-width="2.5" fill="none" />
+                <g opacity=".9">
+                  <rect x="85" y="30" width="10" height="5" fill="#cc3030" />
+                  <rect x="95" y="30" width="10" height="5" fill="#fff" />
+                  <rect x="105" y="30" width="10" height="5" fill="#cc3030" />
+                  <rect x="115" y="30" width="10" height="5" fill="#fff" />
+                  <rect x="125" y="30" width="10" height="5" fill="#cc3030" />
+                </g>
+                <text x="150" y="38" fill="#e8388a" font-size="9" font-family="var(--mono)">Apex visible early &rarr;
+                  WAIT</text>
+                <circle cx="100" cy="55" r="12" fill="none" stroke="#e8388a" stroke-width="1" stroke-dasharray="3,3" />
+                <text x="120" y="58" fill="#8a8a96" font-size="8" font-family="var(--mono)">You can see it</text>
+                <line x1="295" y1="10" x2="295" y2="95" stroke="#333" stroke-width="1" />
+                <text x="310" y="18" fill="#5a5a68" font-size="9" font-family="var(--mono)">LONG SWEEPER</text>
+                <path d="M 340,85 Q 340,65 370,50 Q 420,28 500,22 L 570,20" stroke="#2ec4b6" stroke-width="2.5"
+                  fill="none" />
+                <text x="510" y="50" fill="#2ec4b6" font-size="9" font-family="var(--mono)">Apex hidden &rarr; CARRY
+                  SPEED</text>
+                <text x="510" y="64" fill="#5a5a68" font-size="8" font-family="var(--mono)">Don't turn in early</text>
+              </svg>
             </div>
           </div>
         </div>
@@ -1655,13 +2025,42 @@
 
       <div class="section">
         <h3 class="sec-title">Upgrade Priority</h3>
-        <div class="callout orange">
-          <div class="co-label">Most Impact, In Order</div>
-          <p><strong>1. Load-cell brake pedal</strong> &mdash; the single biggest performance improvement. Brake feel
-            via force rather than position. <strong>2. Wheelbase</strong> &mdash; more Nm = more FFB detail. <strong>3.
-              Rig/cockpit</strong> &mdash; a wobbly desk kills pedal feel. Even a budget Playseat Challenge beats a
-            desk. <strong>4. Display</strong> &mdash; triple screens or VR expand spatial awareness, but only after
-            physical inputs are sorted.</p>
+        <p>Not all upgrades are equal. Here is what actually moves the needle, ranked by real impact on your lap times
+          and driving feel.</p>
+        <div class="priority-list">
+          <div class="priority-item">
+            <div class="priority-rank" style="color:var(--pink)">01</div>
+            <div class="priority-body">
+              <div class="priority-name">Load-cell brake pedal</div>
+              <div class="priority-desc">The single biggest performance improvement for most drivers. You feel braking
+                force through physical pressure rather than guessing by pedal position. The difference is dramatic and
+                immediate.</div>
+            </div>
+          </div>
+          <div class="priority-item">
+            <div class="priority-rank" style="color:var(--orange)">02</div>
+            <div class="priority-body">
+              <div class="priority-name">Wheelbase</div>
+              <div class="priority-desc">More Nm of torque means more force feedback detail. You feel tyre slip, kerb
+                texture, and surface changes with far greater clarity. Direct drive is the biggest jump.</div>
+            </div>
+          </div>
+          <div class="priority-item">
+            <div class="priority-rank" style="color:var(--teal)">03</div>
+            <div class="priority-body">
+              <div class="priority-name">Rig / Cockpit</div>
+              <div class="priority-desc">A wobbly desk destroys pedal feel and steering precision. Even a budget
+                Playseat Challenge is a significant improvement over a desk clamp setup. Rigidity is everything.</div>
+            </div>
+          </div>
+          <div class="priority-item">
+            <div class="priority-rank" style="color:var(--gray)">04</div>
+            <div class="priority-body">
+              <div class="priority-name">Display</div>
+              <div class="priority-desc">Triple screens or VR expand spatial awareness significantly, but only upgrade
+                this after your physical inputs are sorted. A great monitor on a bad rig is wasted potential.</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -1675,21 +2074,16 @@
             <div class="sim-tag top">Online Racing</div>
           </div>
           <div class="sim-row">
-            <div class="sim-name">Assetto Corsa Competizione</div>
-            <div class="sim-desc">GT3/GT4 racing. Exceptional tyre model, outstanding rain physics.</div>
-            <div class="sim-tag top">GT Realism</div>
-          </div>
-          <div class="sim-row">
             <div class="sim-name">F1 25</div>
             <div class="sim-desc">Official Formula 1 game. Official cars, circuits, driver likenesses. Most accessible
               for F1 fans.</div>
-            <div class="sim-tag">F1 Fans</div>
+            <div class="sim-tag top">F1 Fans</div>
           </div>
           <div class="sim-row">
-            <div class="sim-name">Assetto Corsa</div>
-            <div class="sim-desc">The modding king. Thousands of community-created cars and circuits. Best variety of
-              any sim.</div>
-            <div class="sim-tag">Variety / Mods</div>
+            <div class="sim-name">Forza Motorsport</div>
+            <div class="sim-desc">Track-focused simulation with dynamic tyre and fuel systems. Excellent graphics via
+              ForzaTech engine. Strong car roster.</div>
+            <div class="sim-tag top">Track Racing</div>
           </div>
           <div class="sim-row">
             <div class="sim-name">Le Mans Ultimate</div>
@@ -1698,13 +2092,9 @@
             <div class="sim-tag">Endurance</div>
           </div>
           <div class="sim-row">
-            <div class="sim-name">Automobilista 2</div>
-            <div class="sim-desc">Outstanding physics depth, enormous content variety, excellent value.</div>
-            <div class="sim-tag">Physics Depth</div>
-          </div>
-          <div class="sim-row">
             <div class="sim-name">Assetto Corsa Evo</div>
-            <div class="sim-desc">Next-gen physics model (Early Access 2025). The most promising new title.</div>
+            <div class="sim-desc">Next-gen physics model (Early Access 2025). Stunning visuals, promising new tyre
+              model. The sim to watch.</div>
             <div class="sim-tag top">New in 2025</div>
           </div>
         </div>
@@ -1885,6 +2275,77 @@
     </div>
   </section>
 
+  <!-- ═══ MEDIUM ARTICLE BANNER ═══ -->
+  <section style="padding:0">
+    <div class="container" style="padding-top:60px;padding-bottom:0">
+      <a class="medium-banner"
+        href="https://medium.com/@malitthh/most-sim-racers-learn-tracks-the-hard-way-heres-the-smarter-approach-fb886819e6b3"
+        target="_blank" rel="noopener">
+        <div class="medium-icon">M</div>
+        <div class="medium-text">
+          <div class="medium-title">Read the companion article on Medium</div>
+          <div class="medium-desc">Most Sim Racers Learn Tracks the Hard Way. Here's the Smarter Approach.</div>
+        </div>
+        <div class="medium-arrow">&rarr;</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ REFERENCES ═══ -->
+  <section id="references">
+    <div class="container">
+      <div class="chapter">
+        <div class="ch-label">Further Reading</div>
+        <h2 class="ch-title">Reference Materials</h2>
+        <p class="ch-intro">Curated resources to deepen your understanding of sim racing technique, car setup, and
+          real-world driving physics.</p>
+      </div>
+      <div class="section">
+        <div class="ref-grid">
+          <a class="ref-card" href="https://driver61.com/uni/" target="_blank" rel="noopener">
+            <div class="ref-card-type">Free Course</div>
+            <div class="ref-card-name">Driver61 Racing University</div>
+            <div class="ref-card-desc">Comprehensive free video course covering racing line, car control, and race craft
+              from professional coaches.</div>
+          </a>
+          <a class="ref-card" href="https://coachdaveacademy.com/tutorials/" target="_blank" rel="noopener">
+            <div class="ref-card-type">Tutorials</div>
+            <div class="ref-card-name">Coach Dave Academy</div>
+            <div class="ref-card-desc">Sim-specific tutorials and car setups for iRacing, ACC, and Le Mans Ultimate from
+              professional sim racers.</div>
+          </a>
+          <a class="ref-card" href="https://simracingsetup.com/sim-racing/beginners-guide-to-sim-racing/"
+            target="_blank" rel="noopener">
+            <div class="ref-card-type">Hardware Guide</div>
+            <div class="ref-card-name">Sim Racing Setup Guide</div>
+            <div class="ref-card-desc">Detailed hardware recommendations, force feedback settings, and rig building
+              guides for all budget levels.</div>
+          </a>
+          <a class="ref-card" href="https://www.amazon.com/Going-Faster-Mastering-Race-Driving/dp/0837602262"
+            target="_blank" rel="noopener">
+            <div class="ref-card-type">Book</div>
+            <div class="ref-card-name">Going Faster! &mdash; Carl Lopez</div>
+            <div class="ref-card-desc">The Skip Barber Racing School manual. Widely considered the best single book on
+              racing technique for beginners and intermediates.</div>
+          </a>
+          <a class="ref-card" href="https://www.amazon.com/Speed-Secrets-Professional-Race-Driving/dp/0760305188"
+            target="_blank" rel="noopener">
+            <div class="ref-card-type">Book</div>
+            <div class="ref-card-name">Speed Secrets &mdash; Ross Bentley</div>
+            <div class="ref-card-desc">Four-book series covering driving technique, car dynamics, mental game, and
+              advanced racecraft. The sim racing bible.</div>
+          </a>
+          <a class="ref-card" href="https://virtualracingschool.com/" target="_blank" rel="noopener">
+            <div class="ref-card-type">Coaching Platform</div>
+            <div class="ref-card-name">Virtual Racing School (VRS)</div>
+            <div class="ref-card-desc">Data-driven sim coaching. Upload telemetry, compare to pro laps, and get specific
+              feedback on where you lose time.</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- FOOTER -->
   <footer class="footer">
     <div class="container">
@@ -1895,6 +2356,169 @@
     </div>
   </footer>
 
+  <!-- ═══════════════ JAVASCRIPT ═══════════════ -->
+  <script>
+    // ── SCROLL REVEAL
+    const revealEls = () => {
+      document.querySelectorAll('.card,.cue-item,.flag-entry,.priority-item,.assist-card,.term-item,.rw-card,.sim-row,.ref-card,.tier-card,.step,.medium-banner').forEach(el => {
+        if (!el.classList.contains('reveal')) { el.classList.add('reveal'); }
+      });
+    };
+    revealEls();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // ── INTERACTIVE OUT-IN-OUT CANVAS
+    let oioMode = 'correct';
+    function setOioMode(mode, btn) {
+      oioMode = mode;
+      document.querySelectorAll('.oio-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+
+    function drawOio() {
+      const canvas = document.getElementById('oioCanvas');
+      if (!canvas) { requestAnimationFrame(drawOio); return; }
+      const rect = canvas.parentElement.getBoundingClientRect();
+      canvas.width = rect.width * 2;
+      canvas.height = rect.height * 2;
+      const ctx = canvas.getContext('2d');
+      ctx.scale(2, 2);
+      const W = rect.width, H = rect.height;
+      ctx.clearRect(0, 0, W, H);
+
+      // Track background
+      ctx.fillStyle = '#141418';
+      ctx.fillRect(0, 0, W, H);
+
+      // Track surface
+      const trackW = H * 0.52;
+      const cornerR = W * 0.28;
+      const cx = W * 0.55, cy = H * 0.5;
+
+      // Draw road surface (90-degree right-hander)
+      ctx.strokeStyle = '#222228';
+      ctx.lineWidth = trackW;
+      ctx.lineCap = 'butt';
+      ctx.beginPath();
+      ctx.moveTo(0, cy + trackW * 0.05);
+      ctx.lineTo(cx - cornerR, cy + trackW * 0.05);
+      ctx.arc(cx - cornerR, cy + trackW * 0.05 - cornerR, cornerR, Math.PI / 2, 0, true);
+      ctx.lineTo(cx - cornerR + cornerR, 0);
+      ctx.stroke();
+
+      // Track edges
+      ctx.strokeStyle = '#3a3a42';
+      ctx.lineWidth = 2;
+      const drawEdge = (offset) => {
+        ctx.beginPath();
+        ctx.moveTo(0, cy + trackW * 0.05 + offset);
+        ctx.lineTo(cx - cornerR, cy + trackW * 0.05 + offset);
+        ctx.arc(cx - cornerR, cy + trackW * 0.05 - cornerR, cornerR - offset, Math.PI / 2, 0, true);
+        ctx.lineTo(cx - cornerR + cornerR - offset, 0);
+        ctx.stroke();
+      };
+      drawEdge(trackW / 2);
+      drawEdge(-trackW / 2);
+
+      // Kerbing at apex
+      const kerbR = cornerR - trackW / 2;
+      for (let a = 0; a < Math.PI / 2; a += 0.06) {
+        const col = Math.floor(a / 0.06) % 2 === 0 ? '#cc3030' : '#f0f0e8';
+        ctx.strokeStyle = col;
+        ctx.lineWidth = 6;
+        ctx.beginPath();
+        ctx.arc(cx - cornerR, cy + trackW * 0.05 - cornerR, kerbR, Math.PI / 2 - a, Math.PI / 2 - a - 0.03, true);
+        ctx.stroke();
+      }
+
+      // Racing lines
+      const t = (performance.now() % 4000) / 4000;
+
+      const drawLine = (name, color, cpx1, cpy1, cpx2, cpy2, alpha) => {
+        ctx.strokeStyle = color;
+        ctx.globalAlpha = alpha;
+        ctx.lineWidth = 3;
+        ctx.setLineDash([]);
+        ctx.beginPath();
+        // Entry straight
+        const entryY = cy + trackW * 0.05 + cpx1;
+        const exitX = cx - cornerR + cornerR + cpy1;
+        ctx.moveTo(0, entryY);
+        // Through corner using bezier
+        ctx.bezierCurveTo(
+          cx * 0.4, entryY,
+          cx - cornerR + cpx2, cy + trackW * 0.05 - cornerR + cpy2,
+          exitX, 0
+        );
+        ctx.stroke();
+
+        // Animated dot
+        const dotT = t;
+        const dx = exitX * dotT * dotT;
+        const dy = entryY * (1 - dotT) * (1 - dotT);
+        // Simple parametric position
+        const px = (1 - dotT) * (1 - dotT) * 0 + 2 * (1 - dotT) * dotT * (cx * 0.4) + dotT * dotT * exitX;
+        // Approximate the Y with quadratic bezier for the dot
+        const py2 = (1 - dotT) * (1 - dotT) * entryY + 2 * (1 - dotT) * dotT * (entryY * 0.3) + dotT * dotT * 0;
+
+        ctx.beginPath();
+        ctx.arc(px, py2, 5, 0, Math.PI * 2);
+        ctx.fillStyle = color;
+        ctx.fill();
+
+        // Label
+        ctx.fillStyle = color;
+        ctx.font = '500 11px IBM Plex Mono, monospace';
+        ctx.globalAlpha = alpha * 0.8;
+        ctx.fillText(name, 12, entryY - 10);
+        ctx.globalAlpha = 1;
+      };
+
+      const outerOff = trackW * 0.38;
+      const innerOff = -trackW * 0.35;
+
+      if (oioMode === 'correct' || oioMode === 'compare') {
+        drawLine('CORRECT', '#2ec4b6', outerOff, innerOff, -cornerR * 0.15, cornerR * 0.35, oioMode === 'compare' ? 0.7 : 1);
+      }
+      if (oioMode === 'early' || oioMode === 'compare') {
+        drawLine('EARLY TURN-IN', '#e8388a', 0, trackW * 0.1, -cornerR * 0.6, cornerR * 0.7, oioMode === 'compare' ? 0.6 : 1);
+      }
+      if (oioMode === 'late' || oioMode === 'compare') {
+        drawLine('LATE APEX', '#e85d30', outerOff, innerOff * 0.7, -cornerR * 0.05, cornerR * 0.15, oioMode === 'compare' ? 0.6 : 1);
+      }
+
+      // Labels at key points
+      ctx.globalAlpha = 0.5;
+      ctx.fillStyle = '#8a8a96';
+      ctx.font = '500 10px IBM Plex Mono, monospace';
+      ctx.fillText('ENTRY', 10, H - 14);
+      ctx.fillText('APEX', cx - cornerR - 20, cy - cornerR - 20);
+      ctx.save();
+      ctx.translate(W - 20, H * 0.4);
+      ctx.rotate(-Math.PI / 2);
+      ctx.fillText('EXIT', 0, 0);
+      ctx.restore();
+      ctx.globalAlpha = 1;
+
+      requestAnimationFrame(drawOio);
+    }
+    requestAnimationFrame(drawOio);
+
+    // ── NAV HIGHLIGHT ON SCROLL
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.toc-link');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(s => { if (window.scrollY >= s.offsetTop - 120) current = s.getAttribute('id'); });
+      navLinks.forEach(l => {
+        l.style.borderBottomColor = l.getAttribute('href') === '#' + current ? 'var(--pink)' : 'transparent';
+        l.style.color = l.getAttribute('href') === '#' + current ? 'var(--white)' : '';
+      });
+    });
+  </script>
 </body>
 
 </html>

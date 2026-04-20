@@ -1,467 +1,1900 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Complete Sim Racing Guide</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#101014;--bg2:#16161c;--bg3:#1c1c24;
-  --surface:#1e1e26;--surface2:#26262e;
-  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.12);
-  --pink:#e8388a;--pink-dim:rgba(232,56,138,0.10);
-  --teal:#2ec4b6;--teal-dim:rgba(46,196,182,0.10);
-  --orange:#e85d30;--orange-dim:rgba(232,93,48,0.10);
-  --white:#f2f0ec;--gray:#8a8a96;--gray2:#5a5a68;
-  --font:'Outfit',sans-serif;--mono:'IBM Plex Mono',monospace;
-}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--white);font-family:var(--font);font-size:17px;line-height:1.8;font-weight:300;-webkit-font-smoothing:antialiased}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Complete Sim Racing Guide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-/* ═══ HERO ═══ */
-.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 80px;position:relative;overflow:hidden;border-bottom:1px solid var(--border2)}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--bg) 0%,#18101e 40%,#10181e 70%,var(--bg) 100%)}
-.hero-glow{position:absolute;bottom:-200px;left:30%;width:600px;height:600px;background:radial-gradient(circle,rgba(232,56,138,0.18) 0%,transparent 70%);pointer-events:none}
-.hero-glow2{position:absolute;top:-100px;right:10%;width:500px;height:500px;background:radial-gradient(circle,rgba(46,196,182,0.15) 0%,transparent 70%);pointer-events:none}
-.hero-stripe{position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--pink),var(--orange))}
-.hero-inner{position:relative;max-width:1100px;margin:0 auto;padding:0 48px;width:100%}
-.hero-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--teal);text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;gap:14px}
-.hero-eyebrow::before{content:'';width:36px;height:2px;background:var(--teal)}
-.hero-title{font-size:clamp(60px,9vw,128px);font-weight:900;line-height:.92;letter-spacing:-.02em;margin-bottom:28px}
-.hero-title .l1{color:var(--white);display:block}
-.hero-title .l2{background:linear-gradient(90deg,var(--pink),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;display:block}
-.hero-title .l3{color:var(--white);display:block}
-.hero-desc{font-size:18px;color:var(--gray);max-width:580px;font-weight:300;line-height:1.7;margin-bottom:48px}
-.hero-stats{display:flex;gap:48px}
-.hero-stat-num{font-family:var(--mono);font-size:28px;font-weight:600;color:var(--pink)}
-.hero-stat-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gray2);text-transform:uppercase;margin-top:4px}
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-.hero-eyebrow{animation:fadeUp .6s ease .1s both}
-.hero-title{animation:fadeUp .6s ease .22s both}
-.hero-desc{animation:fadeUp .6s ease .36s both}
-.hero-stats{animation:fadeUp .6s ease .5s both}
+    :root {
+      --bg: #101014;
+      --bg2: #16161c;
+      --bg3: #1c1c24;
+      --surface: #1e1e26;
+      --surface2: #26262e;
+      --border: rgba(255, 255, 255, 0.06);
+      --border2: rgba(255, 255, 255, 0.12);
+      --pink: #e8388a;
+      --pink-dim: rgba(232, 56, 138, 0.10);
+      --teal: #2ec4b6;
+      --teal-dim: rgba(46, 196, 182, 0.10);
+      --orange: #e85d30;
+      --orange-dim: rgba(232, 93, 48, 0.10);
+      --white: #f2f0ec;
+      --gray: #8a8a96;
+      --gray2: #5a5a68;
+      --font: 'Outfit', sans-serif;
+      --mono: 'IBM Plex Mono', monospace;
+    }
 
-/* ═══ NAV ═══ */
-.toc{background:rgba(16,16,20,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.toc-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:flex;overflow-x:auto;scrollbar-width:none}
-.toc-inner::-webkit-scrollbar{display:none}
-.toc-link{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray2);padding:16px 18px;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
-.toc-link:hover{color:var(--white);border-bottom-color:var(--pink)}
+    html {
+      scroll-behavior: smooth
+    }
 
-/* ═══ LAYOUT ═══ */
-.container{max-width:1100px;margin:0 auto;padding:0 48px}
-.chapter{padding:100px 0 56px;border-bottom:1px solid var(--border)}
-.ch-label{font-family:var(--mono);font-size:11px;letter-spacing:.18em;color:var(--teal);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
-.ch-label::before{content:'';width:24px;height:2px;background:var(--teal)}
-.ch-title{font-size:clamp(40px,5vw,68px);font-weight:800;line-height:.96;letter-spacing:-.02em;margin-bottom:20px}
-.ch-intro{font-size:17px;color:var(--gray);max-width:660px;font-weight:300;line-height:1.75}
-.section{padding:48px 0;border-bottom:1px solid var(--border)}
-.sec-title{font-size:24px;font-weight:700;margin-bottom:18px;letter-spacing:-.01em}
-p{color:rgba(242,240,236,.78);margin-bottom:16px;font-weight:300}
-p:last-child{margin-bottom:0}
-strong{color:var(--white);font-weight:600}
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: var(--font);
+      font-size: 17px;
+      line-height: 1.8;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased
+    }
 
-/* ═══ CALLOUT ═══ */
-.callout{background:var(--surface);border-left:3px solid var(--pink);padding:20px 24px;border-radius:0 10px 10px 0;margin:24px 0}
-.callout.teal{border-left-color:var(--teal)}.callout.orange{border-left-color:var(--orange)}
-.co-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;color:var(--pink)}
-.callout.teal .co-label{color:var(--teal)}.callout.orange .co-label{color:var(--orange)}
-.callout p{color:rgba(242,240,236,.85);margin:0}
+    /* ═══ HERO ═══ */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 0 80px;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--border2)
+    }
 
-/* ═══ CARDS ═══ */
-.card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:24px 0}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
-.card.pink::before{background:var(--pink)}.card.teal::before{background:var(--teal)}.card.orange::before{background:var(--orange)}
-.card-num{font-family:var(--mono);font-size:38px;font-weight:600;color:var(--gray2);line-height:1;margin-bottom:10px;opacity:.4}
-.card-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:8px}
-.card p{font-size:14px;color:var(--gray);margin:0;line-height:1.6}
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--bg) 0%, #18101e 40%, #10181e 70%, var(--bg) 100%)
+    }
 
-/* ═══ SEQUENCE ═══ */
-.sequence{display:flex;align-items:center;gap:0;margin:28px 0;overflow-x:auto;padding:4px 0}
-.seq-step{flex-shrink:0;background:var(--surface);border:1px solid var(--border2);border-radius:10px;padding:14px 22px;text-align:center;min-width:105px}
-.seq-step.hl{background:var(--pink-dim);border-color:var(--pink)}
-.seq-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px}
-.seq-step.hl .seq-lbl{color:rgba(232,56,138,.7)}
-.seq-val{font-size:20px;font-weight:700;color:var(--white)}
-.seq-arr{flex-shrink:0;width:28px;text-align:center;color:var(--gray2);font-size:15px}
+    .hero-glow {
+      position: absolute;
+      bottom: -200px;
+      left: 30%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(232, 56, 138, 0.18) 0%, transparent 70%);
+      pointer-events: none
+    }
 
-/* ═══ CUE LIST ═══ */
-.cue-list{display:flex;flex-direction:column;gap:12px;margin:24px 0}
-.cue-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start}
-.cue-badge{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:600;background:var(--bg3);color:var(--white);border:1px solid var(--border2)}
-.cue-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:6px}
-.cue-item p{font-size:14px;color:var(--gray);margin:0;line-height:1.65}
-.tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:4px;display:inline-block;margin:3px 4px 3px 0}
-.tag-sim{background:var(--teal-dim);color:var(--teal)}
-.tag-real{background:var(--pink-dim);color:var(--pink)}
+    .hero-glow2 {
+      position: absolute;
+      top: -100px;
+      right: 10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(46, 196, 182, 0.15) 0%, transparent 70%);
+      pointer-events: none
+    }
 
-/* ═══ ASSISTS ═══ */
-.assists-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:24px 0}
-.assist-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:20px}
-.assist-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
-.assist-name{font-size:15px;font-weight:600;color:var(--white)}
-.badge{font-family:var(--mono);font-size:9px;letter-spacing:.08em;padding:3px 8px;border-radius:4px;text-transform:uppercase}
-.badge-on{background:var(--teal-dim);color:var(--teal)}
-.badge-off{background:var(--pink-dim);color:var(--pink)}
-.assist-card p{font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:10px}
-.assist-card p:last-child{margin:0}
+    .hero-stripe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--teal), var(--pink), var(--orange))
+    }
 
-/* ═══ STEPS ═══ */
-.steps{counter-reset:step;margin:24px 0;display:flex;flex-direction:column;gap:3px}
-.step{counter-increment:step;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 20px 16px 56px;position:relative;font-size:15px;color:rgba(242,240,236,.8);line-height:1.6}
-.step::before{content:counter(step);position:absolute;left:18px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:17px;font-weight:600;color:var(--gray2)}
-.step strong{color:var(--white)}
+    .hero-inner {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      width: 100%
+    }
 
-/* ═══════════════ FLAGS - REAL CSS RENDERED ═══════════════ */
-.flag-table{margin:24px 0;display:flex;flex-direction:column;gap:6px}
-.flag-entry{display:grid;grid-template-columns:84px 1fr;gap:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;min-height:72px}
-.flag-visual{display:flex;align-items:center;justify-content:center;padding:10px}
-.flag-info{padding:14px 20px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--border)}
-.flag-info-name{font-size:15px;font-weight:600;color:var(--white);margin-bottom:4px}
-.flag-info-desc{font-size:13px;color:var(--gray);line-height:1.55}
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 12px;
+      letter-spacing: .18em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      gap: 14px
+    }
 
-/* Individual flag renders */
-.flag-render{width:56px;height:36px;border-radius:3px;position:relative;box-shadow:0 1px 4px rgba(0,0,0,.4);overflow:hidden;flex-shrink:0}
-.flag-green{background:#22c55e}
-.flag-yellow{background:#eab308}
-.flag-double-yellow{background:#eab308;display:flex}
-.flag-double-yellow::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(0,0,0,.15)}
-.flag-red{background:#ef4444}
-.flag-blue{background:#3b82f6}
-.flag-blue::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.15) 50%,transparent 60%)}
-.flag-black{background:#111111;border:1px solid #333}
-.flag-bw-diagonal{background:linear-gradient(135deg,#111 50%,#eee 50%)}
-.flag-meatball{background:#111;border:1px solid #333;display:flex;align-items:center;justify-content:center}
-.flag-meatball::after{content:'';width:20px;height:20px;border-radius:50%;background:#e85d30}
-.flag-white{background:#e8e8e0;border:1px solid #ccc}
-.flag-chequered{background-image:repeating-conic-gradient(#111 0% 25%,#f0f0e8 0% 50%);background-size:12px 12px}
+    .hero-eyebrow::before {
+      content: '';
+      width: 36px;
+      height: 2px;
+      background: var(--teal)
+    }
 
-/* Waved flag animation on hover */
-.flag-entry:hover .flag-render{animation:wave .5s ease}
-@keyframes wave{0%{transform:rotate(0)}25%{transform:rotate(3deg)}50%{transform:rotate(-2deg)}75%{transform:rotate(1deg)}100%{transform:rotate(0)}}
+    .hero-title {
+      font-size: clamp(60px, 9vw, 128px);
+      font-weight: 900;
+      line-height: .92;
+      letter-spacing: -.02em;
+      margin-bottom: 28px
+    }
 
-/* ═══ TIERS ═══ */
-.tier-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:24px 0}
-.tier-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px}
-.tier-card.featured{border-color:var(--pink);background:linear-gradient(160deg,var(--pink-dim),var(--surface))}
-.tier-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--gray2);margin-bottom:10px}
-.tier-name{font-size:26px;font-weight:800;margin-bottom:16px;color:var(--white)}
-.tier-card.featured .tier-name{color:var(--pink)}
-.tier-items{list-style:none;display:flex;flex-direction:column;gap:7px}
-.tier-items li{font-size:13px;color:var(--gray);padding-left:16px;position:relative;line-height:1.5}
-.tier-items li::before{content:'\2192';position:absolute;left:0;color:var(--gray2);font-size:11px}
+    .hero-title .l1 {
+      color: var(--white);
+      display: block
+    }
 
-/* ═══ SIM LIST ═══ */
-.sim-list{display:flex;flex-direction:column;gap:3px;margin:24px 0}
-.sim-row{display:grid;grid-template-columns:195px 1fr auto;background:var(--surface);border-radius:8px;padding:14px 18px;border:1px solid var(--border);align-items:center;gap:16px}
-.sim-name{font-size:15px;font-weight:600;color:var(--white)}
-.sim-desc{font-size:14px;color:var(--gray)}
-.sim-tag{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:4px;white-space:nowrap;background:var(--bg3);color:var(--gray);border:1px solid var(--border)}
-.sim-tag.top{background:var(--pink-dim);color:var(--pink);border-color:rgba(232,56,138,.25)}
+    .hero-title .l2 {
+      background: linear-gradient(90deg, var(--pink), var(--orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block
+    }
 
-/* ═══ REAL WORLD ═══ */
-.rw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:24px 0}
-.rw-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px}
-.rw-icon{width:40px;height:40px;background:var(--bg3);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;border:1px solid var(--border);font-size:17px}
-.rw-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:8px}
-.rw-card p{font-size:14px;color:var(--gray);margin:0;line-height:1.6}
+    .hero-title .l3 {
+      color: var(--white);
+      display: block
+    }
 
-.warning{background:var(--pink-dim);border:1px solid rgba(232,56,138,.22);border-radius:10px;padding:20px 24px;margin:24px 0;display:flex;gap:16px;align-items:flex-start}
-.warning p{color:rgba(242,240,236,.82);margin:0;font-size:15px;line-height:1.7}
+    .hero-desc {
+      font-size: 18px;
+      color: var(--gray);
+      max-width: 580px;
+      font-weight: 300;
+      line-height: 1.7;
+      margin-bottom: 48px
+    }
 
-/* ═══ TERMS ═══ */
-.term-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:6px;margin:24px 0}
-.term-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;gap:14px}
-.term-word{font-family:var(--mono);font-size:12px;font-weight:600;color:var(--pink);white-space:nowrap;padding-top:1px;min-width:100px}
-.term-def{font-size:13px;color:var(--gray);line-height:1.55}
+    .hero-stats {
+      display: flex;
+      gap: 48px
+    }
 
-/* ═══ FOOTER ═══ */
-.footer{padding:80px 0 60px;border-top:1px solid var(--border);text-align:center}
-.footer-title{font-size:48px;font-weight:900;background:linear-gradient(90deg,var(--pink),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px}
-.footer-sub{font-size:14px;color:var(--gray)}
-.footer-line{width:60px;height:3px;background:linear-gradient(90deg,var(--teal),var(--pink));margin:28px auto 0;border-radius:2px}
+    .hero-stat-num {
+      font-family: var(--mono);
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--pink)
+    }
 
-@media(max-width:768px){
-  .container,.hero-inner{padding:0 24px}
-  .toc-inner{padding:0 16px}
-  .tier-grid{grid-template-columns:1fr}
-  .sim-row{grid-template-columns:1fr}.sim-tag{display:none}
-  .flag-entry{grid-template-columns:70px 1fr}
-}
-</style>
+    .hero-stat-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      color: var(--gray2);
+      text-transform: uppercase;
+      margin-top: 4px
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(22px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .hero-eyebrow {
+      animation: fadeUp .6s ease .1s both
+    }
+
+    .hero-title {
+      animation: fadeUp .6s ease .22s both
+    }
+
+    .hero-desc {
+      animation: fadeUp .6s ease .36s both
+    }
+
+    .hero-stats {
+      animation: fadeUp .6s ease .5s both
+    }
+
+    /* ═══ NAV ═══ */
+    .toc {
+      background: rgba(16, 16, 20, .96);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100
+    }
+
+    .toc-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px;
+      display: flex;
+      overflow-x: auto;
+      scrollbar-width: none
+    }
+
+    .toc-inner::-webkit-scrollbar {
+      display: none
+    }
+
+    .toc-link {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gray2);
+      padding: 16px 18px;
+      text-decoration: none;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all .2s
+    }
+
+    .toc-link:hover {
+      color: var(--white);
+      border-bottom-color: var(--pink)
+    }
+
+    /* ═══ LAYOUT ═══ */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 48px
+    }
+
+    .chapter {
+      padding: 100px 0 56px;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .ch-label {
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: .18em;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px
+    }
+
+    .ch-label::before {
+      content: '';
+      width: 24px;
+      height: 2px;
+      background: var(--teal)
+    }
+
+    .ch-title {
+      font-size: clamp(40px, 5vw, 68px);
+      font-weight: 800;
+      line-height: .96;
+      letter-spacing: -.02em;
+      margin-bottom: 20px
+    }
+
+    .ch-intro {
+      font-size: 17px;
+      color: var(--gray);
+      max-width: 660px;
+      font-weight: 300;
+      line-height: 1.75
+    }
+
+    .section {
+      padding: 48px 0;
+      border-bottom: 1px solid var(--border)
+    }
+
+    .sec-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 18px;
+      letter-spacing: -.01em
+    }
+
+    p {
+      color: rgba(242, 240, 236, .78);
+      margin-bottom: 16px;
+      font-weight: 300
+    }
+
+    p:last-child {
+      margin-bottom: 0
+    }
+
+    strong {
+      color: var(--white);
+      font-weight: 600
+    }
+
+    /* ═══ CALLOUT ═══ */
+    .callout {
+      background: var(--surface);
+      border-left: 3px solid var(--pink);
+      padding: 20px 24px;
+      border-radius: 0 10px 10px 0;
+      margin: 24px 0
+    }
+
+    .callout.teal {
+      border-left-color: var(--teal)
+    }
+
+    .callout.orange {
+      border-left-color: var(--orange)
+    }
+
+    .co-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--pink)
+    }
+
+    .callout.teal .co-label {
+      color: var(--teal)
+    }
+
+    .callout.orange .co-label {
+      color: var(--orange)
+    }
+
+    .callout p {
+      color: rgba(242, 240, 236, .85);
+      margin: 0
+    }
+
+    /* ═══ CARDS ═══ */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin: 24px 0
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      position: relative;
+      overflow: hidden
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px
+    }
+
+    .card.pink::before {
+      background: var(--pink)
+    }
+
+    .card.teal::before {
+      background: var(--teal)
+    }
+
+    .card.orange::before {
+      background: var(--orange)
+    }
+
+    .card-num {
+      font-family: var(--mono);
+      font-size: 38px;
+      font-weight: 600;
+      color: var(--gray2);
+      line-height: 1;
+      margin-bottom: 10px;
+      opacity: .4
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px
+    }
+
+    .card p {
+      font-size: 14px;
+      color: var(--gray);
+      margin: 0;
+      line-height: 1.6
+    }
+
+    /* ═══ SEQUENCE ═══ */
+    .sequence {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      margin: 28px 0;
+      overflow-x: auto;
+      padding: 4px 0
+    }
+
+    .seq-step {
+      flex-shrink: 0;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      border-radius: 10px;
+      padding: 14px 22px;
+      text-align: center;
+      min-width: 105px
+    }
+
+    .seq-step.hl {
+      background: var(--pink-dim);
+      border-color: var(--pink)
+    }
+
+    .seq-lbl {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--gray);
+      margin-bottom: 4px
+    }
+
+    .seq-step.hl .seq-lbl {
+      color: rgba(232, 56, 138, .7)
+    }
+
+    .seq-val {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--white)
+    }
+
+    .seq-arr {
+      flex-shrink: 0;
+      width: 28px;
+      text-align: center;
+      color: var(--gray2);
+      font-size: 15px
+    }
+
+    /* ═══ CUE LIST ═══ */
+    .cue-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 24px 0
+    }
+
+    .cue-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      display: grid;
+      grid-template-columns: 40px 1fr;
+      gap: 14px;
+      align-items: start
+    }
+
+    .cue-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 600;
+      background: var(--bg3);
+      color: var(--white);
+      border: 1px solid var(--border2)
+    }
+
+    .cue-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 6px
+    }
+
+    .cue-item p {
+      font-size: 14px;
+      color: var(--gray);
+      margin: 0;
+      line-height: 1.65
+    }
+
+    .tag {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 3px 9px;
+      border-radius: 4px;
+      display: inline-block;
+      margin: 3px 4px 3px 0
+    }
+
+    .tag-sim {
+      background: var(--teal-dim);
+      color: var(--teal)
+    }
+
+    .tag-real {
+      background: var(--pink-dim);
+      color: var(--pink)
+    }
+
+    /* ═══ ASSISTS ═══ */
+    .assists-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin: 24px 0
+    }
+
+    .assist-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px
+    }
+
+    .assist-hdr {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px
+    }
+
+    .assist-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white)
+    }
+
+    .badge {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .08em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      text-transform: uppercase
+    }
+
+    .badge-on {
+      background: var(--teal-dim);
+      color: var(--teal)
+    }
+
+    .badge-off {
+      background: var(--pink-dim);
+      color: var(--pink)
+    }
+
+    .assist-card p {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.6;
+      margin-bottom: 10px
+    }
+
+    .assist-card p:last-child {
+      margin: 0
+    }
+
+    /* ═══ STEPS ═══ */
+    .steps {
+      counter-reset: step;
+      margin: 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 3px
+    }
+
+    .step {
+      counter-increment: step;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px 20px 16px 56px;
+      position: relative;
+      font-size: 15px;
+      color: rgba(242, 240, 236, .8);
+      line-height: 1.6
+    }
+
+    .step::before {
+      content: counter(step);
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--mono);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--gray2)
+    }
+
+    .step strong {
+      color: var(--white)
+    }
+
+    /* ═══════════════ FLAGS - REAL CSS RENDERED ═══════════════ */
+    .flag-table {
+      margin: 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .flag-entry {
+      display: grid;
+      grid-template-columns: 84px 1fr;
+      gap: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      min-height: 72px
+    }
+
+    .flag-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px
+    }
+
+    .flag-info {
+      padding: 14px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-left: 1px solid var(--border)
+    }
+
+    .flag-info-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 4px
+    }
+
+    .flag-info-desc {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.55
+    }
+
+    /* Individual flag renders */
+    .flag-render {
+      width: 56px;
+      height: 36px;
+      border-radius: 3px;
+      position: relative;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .4);
+      overflow: hidden;
+      flex-shrink: 0
+    }
+
+    .flag-green {
+      background: #22c55e
+    }
+
+    .flag-yellow {
+      background: #eab308
+    }
+
+    .flag-double-yellow {
+      background: #eab308;
+      display: flex
+    }
+
+    .flag-double-yellow::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: rgba(0, 0, 0, .15)
+    }
+
+    .flag-red {
+      background: #ef4444
+    }
+
+    .flag-blue {
+      background: #3b82f6
+    }
+
+    .flag-blue::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, .15) 50%, transparent 60%)
+    }
+
+    .flag-black {
+      background: #111111;
+      border: 1px solid #333
+    }
+
+    .flag-bw-diagonal {
+      background: linear-gradient(135deg, #111 50%, #eee 50%)
+    }
+
+    .flag-meatball {
+      background: #111;
+      border: 1px solid #333;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .flag-meatball::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #e85d30
+    }
+
+    .flag-white {
+      background: #e8e8e0;
+      border: 1px solid #ccc
+    }
+
+    .flag-chequered {
+      background-image: repeating-conic-gradient(#111 0% 25%, #f0f0e8 0% 50%);
+      background-size: 12px 12px
+    }
+
+    /* Waved flag animation on hover */
+    .flag-entry:hover .flag-render {
+      animation: wave .5s ease
+    }
+
+    @keyframes wave {
+      0% {
+        transform: rotate(0)
+      }
+
+      25% {
+        transform: rotate(3deg)
+      }
+
+      50% {
+        transform: rotate(-2deg)
+      }
+
+      75% {
+        transform: rotate(1deg)
+      }
+
+      100% {
+        transform: rotate(0)
+      }
+    }
+
+    /* ═══ TIERS ═══ */
+    .tier-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin: 24px 0
+    }
+
+    .tier-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px
+    }
+
+    .tier-card.featured {
+      border-color: var(--pink);
+      background: linear-gradient(160deg, var(--pink-dim), var(--surface))
+    }
+
+    .tier-lbl {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--gray2);
+      margin-bottom: 10px
+    }
+
+    .tier-name {
+      font-size: 26px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      color: var(--white)
+    }
+
+    .tier-card.featured .tier-name {
+      color: var(--pink)
+    }
+
+    .tier-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 7px
+    }
+
+    .tier-items li {
+      font-size: 13px;
+      color: var(--gray);
+      padding-left: 16px;
+      position: relative;
+      line-height: 1.5
+    }
+
+    .tier-items li::before {
+      content: '\2192';
+      position: absolute;
+      left: 0;
+      color: var(--gray2);
+      font-size: 11px
+    }
+
+    /* ═══ SIM LIST ═══ */
+    .sim-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin: 24px 0
+    }
+
+    .sim-row {
+      display: grid;
+      grid-template-columns: 195px 1fr auto;
+      background: var(--surface);
+      border-radius: 8px;
+      padding: 14px 18px;
+      border: 1px solid var(--border);
+      align-items: center;
+      gap: 16px
+    }
+
+    .sim-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white)
+    }
+
+    .sim-desc {
+      font-size: 14px;
+      color: var(--gray)
+    }
+
+    .sim-tag {
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 4px;
+      white-space: nowrap;
+      background: var(--bg3);
+      color: var(--gray);
+      border: 1px solid var(--border)
+    }
+
+    .sim-tag.top {
+      background: var(--pink-dim);
+      color: var(--pink);
+      border-color: rgba(232, 56, 138, .25)
+    }
+
+    /* ═══ REAL WORLD ═══ */
+    .rw-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin: 24px 0
+    }
+
+    .rw-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px
+    }
+
+    .rw-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--bg3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+      border: 1px solid var(--border);
+      font-size: 17px
+    }
+
+    .rw-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 8px
+    }
+
+    .rw-card p {
+      font-size: 14px;
+      color: var(--gray);
+      margin: 0;
+      line-height: 1.6
+    }
+
+    .warning {
+      background: var(--pink-dim);
+      border: 1px solid rgba(232, 56, 138, .22);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin: 24px 0;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start
+    }
+
+    .warning p {
+      color: rgba(242, 240, 236, .82);
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.7
+    }
+
+    /* ═══ TERMS ═══ */
+    .term-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 6px;
+      margin: 24px 0
+    }
+
+    .term-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      gap: 14px
+    }
+
+    .term-word {
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--pink);
+      white-space: nowrap;
+      padding-top: 1px;
+      min-width: 100px
+    }
+
+    .term-def {
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.55
+    }
+
+    /* ═══ FOOTER ═══ */
+    .footer {
+      padding: 80px 0 60px;
+      border-top: 1px solid var(--border);
+      text-align: center
+    }
+
+    .footer-title {
+      font-size: 48px;
+      font-weight: 900;
+      background: linear-gradient(90deg, var(--pink), var(--orange));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px
+    }
+
+    .footer-sub {
+      font-size: 14px;
+      color: var(--gray)
+    }
+
+    .footer-line {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--teal), var(--pink));
+      margin: 28px auto 0;
+      border-radius: 2px
+    }
+
+    @media(max-width:768px) {
+
+      .container,
+      .hero-inner {
+        padding: 0 24px
+      }
+
+      .toc-inner {
+        padding: 0 16px
+      }
+
+      .tier-grid {
+        grid-template-columns: 1fr
+      }
+
+      .sim-row {
+        grid-template-columns: 1fr
+      }
+
+      .sim-tag {
+        display: none
+      }
+
+      .flag-entry {
+        grid-template-columns: 70px 1fr
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <div class="hero-glow"></div><div class="hero-glow2"></div>
-  <div class="hero-stripe"></div>
-  <div class="hero-inner">
-    <div class="hero-eyebrow">A Complete Guide to Sim Racing &amp; Real-World Driving</div>
-    <h1 class="hero-title"><span class="l1">The Complete</span><span class="l2">Sim Racing</span><span class="l3">Guide</span></h1>
-    <p class="hero-desc">From car control fundamentals and reading a circuit to racing wheel-to-wheel and understanding every flag on the grid. Everything you need — in sim and on real roads.</p>
-    <div class="hero-stats">
-      <div><div class="hero-stat-num">8</div><div class="hero-stat-label">Chapters</div></div>
-      <div><div class="hero-stat-num">10</div><div class="hero-stat-label">Flags</div></div>
-      <div><div class="hero-stat-num">20+</div><div class="hero-stat-label">Terms</div></div>
-      <div><div class="hero-stat-num">9</div><div class="hero-stat-label">Topics</div></div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-glow2"></div>
+    <div class="hero-stripe"></div>
+    <div class="hero-inner">
+      <div class="hero-eyebrow">A Complete Guide to Sim Racing &amp; Real-World Driving</div>
+      <h1 class="hero-title"><span class="l1">The Complete</span><span class="l2">Sim Racing</span><span
+          class="l3">Guide</span></h1>
+      <p class="hero-desc">From car control fundamentals and reading a circuit to racing wheel-to-wheel and
+        understanding every flag on the grid. Everything you need — in sim and on real roads.</p>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">8</div>
+          <div class="hero-stat-label">Chapters</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">10</div>
+          <div class="hero-stat-label">Flags</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">20+</div>
+          <div class="hero-stat-label">Terms</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">9</div>
+          <div class="hero-stat-label">Topics</div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- NAV -->
-<nav class="toc"><div class="toc-inner">
-  <a class="toc-link" href="#car-control">Car Control</a>
-  <a class="toc-link" href="#racing-line">Racing Line</a>
-  <a class="toc-link" href="#track-reading">Track Reading</a>
-  <a class="toc-link" href="#assists">Assists</a>
-  <a class="toc-link" href="#race-craft">Race Craft</a>
-  <a class="toc-link" href="#flags">Flags</a>
-  <a class="toc-link" href="#setup">Setup Guide</a>
-  <a class="toc-link" href="#real-world">Real World</a>
-  <a class="toc-link" href="#terms">Terminology</a>
-</div></nav>
-
-<!-- ═══ CH1: CAR CONTROL ═══ -->
-<section id="car-control"><div class="container">
-  <div class="chapter"><div class="ch-label">Chapter 01 &middot; Car Control</div><h2 class="ch-title">Master the machine before<br>you master the track</h2><p class="ch-intro">Car control is the absolute foundation of sim racing. Without it, no knowledge of racing lines or strategy will save you. Every input you make either works with physics or against it.</p></div>
-
-  <div class="section"><h3 class="sec-title">The Traction Budget</h3>
-    <p>Think of each tyre as having exactly <strong>100% of grip to spend</strong>. The golden rule: never ask a tyre to do two things at full intensity simultaneously. If 80% goes to braking, only 20% is left for turning. Demand both at 100% and the tyre gives up — you slide, understeer, or spin.</p>
-    <div class="callout"><div class="co-label">The Golden Sequence</div><p>Brake fully &rarr; release brake &rarr; turn in &rarr; unwind the wheel &rarr; apply throttle. Each action receives the tyre's full attention. This is physics, not opinion.</p></div>
-    <div class="sequence"><div class="seq-step hl"><div class="seq-lbl">Action 1</div><div class="seq-val">BRAKE</div></div><div class="seq-arr">&rarr;</div><div class="seq-step"><div class="seq-lbl">Transition</div><div class="seq-val">RELEASE</div></div><div class="seq-arr">&rarr;</div><div class="seq-step hl"><div class="seq-lbl">Action 2</div><div class="seq-val">TURN</div></div><div class="seq-arr">&rarr;</div><div class="seq-step"><div class="seq-lbl">Transition</div><div class="seq-val">UNWIND</div></div><div class="seq-arr">&rarr;</div><div class="seq-step hl"><div class="seq-lbl">Action 3</div><div class="seq-val">GAS</div></div></div>
-  </div>
-
-  <div class="section"><h3 class="sec-title">Weight Transfer</h3>
-    <p>Every input shifts the car's weight between its four tyres. Understanding this lets you predict and prevent slides before they happen.</p>
-    <div class="card-grid">
-      <div class="card pink"><div class="card-num">01</div><div class="card-title">Braking</div><p>Weight shifts forward. Front grip increases, rear lightens — snap oversteer risk on corner entry.</p></div>
-      <div class="card orange"><div class="card-num">02</div><div class="card-title">Acceleration</div><p>Weight shifts rearward. Rear grip increases but front lightens — understeer risk. Too aggressive on exit causes wheelspin.</p></div>
-      <div class="card teal"><div class="card-num">03</div><div class="card-title">Cornering</div><p>Weight shifts to outside tyres. Inside tyres unload. This is why the outside tyre handles most of the work in a corner.</p></div>
+  <!-- NAV -->
+  <nav class="toc">
+    <div class="toc-inner">
+      <a class="toc-link" href="#car-control">Car Control</a>
+      <a class="toc-link" href="#racing-line">Racing Line</a>
+      <a class="toc-link" href="#track-reading">Track Reading</a>
+      <a class="toc-link" href="#assists">Assists</a>
+      <a class="toc-link" href="#race-craft">Race Craft</a>
+      <a class="toc-link" href="#flags">Flags</a>
+      <a class="toc-link" href="#setup">Setup Guide</a>
+      <a class="toc-link" href="#real-world">Real World</a>
+      <a class="toc-link" href="#terms">Terminology</a>
     </div>
-  </div>
+  </nav>
 
-  <div class="section"><h3 class="sec-title">Throttle, Steering &amp; Braking</h3>
-    <p><strong>Throttle:</strong> Use the full pedal travel. Most beginners operate at 50&ndash;70% without realising. On corner exit, roll the throttle progressively &mdash; slamming it mid-corner transfers weight rearward suddenly and the rear steps out.</p>
-    <p><strong>Steering:</strong> Smooth is fast. Jerky inputs upset car balance and scrub speed. When the rear slides, countersteer into it. This must become instinct.</p>
-    <p><strong>Threshold braking:</strong> Apply the brake as hard as possible without locking the wheels. The point just before lock is peak braking performance.</p>
-    <div class="callout orange"><div class="co-label">Trail Braking</div><p>Gradually releasing brake pressure as you turn in keeps weight on the front tyres, improving rotation and corner-entry grip. One of the highest-impact advanced techniques &mdash; applies directly in a real car on a track day.</p></div>
-  </div>
-</div></section>
+  <!-- ═══ CH1: CAR CONTROL ═══ -->
+  <section id="car-control">
+    <div class="container">
+      <div class="chapter">
+        <div class="ch-label">Chapter 01 &middot; Car Control</div>
+        <h2 class="ch-title">Master the machine before<br>you master the track</h2>
+        <p class="ch-intro">Car control is the absolute foundation of sim racing. Without it, no knowledge of racing
+          lines or strategy will save you. Every input you make either works with physics or against it.</p>
+      </div>
 
-<!-- ═══ CH2: RACING LINE ═══ -->
-<section id="racing-line"><div class="container">
-  <div class="chapter"><div class="ch-label">Chapter 02 &middot; The Racing Line</div><h2 class="ch-title">The fastest path is never<br>the shortest path</h2><p class="ch-intro">The racing line minimises the change of direction required, allowing higher speed through every corner.</p></div>
+      <div class="section">
+        <h3 class="sec-title">The Traction Budget</h3>
+        <p>Think of each tyre as having exactly <strong>100% of grip to spend</strong>. The golden rule: never ask a
+          tyre to do two things at full intensity simultaneously. If 80% goes to braking, only 20% is left for turning.
+          Demand both at 100% and the tyre gives up — you slide, understeer, or spin.</p>
+        <div class="callout">
+          <div class="co-label">The Golden Sequence</div>
+          <p>Brake fully &rarr; release brake &rarr; turn in &rarr; unwind the wheel &rarr; apply throttle. Each action
+            receives the tyre's full attention. This is physics, not opinion.</p>
+        </div>
+        <div class="sequence">
+          <div class="seq-step hl">
+            <div class="seq-lbl">Action 1</div>
+            <div class="seq-val">BRAKE</div>
+          </div>
+          <div class="seq-arr">&rarr;</div>
+          <div class="seq-step">
+            <div class="seq-lbl">Transition</div>
+            <div class="seq-val">RELEASE</div>
+          </div>
+          <div class="seq-arr">&rarr;</div>
+          <div class="seq-step hl">
+            <div class="seq-lbl">Action 2</div>
+            <div class="seq-val">TURN</div>
+          </div>
+          <div class="seq-arr">&rarr;</div>
+          <div class="seq-step">
+            <div class="seq-lbl">Transition</div>
+            <div class="seq-val">UNWIND</div>
+          </div>
+          <div class="seq-arr">&rarr;</div>
+          <div class="seq-step hl">
+            <div class="seq-lbl">Action 3</div>
+            <div class="seq-val">GAS</div>
+          </div>
+        </div>
+      </div>
 
-  <div class="section"><h3 class="sec-title">Out &mdash; In &mdash; Out</h3>
-    <p>This single principle describes your position on track. It is the same idea as <strong>Entry &rarr; Apex &rarr; Exit</strong> and <strong>Brake &rarr; Turn &rarr; Gas</strong>. Three phrases, one concept, three angles.</p>
-    <div class="card-grid">
-      <div class="card teal"><div class="card-num">OUT</div><div class="card-title">Wide Entry</div><p>Start wide on the outside before the turn. This sets up the largest possible arc through the corner.</p></div>
-      <div class="card pink"><div class="card-num">IN</div><div class="card-title">Apex</div><p>Cut to the inside &mdash; the apex. Late apex is almost always faster than geometric apex.</p></div>
-      <div class="card teal"><div class="card-num">OUT</div><div class="card-title">Wide Exit</div><p>Track out wide as you unwind the wheel and apply progressive throttle. Let the car use all the road.</p></div>
+      <div class="section">
+        <h3 class="sec-title">Weight Transfer</h3>
+        <p>Every input shifts the car's weight between its four tyres. Understanding this lets you predict and prevent
+          slides before they happen.</p>
+        <div class="card-grid">
+          <div class="card pink">
+            <div class="card-num">01</div>
+            <div class="card-title">Braking</div>
+            <p>Weight shifts forward. Front grip increases, rear lightens — snap oversteer risk on corner entry.</p>
+          </div>
+          <div class="card orange">
+            <div class="card-num">02</div>
+            <div class="card-title">Acceleration</div>
+            <p>Weight shifts rearward. Rear grip increases but front lightens — understeer risk. Too aggressive on exit
+              causes wheelspin.</p>
+          </div>
+          <div class="card teal">
+            <div class="card-num">03</div>
+            <div class="card-title">Cornering</div>
+            <p>Weight shifts to outside tyres. Inside tyres unload. This is why the outside tyre handles most of the
+              work in a corner.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3 class="sec-title">Throttle, Steering &amp; Braking</h3>
+        <p><strong>Throttle:</strong> Use the full pedal travel. Most beginners operate at 50&ndash;70% without
+          realising. On corner exit, roll the throttle progressively &mdash; slamming it mid-corner transfers weight
+          rearward suddenly and the rear steps out.</p>
+        <p><strong>Steering:</strong> Smooth is fast. Jerky inputs upset car balance and scrub speed. When the rear
+          slides, countersteer into it. This must become instinct.</p>
+        <p><strong>Threshold braking:</strong> Apply the brake as hard as possible without locking the wheels. The point
+          just before lock is peak braking performance.</p>
+        <div class="callout orange">
+          <div class="co-label">Trail Braking</div>
+          <p>Gradually releasing brake pressure as you turn in keeps weight on the front tyres, improving rotation and
+            corner-entry grip. One of the highest-impact advanced techniques &mdash; applies directly in a real car on a
+            track day.</p>
+        </div>
+      </div>
     </div>
-    <div class="callout teal"><div class="co-label">Why This Works</div><p>By starting wide, cutting in, and exiting wide you make the corner as large a circle as possible. Larger radius = less steering angle = more speed. The tighter you cut a corner, the slower you must go.</p></div>
-  </div>
+  </section>
 
-  <div class="section"><h3 class="sec-title">Late Apex &mdash; The Key Insight</h3>
-    <p><strong>Late apex</strong> means turning in later, hitting the apex later, and straightening the exit sooner. This lets you get to full throttle earlier &mdash; and earlier throttle means higher speed down the next straight. A driver who reaches full throttle three car lengths before you will be faster every lap.</p>
-    <div class="callout"><div class="co-label">Remember</div><p>Most beginners lose time on exit, not entry. Getting to full throttle 0.2 seconds earlier has more impact than any amount of tweaking entry speed. Always sacrifice entry to optimise exit &mdash; especially before a long straight.</p></div>
-  </div>
+  <!-- ═══ CH2: RACING LINE ═══ -->
+  <section id="racing-line">
+    <div class="container">
+      <div class="chapter">
+        <div class="ch-label">Chapter 02 &middot; The Racing Line</div>
+        <h2 class="ch-title">The fastest path is never<br>the shortest path</h2>
+        <p class="ch-intro">The racing line minimises the change of direction required, allowing higher speed through
+          every corner.</p>
+      </div>
 
-  <div class="section"><h3 class="sec-title">Corner Combinations</h3>
-    <p><strong>Chicanes:</strong> Sacrifice the first part to optimise the second. The exit corner connects to the straight and matters most.</p>
-    <p><strong>Double apex:</strong> Long sweeping corners with two apex points. Hold wide through the first half to set up the second apex cleanly.</p>
-    <p><strong>Hairpins:</strong> Almost always use a very late apex. The following straight is typically long, so getting power down early is crucial.</p>
-  </div>
-</div></section>
+      <div class="section">
+        <h3 class="sec-title">Out &mdash; In &mdash; Out</h3>
+        <p>This single principle describes your position on track. It is the same idea as <strong>Entry &rarr; Apex
+            &rarr; Exit</strong> and <strong>Brake &rarr; Turn &rarr; Gas</strong>. Three phrases, one concept, three
+          angles.</p>
+        <div class="card-grid">
+          <div class="card teal">
+            <div class="card-num">OUT</div>
+            <div class="card-title">Wide Entry</div>
+            <p>Start wide on the outside before the turn. This sets up the largest possible arc through the corner.</p>
+          </div>
+          <div class="card pink">
+            <div class="card-num">IN</div>
+            <div class="card-title">Apex</div>
+            <p>Cut to the inside &mdash; the apex. Late apex is almost always faster than geometric apex.</p>
+          </div>
+          <div class="card teal">
+            <div class="card-num">OUT</div>
+            <div class="card-title">Wide Exit</div>
+            <p>Track out wide as you unwind the wheel and apply progressive throttle. Let the car use all the road.</p>
+          </div>
+        </div>
+        <div class="callout teal">
+          <div class="co-label">Why This Works</div>
+          <p>By starting wide, cutting in, and exiting wide you make the corner as large a circle as possible. Larger
+            radius = less steering angle = more speed. The tighter you cut a corner, the slower you must go.</p>
+        </div>
+      </div>
 
-<!-- ═══ CH2B: TRACK READING ═══ -->
-<section id="track-reading"><div class="container">
-  <div class="chapter"><div class="ch-label">Chapter 02 (Continued) &middot; Reading the Track</div><h2 class="ch-title">5 visual cues that replace<br>memorisation</h2><p class="ch-intro">Every circuit has a visual language. Master it and you can navigate an unfamiliar track with confidence from the very first lap.</p></div>
+      <div class="section">
+        <h3 class="sec-title">Late Apex &mdash; The Key Insight</h3>
+        <p><strong>Late apex</strong> means turning in later, hitting the apex later, and straightening the exit sooner.
+          This lets you get to full throttle earlier &mdash; and earlier throttle means higher speed down the next
+          straight. A driver who reaches full throttle three car lengths before you will be faster every lap.</p>
+        <div class="callout">
+          <div class="co-label">Remember</div>
+          <p>Most beginners lose time on exit, not entry. Getting to full throttle 0.2 seconds earlier has more impact
+            than any amount of tweaking entry speed. Always sacrifice entry to optimise exit &mdash; especially before a
+            long straight.</p>
+        </div>
+      </div>
 
-  <div class="section">
-    <div class="cue-list">
-      <div class="cue-item"><div class="cue-badge">1</div><div><div class="cue-title">Brake markers &mdash; direction indicator, not just distance</div><p>The 100m, 50m, and 25m boards tell you which side of the track to be on. Markers on the left mean a right-hand turn is coming. Before you see the corner, the boards are pointing you toward the correct line. <span class="tag tag-sim">Sim: cockpit cam</span> <span class="tag tag-real">Real: track days too</span></p></div></div>
-      <div class="cue-item"><div class="cue-badge">2</div><div><div class="cue-title">Kerbing &mdash; corners announce themselves</div><p>Kerbs mark where the correct racing line is. Sudden kerbing on a straight means a corner is arriving. Begin your preparation: position the car, start trail braking, locate your turn-in. <span class="tag tag-sim">Sim: all titles</span> <span class="tag tag-real">Real: identical</span></p></div></div>
-      <div class="cue-item"><div class="cue-badge">3</div><div><div class="cue-title">Braking requirement &mdash; hard brake vs. lift vs. feather</div><p>Distance boards present = hard braking. No boards with slight compression = lift corner. No boards and flat = full throttle or near-flat. Distinguishing these reduces lap time enormously. <span class="tag tag-sim">Sim: FFB confirms over-braking</span></p></div></div>
-      <div class="cue-item"><div class="cue-badge">4</div><div><div class="cue-title">Speed via gear selection</div><p>2nd gear = slow, tight, hard braking. 3rd gear = medium, moderate braking. 4th gear = fast, sweeping, light braking or lift. Once you know the gear, you have the complete picture. <span class="tag tag-real">Real: how drivers describe corners to engineers</span></p></div></div>
-      <div class="cue-item"><div class="cue-badge">5</div><div><div class="cue-title">Apex kerb visibility</div><p>See the apex kerb early = tight, slow corner, wait for a late apex. Cannot see the apex kerb = long sweeper, be patient, carry speed. Prevents the most common beginner mistake: turning in too early. <span class="tag tag-sim">Sim: cockpit or bumper cam</span></p></div></div>
+      <div class="section">
+        <h3 class="sec-title">Corner Combinations</h3>
+        <p><strong>Chicanes:</strong> Sacrifice the first part to optimise the second. The exit corner connects to the
+          straight and matters most.</p>
+        <p><strong>Double apex:</strong> Long sweeping corners with two apex points. Hold wide through the first half to
+          set up the second apex cleanly.</p>
+        <p><strong>Hairpins:</strong> Almost always use a very late apex. The following straight is typically long, so
+          getting power down early is crucial.</p>
+      </div>
     </div>
-    <div class="callout teal"><div class="co-label">The Combined Read</div><p>Brake markers on right &rarr; left-hand turn. Distance boards present &rarr; hard braking. Apex kerb visible &rarr; tight corner, late apex. Gear is 2nd &rarr; confirms slow. Kerbing begins on entry &rarr; turn in now. None of that required memorisation. All of it was read from the environment in real time.</p></div>
-  </div>
-</div></section>
+  </section>
 
-<!-- ═══ CH3: ASSISTS ═══ -->
-<section id="assists"><div class="container">
-  <div class="chapter"><div class="ch-label">Chapter 03 &middot; Driving Without Assists</div><h2 class="ch-title">Remove the safety net.<br>Find real speed.</h2><p class="ch-intro">Assists hide the car's true behaviour. Removing them reveals a new layer of skill &mdash; and a faster, more complete driver.</p></div>
+  <!-- ═══ CH2B: TRACK READING ═══ -->
+  <section id="track-reading">
+    <div class="container">
+      <div class="chapter">
+        <div class="ch-label">Chapter 02 (Continued) &middot; Reading the Track</div>
+        <h2 class="ch-title">5 visual cues that replace<br>memorisation</h2>
+        <p class="ch-intro">Every circuit has a visual language. Master it and you can navigate an unfamiliar track with
+          confidence from the very first lap.</p>
+      </div>
 
-  <div class="section"><h3 class="sec-title">The Three Main Assists</h3>
-    <div class="assists-grid">
-      <div class="assist-card"><div class="assist-hdr"><div class="assist-name">ABS</div><span class="badge badge-on">Anti-lock Braking</span></div><p><strong>On:</strong> Prevents wheel lock automatically. Maximum brake pressure without consequence.</p><p><strong>Off:</strong> You must threshold brake manually. Lock a wheel and you lose steering entirely.</p><p><strong>Train:</strong> Brake earlier. Increase pressure to the edge of lock, then back off fractionally.</p></div>
-      <div class="assist-card"><div class="assist-hdr"><div class="assist-name">Traction Control</div><span class="badge badge-on">TC</span></div><p><strong>On:</strong> Cuts engine power when wheelspin is detected.</p><p><strong>Off:</strong> You must roll onto throttle carefully on exit. Rear-wheel drive cars punish hard &mdash; too much throttle too early = snap oversteer.</p><p><strong>Train:</strong> Exit corners at 30&ndash;40% throttle, increasing over multiple laps.</p></div>
-      <div class="assist-card"><div class="assist-hdr"><div class="assist-name">Stability Control</div><span class="badge badge-off">Most impactful</span></div><p><strong>On:</strong> Automatically counteracts slides by braking individual wheels.</p><p><strong>Off:</strong> You must countersteer every slide yourself. Hardest skill, biggest reward.</p><p><strong>Train:</strong> Drop AI difficulty significantly. Expect slides. Learn to catch them.</p></div>
+      <div class="section">
+        <div class="cue-list">
+          <div class="cue-item">
+            <div class="cue-badge">1</div>
+            <div>
+              <div class="cue-title">Brake markers &mdash; direction indicator, not just distance</div>
+              <p>The 100m, 50m, and 25m boards tell you which side of the track to be on. Markers on the left mean a
+                right-hand turn is coming. Before you see the corner, the boards are pointing you toward the correct
+                line. <span class="tag tag-sim">Sim: cockpit cam</span> <span class="tag tag-real">Real: track days
+                  too</span></p>
+            </div>
+          </div>
+          <div class="cue-item">
+            <div class="cue-badge">2</div>
+            <div>
+              <div class="cue-title">Kerbing &mdash; corners announce themselves</div>
+              <p>Kerbs mark where the correct racing line is. Sudden kerbing on a straight means a corner is arriving.
+                Begin your preparation: position the car, start trail braking, locate your turn-in. <span
+                  class="tag tag-sim">Sim: all titles</span> <span class="tag tag-real">Real: identical</span></p>
+            </div>
+          </div>
+          <div class="cue-item">
+            <div class="cue-badge">3</div>
+            <div>
+              <div class="cue-title">Braking requirement &mdash; hard brake vs. lift vs. feather</div>
+              <p>Distance boards present = hard braking. No boards with slight compression = lift corner. No boards and
+                flat = full throttle or near-flat. Distinguishing these reduces lap time enormously. <span
+                  class="tag tag-sim">Sim: FFB confirms over-braking</span></p>
+            </div>
+          </div>
+          <div class="cue-item">
+            <div class="cue-badge">4</div>
+            <div>
+              <div class="cue-title">Speed via gear selection</div>
+              <p>2nd gear = slow, tight, hard braking. 3rd gear = medium, moderate braking. 4th gear = fast, sweeping,
+                light braking or lift. Once you know the gear, you have the complete picture. <span
+                  class="tag tag-real">Real: how drivers describe corners to engineers</span></p>
+            </div>
+          </div>
+          <div class="cue-item">
+            <div class="cue-badge">5</div>
+            <div>
+              <div class="cue-title">Apex kerb visibility</div>
+              <p>See the apex kerb early = tight, slow corner, wait for a late apex. Cannot see the apex kerb = long
+                sweeper, be patient, carry speed. Prevents the most common beginner mistake: turning in too early. <span
+                  class="tag tag-sim">Sim: cockpit or bumper cam</span></p>
+            </div>
+          </div>
+        </div>
+        <div class="callout teal">
+          <div class="co-label">The Combined Read</div>
+          <p>Brake markers on right &rarr; left-hand turn. Distance boards present &rarr; hard braking. Apex kerb
+            visible &rarr; tight corner, late apex. Gear is 2nd &rarr; confirms slow. Kerbing begins on entry &rarr;
+            turn in now. None of that required memorisation. All of it was read from the environment in real time.</p>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="section"><h3 class="sec-title">The Step-Down Method</h3>
-    <p>Never remove all assists simultaneously. Use this structured progression:</p>
-    <div class="steps">
-      <div class="step"><strong>All assists on</strong> &mdash; learn the track, focus on racing line and brake points only.</div>
-      <div class="step"><strong>Remove stability control</strong> &mdash; lower AI by 10. Feel the rear. Countersteer becomes muscle memory.</div>
-      <div class="step"><strong>Remove traction control</strong> &mdash; lower AI by 5&ndash;10. Smooth throttle on exit. Be patient with power.</div>
-      <div class="step"><strong>Remove ABS</strong> &mdash; lower AI by 5. Trail your braking. Feel for the lock threshold.</div>
-      <div class="step"><strong>All assists off</strong> &mdash; raise AI gradually. You are now a significantly faster driver.</div>
+  <!-- ═══ CH3: ASSISTS ═══ -->
+  <section id="assists">
+    <div class="container">
+      <div class="chapter">
+        <div class="ch-label">Chapter 03 &middot; Driving Without Assists</div>
+        <h2 class="ch-title">Remove the safety net.<br>Find real speed.</h2>
+        <p class="ch-intro">Assists hide the car's true behaviour. Removing them reveals a new layer of skill &mdash;
+          and a faster, more complete driver.</p>
+      </div>
+
+      <div class="section">
+        <h3 class="sec-title">The Three Main Assists</h3>
+        <div class="assists-grid">
+          <div class="assist-card">
+            <div class="assist-hdr">
+              <div class="assist-name">ABS</div><span class="badge badge-on">Anti-lock Braking</span>
+            </div>
+            <p><strong>On:</strong> Prevents wheel lock automatically. Maximum brake pressure without consequence.</p>
+            <p><strong>Off:</strong> You must threshold brake manually. Lock a wheel and you lose steering entirely.</p>
+            <p><strong>Train:</strong> Brake earlier. Increase pressure to the edge of lock, then back off fractionally.
+            </p>
+          </div>
+          <div class="assist-card">
+            <div class="assist-hdr">
+              <div class="assist-name">Traction Control</div><span class="badge badge-on">TC</span>
+            </div>
+            <p><strong>On:</strong> Cuts engine power when wheelspin is detected.</p>
+            <p><strong>Off:</strong> You must roll onto throttle carefully on exit. Rear-wheel drive cars punish hard
+              &mdash; too much throttle too early = snap oversteer.</p>
+            <p><strong>Train:</strong> Exit corners at 30&ndash;40% throttle, increasing over multiple laps.</p>
+          </div>
+          <div class="assist-card">
+            <div class="assist-hdr">
+              <div class="assist-name">Stability Control</div><span class="badge badge-off">Most impactful</span>
+            </div>
+            <p><strong>On:</strong> Automatically counteracts slides by braking individual wheels.</p>
+            <p><strong>Off:</strong> You must countersteer every slide yourself. Hardest skill, biggest reward.</p>
+            <p><strong>Train:</strong> Drop AI difficulty significantly. Expect slides. Learn to catch them.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3 class="sec-title">The Step-Down Method</h3>
+        <p>Never remove all assists simultaneously. Use this structured progression:</p>
+        <div class="steps">
+          <div class="step"><strong>All assists on</strong> &mdash; learn the track, focus on racing line and brake
+            points only.</div>
+          <div class="step"><strong>Remove stability control</strong> &mdash; lower AI by 10. Feel the rear.
+            Countersteer becomes muscle memory.</div>
+          <div class="step"><strong>Remove traction control</strong> &mdash; lower AI by 5&ndash;10. Smooth throttle on
+            exit. Be patient with power.</div>
+          <div class="step"><strong>Remove ABS</strong> &mdash; lower AI by 5. Trail your braking. Feel for the lock
+            threshold.</div>
+          <div class="step"><strong>All assists off</strong> &mdash; raise AI gradually. You are now a significantly
+            faster driver.</div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3 class="sec-title">Force Feedback &mdash; Your Most Valuable Tool</h3>
+        <p>FFB is not an assist &mdash; it is information. It tells you when tyres lose grip (vibration), when you're
+          understeering (wheel goes light), when kerbs are rough (jolts), and road surface changes. Set it where you
+          feel detail clearly but the wheel doesn't overpower you.</p>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="section"><h3 class="sec-title">Force Feedback &mdash; Your Most Valuable Tool</h3>
-    <p>FFB is not an assist &mdash; it is information. It tells you when tyres lose grip (vibration), when you're understeering (wheel goes light), when kerbs are rough (jolts), and road surface changes. Set it where you feel detail clearly but the wheel doesn't overpower you.</p>
-  </div>
-</div></section>
+  <!-- ═══ CH4: RACE CRAFT ═══ -->
+  <section id="race-craft">
+    <div class="container">
+      <div class="chapter">
+        <div class="ch-label">Chapter 04 &middot; Your First Race</div>
+        <h2 class="ch-title">Fast laps alone don't win races.<br>Race craft does.</h2>
+        <p class="ch-intro">The moment you race other humans, everything changes. Positioning, decisions, and composure
+          matter as much as raw pace.</p>
+      </div>
 
-<!-- ═══ CH4: RACE CRAFT ═══ -->
-<section id="race-craft"><div class="container">
-  <div class="chapter"><div class="ch-label">Chapter 04 &middot; Your First Race</div><h2 class="ch-title">Fast laps alone don't win races.<br>Race craft does.</h2><p class="ch-intro">The moment you race other humans, everything changes. Positioning, decisions, and composure matter as much as raw pace.</p></div>
+      <div class="section">
+        <h3 class="sec-title">Overtaking &mdash; The 50/50 Rule</h3>
+        <p>If your car's nose is alongside by the apex, you have a right to space. If not, you don't. The divebomb means
+          any contact is your responsibility. In iRacing and ACC, incidents affect your Safety Rating &mdash; protect it
+          early.</p>
+        <div class="callout teal">
+          <div class="co-label">Defending</div>
+          <p>One move to defend. Moving twice is the "chop" &mdash; penalised in most series. Cover the inside before
+            the braking zone. If they go outside, that's their problem.</p>
+        </div>
+      </div>
 
-  <div class="section"><h3 class="sec-title">Overtaking &mdash; The 50/50 Rule</h3>
-    <p>If your car's nose is alongside by the apex, you have a right to space. If not, you don't. The divebomb means any contact is your responsibility. In iRacing and ACC, incidents affect your Safety Rating &mdash; protect it early.</p>
-    <div class="callout teal"><div class="co-label">Defending</div><p>One move to defend. Moving twice is the "chop" &mdash; penalised in most series. Cover the inside before the braking zone. If they go outside, that's their problem.</p></div>
-  </div>
+      <div class="section">
+        <h3 class="sec-title">Starts, Strategy &amp; Dirty Air</h3>
+        <div class="card-grid">
+          <div class="card pink">
+            <div class="card-num">01</div>
+            <div class="card-title">Race Starts</div>
+            <p>Most first-lap incidents happen from overcorrection and panic braking. Hold position, stay calm, brake at
+              your normal reference.</p>
+          </div>
+          <div class="card orange">
+            <div class="card-num">02</div>
+            <div class="card-title">Dirty Air</div>
+            <p>The car ahead disrupts airflow, reducing your downforce. Following closely means longer braking
+              distances. Leave more margin.</p>
+          </div>
+          <div class="card teal">
+            <div class="card-num">03</div>
+            <div class="card-title">Tyre Management</div>
+            <p>You don't need 100% every lap. In a safe position, lift and coast to preserve tyres. Tyre-managed drivers
+              almost always finish ahead.</p>
+          </div>
+        </div>
+      </div>
 
-  <div class="section"><h3 class="sec-title">Starts, Strategy &amp; Dirty Air</h3>
-    <div class="card-grid">
-      <div class="card pink"><div class="card-num">01</div><div class="card-title">Race Starts</div><p>Most first-lap incidents happen from overcorrection and panic braking. Hold position, stay calm, brake at your normal reference.</p></div>
-      <div class="card orange"><div class="card-num">02</div><div class="card-title">Dirty Air</div><p>The car ahead disrupts airflow, reducing your downforce. Following closely means longer braking distances. Leave more margin.</p></div>
-      <div class="card teal"><div class="card-num">03</div><div class="card-title">Tyre Management</div><p>You don't need 100% every lap. In a safe position, lift and coast to preserve tyres. Tyre-managed drivers almost always finish ahead.</p></div>
+      <div class="section">
+        <h3 class="sec-title">Mental Approach</h3>
+        <p>Your first race will go wrong. Accept this. Focus on <strong>clean laps over fast laps</strong>. Consistency
+          beats occasional fast laps every time.</p>
+        <div class="callout">
+          <div class="co-label">Post-Race Review</div>
+          <p>After every race: Where did I lose time? Where did incidents happen? What was my tyre state in the final
+            laps? Answering honestly turns every race into a coaching session.</p>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="section"><h3 class="sec-title">Mental Approach</h3>
-    <p>Your first race will go wrong. Accept this. Focus on <strong>clean laps over fast laps</strong>. Consistency beats occasional fast laps every time.</p>
-    <div class="callout"><div class="co-label">Post-Race Review</div><p>After every race: Where did I lose time? Where did incidents happen? What was my tyre state in the final laps? Answering honestly turns every race into a coaching session.</p></div>
-  </div>
-</div></section>
+  <!-- ═══ CH5: FLAGS ═══ -->
+  <section id="flags">
+    <div class="container">
+      <div class="chapter">
+        <div class="ch-label">Racing Flags &amp; Signals</div>
+        <h2 class="ch-title">The universal language<br>of motorsport</h2>
+        <p class="ch-intro">Flags are the communication system between race control and drivers. Know them without
+          hesitation &mdash; hesitating costs a penalty or a crash.</p>
+      </div>
 
-<!-- ═══ CH5: FLAGS ═══ -->
-<section id="flags"><div class="container">
-  <div class="chapter"><div class="ch-label">Racing Flags &amp; Signals</div><h2 class="ch-title">The universal language<br>of motorsport</h2><p class="ch-intro">Flags are the communication system between race control and drivers. Know them without hesitation &mdash; hesitating costs a penalty or a crash.</p></div>
+      <div class="section">
+        <div class="flag-table">
 
-  <div class="section">
-    <div class="flag-table">
+          <div class="flag-entry">
+            <div class="flag-visual">
+              <div class="flag-render flag-green"></div>
+            </div>
+            <div class="flag-info">
+              <div class="flag-info-name">Green Flag</div>
+              <div class="flag-info-desc">Session started or resumed. Track is clear. Racing permitted. Full speed, no
+                restrictions.</div>
+            </div>
+          </div>
 
-      <div class="flag-entry"><div class="flag-visual"><div class="flag-render flag-green"></div></div><div class="flag-info"><div class="flag-info-name">Green Flag</div><div class="flag-info-desc">Session started or resumed. Track is clear. Racing permitted. Full speed, no restrictions.</div></div></div>
+          <div class="flag-entry">
+            <div class="flag-visual">
+              <div class="flag-render flag-yellow"></div>
+            </div>
+            <div class="flag-info">
+              <div class="flag-info-name">Yellow Flag</div>
+              <div class="flag-info-desc">Hazard on track. Slow down significantly. No overtaking. Be prepared to take
+                avoiding action.</div>
+            </div>
+          </div>
 
-      <div class="flag-entry"><div class="flag-visual"><div class="flag-render flag-yellow"></div></div><div class="flag-info"><div class="flag-info-name">Yellow Flag</div><div class="flag-info-desc">Hazard on track. Slow down significantly. No overtaking. Be prepared to take avoiding action.</div></div></div>
+          <div class="flag-entry">
+            <div class="flag-visual">
+              <div class="flag-render flag-double-yellow"></div>
+            </div>
+            <div class="flag-info">
+              <div class="flag-info-name">Double Yellow</div>
+              <div class="flag-info-desc">Serious hazard. Track may be blocked. Slow down drastically. Be prepared to
+                stop. Overtaking strictly prohibited.</div>
+            </div>
+          </div>
 
-      <div class="flag-entry"><div class="flag-visual"><div class="flag-render flag-double-yellow"></div></div><div class="flag-info"><div class="flag-info-name">Double Yellow</div><div class="flag-info-desc">Serious hazard. Track may be blocked. Slow down drastically. Be prepared to stop. Overtaking strictly prohibited.</div></div></div>
+          <div class="flag-entry">
+            <div class="flag-visual">
+              <div class="flag-render flag-red"></div>
+            </div>
+            <div class="flag-info">
+              <div class="flag-info-name">Red Flag</div>
+              <div class="flag-info-desc">Session stopped immediately. Return to pit lane at reduced speed. Do not race.
+                Serious incident or dangerous conditions.</div>
+            </div>
+          </div>
 
-      <div class="flag-entry"><div class="flag-visual"><div class="flag-render flag-red"></div></div><div class="flag-info"><div class="flag-info-name">Red Flag</div><div class="flag-info-desc">Session stopped immediately. Return to pit lane at reduced speed. Do not race. Serious incident or dangerous conditions.</div></div></div>
+          <div class="flag-entry">
+            <div class="flag-visual">
+              <div class="flag-render flag-blue"></div>
+            </div>
+            <div class="flag-info">
+              <div class="flag-info-name">Blue Flag</div>
+              <div class="flag-info-desc">Shown to a lapped car being approached by a lead lap car. Move aside within
+                three blue flags or face a time penalty.</div>
+            </div>
+          </div>
 
-      <div class="flag-entry"><div class="flag-visual"><div class="flag-render flag-blue"></div></div><div class="flag-info"><div class="flag-info-name">Blue Flag</div><div class="flag-info-desc">Shown to a lapped car being approached by a lead lap car. Move aside within three blue flags or face a time penalty.</div></div></div>
+          <div class="flag-entry">
+            <div class="flag-visual">
+              <div class="flag-render flag-black"></div>
+            </div>
+            <div class="flag-info">
+              <div class="flag-info-name">Black Flag</div>
+              <div class="flag-info-desc">Disqualification. Return to pit lane immediately. Shown with car number. Most
+                serious individual penalty in motorsport.</div>
+            </div>
+          </div>
 
-      <div class="flag-entry"><div class="flag-visual"><div class="flag-render flag-black"></div></div><div class="flag-info"><div class="flag-info-name">Black Flag</div><div class="flag-info-desc">Disqualification. Return to pit lane immediately. Shown with car number. Most serious individual penalty in motorsport.</div></div></div>
+          <div class="flag-entry">
+            <div class="flag-visual">
+              <div class="flag-render flag-bw-diagonal"></div>
+            </div>
+            <div class="flag-info">
+              <div class="flag-info-name">Black &amp; White</div>
+              <div class="flag-info-desc">Final warning for unsporting behaviour &mdash; blocking, weaving, dangerous
+                driving. Next offence results in a penalty.</div>
+            </div>
+          </div>
 
-      <div class="flag-entry"><div class="flag-visual"><div class="flag-render flag-bw-diagonal"></div></div><div class="flag-info"><div class="flag-info-name">Black &amp; White</div><div class="flag-info-desc">Final warning for unsporting behaviour &mdash; blocking, weaving, dangerous driving. Next offence results in a penalty.</div></div></div>
+          <div class="flag-entry">
+            <div class="flag-visual">
+              <div class="flag-render flag-meatball"></div>
+            </div>
+            <div class="flag-info">
+              <div class="flag-info-name">Meatball Flag</div>
+              <div class="flag-info-desc">Black flag with orange circle. Your car has a mechanical defect or debris.
+                Return to the pits on your next lap.</div>
+            </div>
+          </div>
 
-      <div class="flag-entry"><div class="flag-visual"><div class="flag-render flag-meatball"></div></div><div class="flag-info"><div class="flag-info-name">Meatball Flag</div><div class="flag-info-desc">Black flag with orange circle. Your car has a mechanical defect or debris. Return to the pits on your next lap.</div></div></div>
+          <div class="flag-entry">
+            <div class="flag-visual">
+              <div class="flag-render flag-white"></div>
+            </div>
+            <div class="flag-info">
+              <div class="flag-info-name">White Flag</div>
+              <div class="flag-info-desc">Slow vehicle on track &mdash; safety car, recovery vehicle, or significantly
+                damaged car. Proceed with caution.</div>
+            </div>
+          </div>
 
-      <div class="flag-entry"><div class="flag-visual"><div class="flag-render flag-white"></div></div><div class="flag-info"><div class="flag-info-name">White Flag</div><div class="flag-info-desc">Slow vehicle on track &mdash; safety car, recovery vehicle, or significantly damaged car. Proceed with caution.</div></div></div>
+          <div class="flag-entry">
+            <div class="flag-visual">
+              <div class="flag-render flag-chequered"></div>
+            </div>
+            <div class="flag-info">
+              <div class="flag-info-name">Chequered Flag</div>
+              <div class="flag-info-desc">Race or session is finished. Slow down progressively. Do not make sudden
+                moves.</div>
+            </div>
+          </div>
 
-      <div class="flag-entry"><div class="flag-visual"><div class="flag-render flag-chequered"></div></div><div class="flag-info"><div class="flag-info-name">Chequered Flag</div><div class="flag-info-desc">Race or session is finished. Slow down progressively. Do not make sudden moves.</div></div></div>
+        </div>
 
+        <div class="callout teal">
+          <div class="co-label">Flags in the Sim HUD</div>
+          <p>Most sims display flag indicators in your HUD or on the steering wheel. Yellow sector indicators show
+            precisely where the hazard is. Read the sector, not just the colour.</p>
+        </div>
+      </div>
     </div>
+  </section>
 
-    <div class="callout teal"><div class="co-label">Flags in the Sim HUD</div><p>Most sims display flag indicators in your HUD or on the steering wheel. Yellow sector indicators show precisely where the hazard is. Read the sector, not just the colour.</p></div>
-  </div>
-</div></section>
+  <!-- ═══ CH6: SETUP ═══ -->
+  <section id="setup">
+    <div class="container">
+      <div class="chapter">
+        <div class="ch-label">Sim Racing Setup Guide</div>
+        <h2 class="ch-title">Build smart. Upgrade<br>with purpose.</h2>
+        <p class="ch-intro">Which upgrades have the most actual impact on your driving &mdash; at every budget level.
+        </p>
+      </div>
 
-<!-- ═══ CH6: SETUP ═══ -->
-<section id="setup"><div class="container">
-  <div class="chapter"><div class="ch-label">Sim Racing Setup Guide</div><h2 class="ch-title">Build smart. Upgrade<br>with purpose.</h2><p class="ch-intro">Which upgrades have the most actual impact on your driving &mdash; at every budget level.</p></div>
+      <div class="section">
+        <h3 class="sec-title">Hardware Tiers</h3>
+        <div class="tier-grid">
+          <div class="tier-card">
+            <div class="tier-lbl">Entry Level</div>
+            <div class="tier-name">Budget</div>
+            <ul class="tier-items">
+              <li>Logitech G29 / G923 / G920</li>
+              <li>Thrustmaster T248 / T150</li>
+              <li>Gear-driven force feedback</li>
+              <li>3-pedal set in most bundles</li>
+              <li>Desk clamp or basic stand</li>
+              <li>Adequate to learn all fundamentals</li>
+            </ul>
+          </div>
+          <div class="tier-card featured">
+            <div class="tier-lbl">Best Value Jump</div>
+            <div class="tier-name">Mid-Range</div>
+            <ul class="tier-items">
+              <li>MOZA R3 / R5 &mdash; entry direct drive</li>
+              <li>Fanatec CSL DD</li>
+              <li>Belt-driven or true direct drive</li>
+              <li>Noticeably better FFB detail</li>
+              <li>Most racers stay here long-term</li>
+            </ul>
+          </div>
+          <div class="tier-card">
+            <div class="tier-lbl">High End</div>
+            <div class="tier-name">Pro Rig</div>
+            <ul class="tier-items">
+              <li>MOZA R9 / R12 / R16</li>
+              <li>Fanatec DD Pro / DD2</li>
+              <li>Simucube 2 Sport / Pro / Ultimate</li>
+              <li>Motor directly on shaft</li>
+              <li>Heusinkveld load-cell pedals</li>
+              <li>Professional-grade precision</li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-  <div class="section"><h3 class="sec-title">Hardware Tiers</h3>
-    <div class="tier-grid">
-      <div class="tier-card"><div class="tier-lbl">Entry Level</div><div class="tier-name">Budget</div><ul class="tier-items"><li>Logitech G29 / G923 / G920</li><li>Thrustmaster T248 / T150</li><li>Gear-driven force feedback</li><li>3-pedal set in most bundles</li><li>Desk clamp or basic stand</li><li>Adequate to learn all fundamentals</li></ul></div>
-      <div class="tier-card featured"><div class="tier-lbl">Best Value Jump</div><div class="tier-name">Mid-Range</div><ul class="tier-items"><li>MOZA R3 / R5 &mdash; entry direct drive</li><li>Fanatec CSL DD</li><li>Belt-driven or true direct drive</li><li>Noticeably better FFB detail</li><li>Most racers stay here long-term</li></ul></div>
-      <div class="tier-card"><div class="tier-lbl">High End</div><div class="tier-name">Pro Rig</div><ul class="tier-items"><li>MOZA R9 / R12 / R16</li><li>Fanatec DD Pro / DD2</li><li>Simucube 2 Sport / Pro / Ultimate</li><li>Motor directly on shaft</li><li>Heusinkveld load-cell pedals</li><li>Professional-grade precision</li></ul></div>
+      <div class="section">
+        <h3 class="sec-title">Upgrade Priority</h3>
+        <div class="callout orange">
+          <div class="co-label">Most Impact, In Order</div>
+          <p><strong>1. Load-cell brake pedal</strong> &mdash; the single biggest performance improvement. Brake feel
+            via force rather than position. <strong>2. Wheelbase</strong> &mdash; more Nm = more FFB detail. <strong>3.
+              Rig/cockpit</strong> &mdash; a wobbly desk kills pedal feel. Even a budget Playseat Challenge beats a
+            desk. <strong>4. Display</strong> &mdash; triple screens or VR expand spatial awareness, but only after
+            physical inputs are sorted.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3 class="sec-title">Which Sim?</h3>
+        <div class="sim-list">
+          <div class="sim-row">
+            <div class="sim-name">iRacing</div>
+            <div class="sim-desc">Gold standard for online multiplayer. Subscription model. Safety Rating rewards clean
+              driving.</div>
+            <div class="sim-tag top">Online Racing</div>
+          </div>
+          <div class="sim-row">
+            <div class="sim-name">Assetto Corsa Competizione</div>
+            <div class="sim-desc">GT3/GT4 racing. Exceptional tyre model, outstanding rain physics.</div>
+            <div class="sim-tag top">GT Realism</div>
+          </div>
+          <div class="sim-row">
+            <div class="sim-name">F1 25</div>
+            <div class="sim-desc">Official Formula 1 game. Official cars, circuits, driver likenesses. Most accessible
+              for F1 fans.</div>
+            <div class="sim-tag">F1 Fans</div>
+          </div>
+          <div class="sim-row">
+            <div class="sim-name">Assetto Corsa</div>
+            <div class="sim-desc">The modding king. Thousands of community-created cars and circuits. Best variety of
+              any sim.</div>
+            <div class="sim-tag">Variety / Mods</div>
+          </div>
+          <div class="sim-row">
+            <div class="sim-name">Le Mans Ultimate</div>
+            <div class="sim-desc">Official WEC and Le Mans licence. LMP2/Hypercar/LMGT3. Rapidly growing community.
+            </div>
+            <div class="sim-tag">Endurance</div>
+          </div>
+          <div class="sim-row">
+            <div class="sim-name">Automobilista 2</div>
+            <div class="sim-desc">Outstanding physics depth, enormous content variety, excellent value.</div>
+            <div class="sim-tag">Physics Depth</div>
+          </div>
+          <div class="sim-row">
+            <div class="sim-name">Assetto Corsa Evo</div>
+            <div class="sim-desc">Next-gen physics model (Early Access 2025). The most promising new title.</div>
+            <div class="sim-tag top">New in 2025</div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
+  </section>
 
-  <div class="section"><h3 class="sec-title">Upgrade Priority</h3>
-    <div class="callout orange"><div class="co-label">Most Impact, In Order</div><p><strong>1. Load-cell brake pedal</strong> &mdash; the single biggest performance improvement. Brake feel via force rather than position. <strong>2. Wheelbase</strong> &mdash; more Nm = more FFB detail. <strong>3. Rig/cockpit</strong> &mdash; a wobbly desk kills pedal feel. Even a budget Playseat Challenge beats a desk. <strong>4. Display</strong> &mdash; triple screens or VR expand spatial awareness, but only after physical inputs are sorted.</p></div>
-  </div>
+  <!-- ═══ CH7: REAL WORLD ═══ -->
+  <section id="real-world">
+    <div class="container">
+      <div class="chapter">
+        <div class="ch-label">Sim Skills in the Real World</div>
+        <h2 class="ch-title">The road is just another circuit<br>you haven't mapped yet</h2>
+        <p class="ch-intro">Sim racing genuinely teaches real-world driving skills. The physics are the same. What
+          changes is the consequence of getting it wrong.</p>
+      </div>
 
-  <div class="section"><h3 class="sec-title">Which Sim?</h3>
-    <div class="sim-list">
-      <div class="sim-row"><div class="sim-name">iRacing</div><div class="sim-desc">Gold standard for online multiplayer. Subscription model. Safety Rating rewards clean driving.</div><div class="sim-tag top">Online Racing</div></div>
-      <div class="sim-row"><div class="sim-name">Assetto Corsa Competizione</div><div class="sim-desc">GT3/GT4 racing. Exceptional tyre model, outstanding rain physics.</div><div class="sim-tag top">GT Realism</div></div>
-      <div class="sim-row"><div class="sim-name">F1 25</div><div class="sim-desc">Official Formula 1 game. Official cars, circuits, driver likenesses. Most accessible for F1 fans.</div><div class="sim-tag">F1 Fans</div></div>
-      <div class="sim-row"><div class="sim-name">Assetto Corsa</div><div class="sim-desc">The modding king. Thousands of community-created cars and circuits. Best variety of any sim.</div><div class="sim-tag">Variety / Mods</div></div>
-      <div class="sim-row"><div class="sim-name">Le Mans Ultimate</div><div class="sim-desc">Official WEC and Le Mans licence. LMP2/Hypercar/LMGT3. Rapidly growing community.</div><div class="sim-tag">Endurance</div></div>
-      <div class="sim-row"><div class="sim-name">Automobilista 2</div><div class="sim-desc">Outstanding physics depth, enormous content variety, excellent value.</div><div class="sim-tag">Physics Depth</div></div>
-      <div class="sim-row"><div class="sim-name">Assetto Corsa Evo</div><div class="sim-desc">Next-gen physics model (Early Access 2025). The most promising new title.</div><div class="sim-tag top">New in 2025</div></div>
+      <div class="section">
+        <div class="rw-grid">
+          <div class="rw-card">
+            <div class="rw-icon">&#9995;</div>
+            <div class="rw-title">Smooth Inputs</div>
+            <p>The sim trained you to be smooth. Smooth braking reduces stopping distances. Smooth steering prevents
+              loss of control in wet conditions.</p>
+          </div>
+          <div class="rw-card">
+            <div class="rw-icon">&#128065;</div>
+            <div class="rw-title">Spatial Awareness</div>
+            <p>Racing games train you to monitor positions of other cars. On roads this means better mirror use, earlier
+              hazard detection.</p>
+          </div>
+          <div class="rw-card">
+            <div class="rw-icon">&#128205;</div>
+            <div class="rw-title">Reference Braking</div>
+            <p>You trained to brake at specific markers. This transfers directly &mdash; pick consistent reference
+              points on roads you drive regularly.</p>
+          </div>
+          <div class="rw-card">
+            <div class="rw-icon">&#127783;</div>
+            <div class="rw-title">Wet Weather</div>
+            <p>If you have driven a wet lap in ACC, you understand the physics. Longer braking, gentler throttle, wider
+              lines &mdash; all applies to real rain.</p>
+          </div>
+          <div class="rw-card">
+            <div class="rw-icon">&#128260;</div>
+            <div class="rw-title">Tyre Awareness</div>
+            <p>Thinking about what your tyres are doing makes you feel when the front washes or the rear goes light
+              &mdash; and you adjust instinctively.</p>
+          </div>
+          <div class="rw-card">
+            <div class="rw-icon">&#128208;</div>
+            <div class="rw-title">Weight Transfer</div>
+            <p>Understanding that braking loads the front and acceleration loads the rear directly improves how you
+              navigate roundabouts and junctions.</p>
+          </div>
+        </div>
+        <div class="warning">
+          <div style="font-size:20px;flex-shrink:0;margin-top:2px">&#9888;</div>
+          <p><strong>The critical difference:</strong> In a sim, you reset. In a real car, you do not. Always apply a
+            safety buffer when translating sim technique to real-world driving. Use the knowledge, not the aggression.
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
-</div></section>
+  </section>
 
-<!-- ═══ CH7: REAL WORLD ═══ -->
-<section id="real-world"><div class="container">
-  <div class="chapter"><div class="ch-label">Sim Skills in the Real World</div><h2 class="ch-title">The road is just another circuit<br>you haven't mapped yet</h2><p class="ch-intro">Sim racing genuinely teaches real-world driving skills. The physics are the same. What changes is the consequence of getting it wrong.</p></div>
+  <!-- ═══ CH8: TERMINOLOGY ═══ -->
+  <section id="terms">
+    <div class="container">
+      <div class="chapter">
+        <div class="ch-label">Motorsport Terminology</div>
+        <h2 class="ch-title">Speak the language<br>of the paddock</h2>
+        <p class="ch-intro">Terms from F1 commentary, team radio, sim communities, and track day briefings.</p>
+      </div>
 
-  <div class="section">
-    <div class="rw-grid">
-      <div class="rw-card"><div class="rw-icon">&#9995;</div><div class="rw-title">Smooth Inputs</div><p>The sim trained you to be smooth. Smooth braking reduces stopping distances. Smooth steering prevents loss of control in wet conditions.</p></div>
-      <div class="rw-card"><div class="rw-icon">&#128065;</div><div class="rw-title">Spatial Awareness</div><p>Racing games train you to monitor positions of other cars. On roads this means better mirror use, earlier hazard detection.</p></div>
-      <div class="rw-card"><div class="rw-icon">&#128205;</div><div class="rw-title">Reference Braking</div><p>You trained to brake at specific markers. This transfers directly &mdash; pick consistent reference points on roads you drive regularly.</p></div>
-      <div class="rw-card"><div class="rw-icon">&#127783;</div><div class="rw-title">Wet Weather</div><p>If you have driven a wet lap in ACC, you understand the physics. Longer braking, gentler throttle, wider lines &mdash; all applies to real rain.</p></div>
-      <div class="rw-card"><div class="rw-icon">&#128260;</div><div class="rw-title">Tyre Awareness</div><p>Thinking about what your tyres are doing makes you feel when the front washes or the rear goes light &mdash; and you adjust instinctively.</p></div>
-      <div class="rw-card"><div class="rw-icon">&#128208;</div><div class="rw-title">Weight Transfer</div><p>Understanding that braking loads the front and acceleration loads the rear directly improves how you navigate roundabouts and junctions.</p></div>
+      <div class="section">
+        <div class="term-grid">
+          <div class="term-item">
+            <div class="term-word">Understeer</div>
+            <div class="term-def">Front tyres lose grip &mdash; the car pushes wide of the intended line regardless of
+              steering.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Oversteer</div>
+            <div class="term-def">Rear tyres lose grip &mdash; the rear steps out. Requires countersteering to correct.
+            </div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Snap Oversteer</div>
+            <div class="term-def">Sudden, violent rear slide with very little warning. Often caused by cold tyres or
+              excessive mid-corner speed.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Lift-off Oversteer</div>
+            <div class="term-def">Oversteer caused by suddenly releasing throttle mid-corner. Weight shifts forward,
+              unloading the rear.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Trail Braking</div>
+            <div class="term-def">Gradually releasing brake into the corner. Keeps weight on front for rotation and
+              entry grip.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Dirty Air</div>
+            <div class="term-def">Turbulent airflow behind a car that disrupts the following car's aerodynamics and
+              reduces downforce.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">DRS</div>
+            <div class="term-def">Drag Reduction System &mdash; opens rear wing slot for reduced drag on straights.
+              F1-specific.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">ERS / KERS</div>
+            <div class="term-def">Energy Recovery System &mdash; stores braking energy and deploys as electrical boost.
+            </div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Lock-up</div>
+            <div class="term-def">Braking so hard a wheel stops rotating while the car moves. Creates flat spots and
+              tyre smoke.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Graining</div>
+            <div class="term-def">Tyre surface tears in small pieces due to thermal stress before the tyre reaches
+              temperature.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Blistering</div>
+            <div class="term-def">Deep tyre damage from sustained excessive heat. Bubbles form under the surface.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Marbles</div>
+            <div class="term-def">Small rubber pieces shed by tyres that collect off-line. Off-line grip is dramatically
+              reduced.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Apex</div>
+            <div class="term-def">The innermost point a car clips when following the optimal racing line. Can be
+              geometric or late.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Delta</div>
+            <div class="term-def">Your time vs. a reference lap. Positive = slower, negative = faster. Also used under
+              Safety Car.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Gap</div>
+            <div class="term-def">Time interval between you and the car ahead/behind, measured in seconds.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Safety Car</div>
+            <div class="term-def">Deployed when conditions are dangerous. Bunches the field. Often triggers strategic
+              pit stop windows.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">VSC</div>
+            <div class="term-def">Virtual Safety Car &mdash; drivers maintain a prescribed delta time rather than
+              following a physical car.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Box</div>
+            <div class="term-def">Radio code for "come into the pit lane." The word "pit" is avoided to prevent
+              confusion with "split."</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Sector Time</div>
+            <div class="term-def">Track split into three sectors. Individual sector times reveal exactly where you lose
+              or gain time.</div>
+          </div>
+          <div class="term-item">
+            <div class="term-word">Safety Rating</div>
+            <div class="term-def">iRacing metric measuring how cleanly you race. Determines which licence tier and
+              series you can enter.</div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="warning"><div style="font-size:20px;flex-shrink:0;margin-top:2px">&#9888;</div><p><strong>The critical difference:</strong> In a sim, you reset. In a real car, you do not. Always apply a safety buffer when translating sim technique to real-world driving. Use the knowledge, not the aggression.</p></div>
-  </div>
-</div></section>
+  </section>
 
-<!-- ═══ CH8: TERMINOLOGY ═══ -->
-<section id="terms"><div class="container">
-  <div class="chapter"><div class="ch-label">Motorsport Terminology</div><h2 class="ch-title">Speak the language<br>of the paddock</h2><p class="ch-intro">Terms from F1 commentary, team radio, sim communities, and track day briefings.</p></div>
-
-  <div class="section">
-    <div class="term-grid">
-      <div class="term-item"><div class="term-word">Understeer</div><div class="term-def">Front tyres lose grip &mdash; the car pushes wide of the intended line regardless of steering.</div></div>
-      <div class="term-item"><div class="term-word">Oversteer</div><div class="term-def">Rear tyres lose grip &mdash; the rear steps out. Requires countersteering to correct.</div></div>
-      <div class="term-item"><div class="term-word">Snap Oversteer</div><div class="term-def">Sudden, violent rear slide with very little warning. Often caused by cold tyres or excessive mid-corner speed.</div></div>
-      <div class="term-item"><div class="term-word">Lift-off Oversteer</div><div class="term-def">Oversteer caused by suddenly releasing throttle mid-corner. Weight shifts forward, unloading the rear.</div></div>
-      <div class="term-item"><div class="term-word">Trail Braking</div><div class="term-def">Gradually releasing brake into the corner. Keeps weight on front for rotation and entry grip.</div></div>
-      <div class="term-item"><div class="term-word">Dirty Air</div><div class="term-def">Turbulent airflow behind a car that disrupts the following car's aerodynamics and reduces downforce.</div></div>
-      <div class="term-item"><div class="term-word">DRS</div><div class="term-def">Drag Reduction System &mdash; opens rear wing slot for reduced drag on straights. F1-specific.</div></div>
-      <div class="term-item"><div class="term-word">ERS / KERS</div><div class="term-def">Energy Recovery System &mdash; stores braking energy and deploys as electrical boost.</div></div>
-      <div class="term-item"><div class="term-word">Lock-up</div><div class="term-def">Braking so hard a wheel stops rotating while the car moves. Creates flat spots and tyre smoke.</div></div>
-      <div class="term-item"><div class="term-word">Graining</div><div class="term-def">Tyre surface tears in small pieces due to thermal stress before the tyre reaches temperature.</div></div>
-      <div class="term-item"><div class="term-word">Blistering</div><div class="term-def">Deep tyre damage from sustained excessive heat. Bubbles form under the surface.</div></div>
-      <div class="term-item"><div class="term-word">Marbles</div><div class="term-def">Small rubber pieces shed by tyres that collect off-line. Off-line grip is dramatically reduced.</div></div>
-      <div class="term-item"><div class="term-word">Apex</div><div class="term-def">The innermost point a car clips when following the optimal racing line. Can be geometric or late.</div></div>
-      <div class="term-item"><div class="term-word">Delta</div><div class="term-def">Your time vs. a reference lap. Positive = slower, negative = faster. Also used under Safety Car.</div></div>
-      <div class="term-item"><div class="term-word">Gap</div><div class="term-def">Time interval between you and the car ahead/behind, measured in seconds.</div></div>
-      <div class="term-item"><div class="term-word">Safety Car</div><div class="term-def">Deployed when conditions are dangerous. Bunches the field. Often triggers strategic pit stop windows.</div></div>
-      <div class="term-item"><div class="term-word">VSC</div><div class="term-def">Virtual Safety Car &mdash; drivers maintain a prescribed delta time rather than following a physical car.</div></div>
-      <div class="term-item"><div class="term-word">Box</div><div class="term-def">Radio code for "come into the pit lane." The word "pit" is avoided to prevent confusion with "split."</div></div>
-      <div class="term-item"><div class="term-word">Sector Time</div><div class="term-def">Track split into three sectors. Individual sector times reveal exactly where you lose or gain time.</div></div>
-      <div class="term-item"><div class="term-word">Safety Rating</div><div class="term-def">iRacing metric measuring how cleanly you race. Determines which licence tier and series you can enter.</div></div>
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-title">GO FASTER.</div>
+      <div class="footer-sub">Car Control &middot; Racing Line &middot; Track Reading &middot; Assists &middot; Race
+        Craft &middot; Flags &middot; Setup &middot; Real World &middot; Terminology</div>
+      <div class="footer-line"></div>
     </div>
-  </div>
-</div></section>
-
-<!-- FOOTER -->
-<footer class="footer"><div class="container">
-  <div class="footer-title">GO FASTER.</div>
-  <div class="footer-sub">Car Control &middot; Racing Line &middot; Track Reading &middot; Assists &middot; Race Craft &middot; Flags &middot; Setup &middot; Real World &middot; Terminology</div>
-  <div class="footer-line"></div>
-</div></footer>
+  </footer>
 
 </body>
+
 </html>

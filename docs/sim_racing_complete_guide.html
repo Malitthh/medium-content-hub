@@ -16,16 +16,35 @@
   --teal:#2ec4b6;--teal-dim:rgba(46,196,182,0.10);
   --orange:#e85d30;--orange-dim:rgba(232,93,48,0.10);
   --white:#f2f0ec;--gray:#8a8a96;--gray2:#5a5a68;
+  --text-body:rgba(242,240,236,0.78);
+  --text-callout:rgba(242,240,236,0.85);
+  --canvas-bg:#0e0e14;--canvas-track:#1a1a22;--canvas-edge:#3a3a44;--canvas-dash:#2a2a34;
   --font:'Outfit',sans-serif;--mono:'IBM Plex Mono',monospace;
+  --mode:dark;
+}
+@media(prefers-color-scheme:light){
+  :root{
+    --bg:#f6f5f2;--bg2:#efede8;--bg3:#e8e6e0;
+    --surface:#ffffff;--surface2:#f0eeea;
+    --border:rgba(0,0,0,0.08);--border2:rgba(0,0,0,0.14);
+    --pink:#c42870;--pink-dim:rgba(196,40,112,0.08);
+    --teal:#1a9e92;--teal-dim:rgba(26,158,146,0.08);
+    --orange:#c44a22;--orange-dim:rgba(196,74,34,0.08);
+    --white:#1a1a1e;--gray:#5a5a66;--gray2:#8a8a96;
+    --text-body:rgba(26,26,30,0.72);
+    --text-callout:rgba(26,26,30,0.82);
+    --canvas-bg:#eae8e2;--canvas-track:#d8d6d0;--canvas-edge:#aaa8a2;--canvas-dash:#c0beb8;
+    --mode:light;
+  }
 }
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--white);font-family:var(--font);font-size:17px;line-height:1.8;font-weight:300;-webkit-font-smoothing:antialiased}
 
 /* ═══ HERO ═══ */
 .hero{min-height:80vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 0 60px;position:relative;overflow:hidden;border-bottom:1px solid var(--border2)}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--bg) 0%,#18101e 40%,#10181e 70%,var(--bg) 100%)}
-.hero-glow{position:absolute;bottom:-200px;left:30%;width:600px;height:600px;background:radial-gradient(circle,rgba(232,56,138,0.18) 0%,transparent 70%);pointer-events:none}
-.hero-glow2{position:absolute;top:-100px;right:10%;width:500px;height:500px;background:radial-gradient(circle,rgba(46,196,182,0.15) 0%,transparent 70%);pointer-events:none}
+.hero-bg{position:absolute;inset:0;background:var(--bg)}
+.hero-glow{position:absolute;bottom:-200px;left:30%;width:600px;height:600px;background:radial-gradient(circle,var(--pink-dim) 0%,transparent 70%);pointer-events:none}
+.hero-glow2{position:absolute;top:-100px;right:10%;width:500px;height:500px;background:radial-gradient(circle,var(--teal-dim) 0%,transparent 70%);pointer-events:none}
 .hero-stripe{position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--teal),var(--pink),var(--orange))}
 .hero-inner{position:relative;max-width:1100px;margin:0 auto;padding:0 48px;width:100%}
 .hero-eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.18em;color:var(--teal);text-transform:uppercase;margin-bottom:28px;display:flex;align-items:center;gap:14px}
@@ -45,7 +64,7 @@ body{background:var(--bg);color:var(--white);font-family:var(--font);font-size:1
 .hero-stats{animation:fadeUp .6s ease .5s both}
 
 /* ═══ NAV ═══ */
-.toc{background:rgba(16,16,20,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+.toc{background:var(--bg);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
 .toc-inner{max-width:1100px;margin:0 auto;padding:0 48px;display:flex;overflow-x:auto;scrollbar-width:none}
 .toc-inner::-webkit-scrollbar{display:none}
 .toc-link{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray2);padding:16px 18px;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
@@ -60,7 +79,7 @@ body{background:var(--bg);color:var(--white);font-family:var(--font);font-size:1
 .ch-intro{font-size:17px;color:var(--gray);max-width:660px;font-weight:300;line-height:1.75}
 .section{padding:48px 0;border-bottom:1px solid var(--border)}
 .sec-title{font-size:24px;font-weight:700;margin-bottom:18px;letter-spacing:-.01em}
-p{color:rgba(242,240,236,.78);margin-bottom:16px;font-weight:300}
+p{color:var(--text-body);margin-bottom:16px;font-weight:300}
 p:last-child{margin-bottom:0}
 strong{color:var(--white);font-weight:600}
 
@@ -69,7 +88,7 @@ strong{color:var(--white);font-weight:600}
 .callout.teal{border-left-color:var(--teal)}.callout.orange{border-left-color:var(--orange)}
 .co-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;color:var(--pink)}
 .callout.teal .co-label{color:var(--teal)}.callout.orange .co-label{color:var(--orange)}
-.callout p{color:rgba(242,240,236,.85);margin:0}
+.callout p{color:var(--text-callout);margin:0}
 
 /* ═══ CARDS ═══ */
 .card-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:24px 0}
@@ -92,7 +111,7 @@ strong{color:var(--white);font-weight:600}
 /* ═══ CUE LIST ═══ */
 .cue-list{display:flex;flex-direction:column;gap:12px;margin:24px 0}
 .cue-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start}
-.cue-badge{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:600;background:var(--bg3);color:var(--white);border:1px solid var(--border2)}
+.cue-badge{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:600;background:var(--surface2);color:var(--white);border:1px solid var(--border2)}
 .cue-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:6px}
 .cue-item p{font-size:14px;color:var(--gray);margin:0;line-height:1.65}
 .tag{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:4px;display:inline-block;margin:3px 4px 3px 0}
@@ -112,7 +131,7 @@ strong{color:var(--white);font-weight:600}
 
 /* ═══ STEPS ═══ */
 .steps{counter-reset:step;margin:24px 0;display:flex;flex-direction:column;gap:3px}
-.step{counter-increment:step;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 20px 16px 56px;position:relative;font-size:15px;color:rgba(242,240,236,.8);line-height:1.6}
+.step{counter-increment:step;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 20px 16px 56px;position:relative;font-size:15px;color:var(--text-body);line-height:1.6}
 .step::before{content:counter(step);position:absolute;left:18px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:17px;font-weight:600;color:var(--gray2)}
 .step strong{color:var(--white)}
 
@@ -166,18 +185,18 @@ strong{color:var(--white);font-weight:600}
 .sim-row{display:grid;grid-template-columns:195px 1fr auto;background:var(--surface);border-radius:8px;padding:14px 18px;border:1px solid var(--border);align-items:center;gap:16px}
 .sim-name{font-size:15px;font-weight:600;color:var(--white)}
 .sim-desc{font-size:14px;color:var(--gray)}
-.sim-tag{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:4px;white-space:nowrap;background:var(--bg3);color:var(--gray);border:1px solid var(--border)}
+.sim-tag{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:4px 10px;border-radius:4px;white-space:nowrap;background:var(--surface2);color:var(--gray);border:1px solid var(--border)}
 .sim-tag.top{background:var(--pink-dim);color:var(--pink);border-color:rgba(232,56,138,.25)}
 
 /* ═══ REAL WORLD ═══ */
 .rw-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:24px 0}
 .rw-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px}
-.rw-icon{width:40px;height:40px;background:var(--bg3);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;border:1px solid var(--border);font-size:17px}
+.rw-icon{width:40px;height:40px;background:var(--surface2);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:14px;border:1px solid var(--border);font-size:17px}
 .rw-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:8px}
 .rw-card p{font-size:14px;color:var(--gray);margin:0;line-height:1.6}
 
-.warning{background:var(--pink-dim);border:1px solid rgba(232,56,138,.22);border-radius:10px;padding:20px 24px;margin:24px 0;display:flex;gap:16px;align-items:flex-start}
-.warning p{color:rgba(242,240,236,.82);margin:0;font-size:15px;line-height:1.7}
+.warning{background:var(--pink-dim);border:1px solid var(--border2);border-radius:10px;padding:20px 24px;margin:24px 0;display:flex;gap:16px;align-items:flex-start}
+.warning p{color:var(--text-callout);margin:0;font-size:15px;line-height:1.7}
 
 /* ═══ TERMS ═══ */
 .term-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:6px;margin:24px 0}
@@ -191,13 +210,63 @@ strong{color:var(--white);font-weight:600}
 .footer-sub{font-size:14px;color:var(--gray)}
 .footer-line{width:60px;height:3px;background:linear-gradient(90deg,var(--teal),var(--pink));margin:28px auto 0;border-radius:2px}
 
+@media(max-width:1024px){
+  .container,.hero-inner{padding:0 32px}
+  .tier-grid{grid-template-columns:1fr 1fr}
+  .hero-title{font-size:clamp(48px,8vw,100px)}
+}
 @media(max-width:768px){
-  .container,.hero-inner{padding:0 24px}
-  .toc-inner{padding:0 16px}
+  .container,.hero-inner{padding:0 20px}
+  .toc-inner{padding:0 12px}
+  .toc-link{padding:14px 12px;font-size:10px}
   .tier-grid{grid-template-columns:1fr}
-  .sim-row{grid-template-columns:1fr}.sim-tag{display:none}
-  .flag-entry{grid-template-columns:70px 1fr}
-  .oio-track{height:260px}
+  .sim-row{grid-template-columns:1fr;gap:8px}.sim-tag{display:none}
+  .flag-entry{grid-template-columns:64px 1fr}
+  .oio-track{height:280px}
+  .hero-title{font-size:clamp(40px,12vw,64px)}
+  .hero-stats{gap:28px;flex-wrap:wrap}
+  .hero-stat-num{font-size:22px}
+  .ch-title{font-size:clamp(32px,8vw,52px)}
+  .sec-title{font-size:20px}
+  .card-grid{grid-template-columns:1fr}
+  .assists-grid{grid-template-columns:1fr}
+  .rw-grid{grid-template-columns:1fr}
+  .ref-grid{grid-template-columns:1fr}
+  .term-grid{grid-template-columns:1fr}
+  .sequence{flex-wrap:wrap;gap:6px}
+  .seq-arr{width:20px;font-size:12px}
+  .seq-step{min-width:80px;padding:10px 14px}
+  .seq-val{font-size:16px}
+  .cue-item{grid-template-columns:32px 1fr;gap:10px}
+  .priority-item{grid-template-columns:44px 1fr}
+  .priority-rank{font-size:18px;padding:12px}
+  .medium-banner{flex-direction:column;text-align:center;gap:12px}
+  .medium-arrow{display:none}
+  .footer-title{font-size:32px}
+  .callout{padding:16px 18px}
+  .hero{min-height:auto;padding:80px 0 48px}
+  .chapter{padding:60px 0 40px}
+  .section{padding:36px 0}
+  .oio-controls{gap:6px}
+  .oio-btn{padding:8px 12px;font-size:10px}
+  .gear-grid{grid-template-columns:1fr}
+}
+@media(max-width:420px){
+  .container,.hero-inner{padding:0 16px}
+  .toc-link{padding:12px 8px;font-size:9px;letter-spacing:.06em}
+  .hero-title{font-size:36px}
+  .hero-desc{font-size:15px}
+  .hero-stats{gap:20px}
+  .hero-stat-num{font-size:18px}
+  .ch-title{font-size:28px}
+  .flag-entry{grid-template-columns:52px 1fr}
+  .flag-render{width:40px;height:26px}
+  .flag-info{padding:10px 14px}
+  .flag-info-name{font-size:13px}
+  .flag-info-desc{font-size:12px}
+  .oio-track{height:220px}
+  .term-item{flex-direction:column;gap:6px}
+  .term-word{min-width:auto}
 }
 
 /* ═══ SCROLL REVEAL ═══ */
@@ -206,12 +275,15 @@ strong{color:var(--white);font-weight:600}
 .reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}
 
 /* ═══ INTERACTIVE OUT-IN-OUT ═══ */
-.oio-track{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;height:320px;margin:24px 0;cursor:default}
+.oio-track{position:relative;background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;height:380px;margin:24px 0;cursor:default}
 .oio-track canvas{width:100%;height:100%;display:block}
 .oio-controls{display:flex;gap:8px;margin:8px 0 24px;flex-wrap:wrap}
 .oio-btn{font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:10px 18px;border-radius:8px;border:1px solid var(--border2);background:var(--surface);color:var(--gray);cursor:pointer;transition:.2s;text-transform:uppercase}
 .oio-btn:hover{color:var(--white);border-color:var(--pink)}
 .oio-btn.active{background:var(--pink-dim);color:var(--pink);border-color:var(--pink)}
+
+/* ═══ CUE SVG DIAGRAMS — always dark themed regardless of page mode ═══ */
+.cue-svg{width:100%;max-width:580px;height:auto;margin-top:14px;border-radius:8px;background:#141418;border:1px solid rgba(255,255,255,0.08)}
 
 /* ═══ CUE IMAGE ═══ */
 .cue-img{width:100%;height:140px;object-fit:cover;border-radius:8px;margin-top:12px;border:1px solid var(--border);opacity:.85;transition:opacity .3s}
@@ -226,7 +298,7 @@ strong{color:var(--white);font-weight:600}
 .ref-card-desc{font-size:13px;color:var(--gray);line-height:1.5}
 
 /* ═══ MEDIUM BANNER ═══ */
-.medium-banner{display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,var(--pink-dim),var(--surface));border:1px solid rgba(232,56,138,.2);border-radius:12px;padding:20px 24px;margin:24px 0;text-decoration:none;transition:border-color .2s,transform .15s}
+.medium-banner{display:flex;align-items:center;gap:20px;background:linear-gradient(135deg,var(--pink-dim),var(--surface));border:1px solid var(--border2);border-radius:12px;padding:20px 24px;margin:24px 0;text-decoration:none;transition:border-color .2s,transform .15s}
 .medium-banner:hover{border-color:var(--pink);transform:translateY(-1px)}
 .medium-icon{width:44px;height:44px;background:var(--pink);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:22px;font-weight:800;color:var(--white)}
 .medium-text{flex:1}
@@ -337,8 +409,8 @@ strong{color:var(--white);font-weight:600}
   <div class="section">
     <div class="cue-list">
       <div class="cue-item"><div class="cue-badge">1</div><div><div class="cue-title">Brake markers &mdash; direction indicator, not just distance</div><p>The 100m, 50m, and 25m boards tell you which side of the track to be on. Markers on the left mean a right-hand turn is coming. Before you see the corner, the boards are pointing you toward the correct line. <span class="tag tag-sim">Sim: cockpit cam</span> <span class="tag tag-real">Real: track days too</span></p>
-        <svg viewBox="0 0 600 110" style="width:100%;max-width:580px;height:auto;margin-top:14px;border-radius:8px;background:var(--bg3);border:1px solid var(--border)">
-          <rect width="600" height="110" rx="6" fill="#141418"/>
+        <svg viewBox="0 0 600 110" class="cue-svg">
+          <rect width="600" height="110" rx="6" fill="var(--surface,#141418)"/>
           <rect x="0" y="50" width="600" height="60" fill="#1a1a20"/>
           <line x1="0" y1="80" x2="600" y2="80" stroke="#333" stroke-width="1" stroke-dasharray="20,14"/>
           <rect x="60" y="28" width="20" height="34" rx="2" fill="#cc3030"/><text x="70" y="50" fill="white" font-size="11" font-family="var(--mono)" text-anchor="middle" font-weight="600">3</text>
@@ -355,7 +427,7 @@ strong{color:var(--white);font-weight:600}
       </div></div>
 
       <div class="cue-item"><div class="cue-badge">2</div><div><div class="cue-title">Kerbing &mdash; corners announce themselves</div><p>Kerbs mark where the correct racing line is. Sudden kerbing on a straight means a corner is arriving. Begin your preparation: position the car, start trail braking, locate your turn-in. <span class="tag tag-sim">Sim: all titles</span> <span class="tag tag-real">Real: identical</span></p>
-        <svg viewBox="0 0 600 90" style="width:100%;max-width:580px;height:auto;margin-top:14px;border-radius:8px;background:#141418;border:1px solid var(--border)">
+        <svg viewBox="0 0 600 90" class="cue-svg">
           <rect x="0" y="30" width="600" height="60" fill="#1a1a20"/>
           <g><rect x="0" y="30" width="18" height="8" fill="#cc3030"/><rect x="18" y="30" width="18" height="8" fill="#fff" opacity=".9"/><rect x="36" y="30" width="18" height="8" fill="#cc3030"/><rect x="54" y="30" width="18" height="8" fill="#fff" opacity=".9"/><rect x="72" y="30" width="18" height="8" fill="#cc3030"/><rect x="90" y="30" width="18" height="8" fill="#fff" opacity=".9"/><rect x="108" y="30" width="18" height="8" fill="#cc3030"/><rect x="126" y="30" width="18" height="8" fill="#fff" opacity=".9"/><rect x="144" y="30" width="18" height="8" fill="#cc3030"/><rect x="162" y="30" width="18" height="8" fill="#fff" opacity=".9"/></g>
           <text x="90" y="22" fill="#e8388a" font-size="10" font-family="var(--mono)" text-anchor="middle">Kerbing appears</text>
@@ -366,7 +438,7 @@ strong{color:var(--white);font-weight:600}
       </div></div>
 
       <div class="cue-item"><div class="cue-badge">3</div><div><div class="cue-title">Braking requirement &mdash; hard brake vs. lift vs. feather</div><p>Distance boards present = hard braking. No boards with slight compression = lift corner. No boards and flat = full throttle or near-flat. Distinguishing these reduces lap time enormously. <span class="tag tag-sim">Sim: FFB confirms over-braking</span></p>
-        <svg viewBox="0 0 600 80" style="width:100%;max-width:580px;height:auto;margin-top:14px;border-radius:8px;background:#141418;border:1px solid var(--border)">
+        <svg viewBox="0 0 600 80" class="cue-svg">
           <rect x="20" y="20" width="160" height="44" rx="6" fill="rgba(232,56,138,.1)" stroke="var(--pink)" stroke-width="1"/>
           <text x="100" y="38" fill="#e8388a" font-size="10" font-family="var(--mono)" text-anchor="middle" font-weight="600">HARD BRAKE</text>
           <text x="100" y="53" fill="#8a8a96" font-size="9" font-family="var(--mono)" text-anchor="middle">Boards present</text>
@@ -380,7 +452,7 @@ strong{color:var(--white);font-weight:600}
       </div></div>
 
       <div class="cue-item"><div class="cue-badge">4</div><div><div class="cue-title">Speed via gear selection</div><p>2nd gear = slow, tight, hard braking. 3rd gear = medium, moderate braking. 4th gear = fast, sweeping, light braking or lift. Once you know the gear, you have the complete picture. <span class="tag tag-real">Real: how drivers describe corners to engineers</span></p>
-        <svg viewBox="0 0 600 80" style="width:100%;max-width:580px;height:auto;margin-top:14px;border-radius:8px;background:#141418;border:1px solid var(--border)">
+        <svg viewBox="0 0 600 80" class="cue-svg">
           <text x="80" y="30" fill="#e8388a" font-size="32" font-family="var(--font)" text-anchor="middle" font-weight="800">2nd</text>
           <text x="80" y="52" fill="#8a8a96" font-size="10" font-family="var(--mono)" text-anchor="middle">Slow / Hairpin</text>
           <text x="80" y="66" fill="#5a5a68" font-size="9" font-family="var(--mono)" text-anchor="middle">Hard brake, late apex</text>
@@ -396,7 +468,7 @@ strong{color:var(--white);font-weight:600}
       </div></div>
 
       <div class="cue-item"><div class="cue-badge">5</div><div><div class="cue-title">Apex kerb visibility</div><p>See the apex kerb early = tight, slow corner, wait for a late apex. Cannot see the apex kerb = long sweeper, be patient, carry speed. Prevents the most common beginner mistake: turning in too early. <span class="tag tag-sim">Sim: cockpit or bumper cam</span></p>
-        <svg viewBox="0 0 600 100" style="width:100%;max-width:580px;height:auto;margin-top:14px;border-radius:8px;background:#141418;border:1px solid var(--border)">
+        <svg viewBox="0 0 600 100" class="cue-svg">
           <text x="20" y="18" fill="#5a5a68" font-size="9" font-family="var(--mono)">TIGHT CORNER</text>
           <path d="M 40,80 Q 40,35 90,35 L 140,35" stroke="#e8388a" stroke-width="2.5" fill="none"/>
           <g opacity=".9"><rect x="85" y="30" width="10" height="5" fill="#cc3030"/><rect x="95" y="30" width="10" height="5" fill="#fff"/><rect x="105" y="30" width="10" height="5" fill="#cc3030"/><rect x="115" y="30" width="10" height="5" fill="#fff"/><rect x="125" y="30" width="10" height="5" fill="#cc3030"/></g>
@@ -599,9 +671,6 @@ strong{color:var(--white);font-weight:600}
       <a class="ref-card" href="https://driver61.com/uni/" target="_blank" rel="noopener"><div class="ref-card-type">Free Course</div><div class="ref-card-name">Driver61 Racing University</div><div class="ref-card-desc">Comprehensive free video course covering racing line, car control, and race craft from professional coaches.</div></a>
       <a class="ref-card" href="https://coachdaveacademy.com/tutorials/" target="_blank" rel="noopener"><div class="ref-card-type">Tutorials</div><div class="ref-card-name">Coach Dave Academy</div><div class="ref-card-desc">Sim-specific tutorials and car setups for iRacing, ACC, and Le Mans Ultimate from professional sim racers.</div></a>
       <a class="ref-card" href="https://simracingsetup.com/sim-racing/beginners-guide-to-sim-racing/" target="_blank" rel="noopener"><div class="ref-card-type">Hardware Guide</div><div class="ref-card-name">Sim Racing Setup Guide</div><div class="ref-card-desc">Detailed hardware recommendations, force feedback settings, and rig building guides for all budget levels.</div></a>
-      <a class="ref-card" href="https://www.amazon.com/Going-Faster-Mastering-Race-Driving/dp/0837602262" target="_blank" rel="noopener"><div class="ref-card-type">Book</div><div class="ref-card-name">Going Faster! &mdash; Carl Lopez</div><div class="ref-card-desc">The Skip Barber Racing School manual. Widely considered the best single book on racing technique for beginners and intermediates.</div></a>
-      <a class="ref-card" href="https://www.amazon.com/Speed-Secrets-Professional-Race-Driving/dp/0760305188" target="_blank" rel="noopener"><div class="ref-card-type">Book</div><div class="ref-card-name">Speed Secrets &mdash; Ross Bentley</div><div class="ref-card-desc">Four-book series covering driving technique, car dynamics, mental game, and advanced racecraft. The sim racing bible.</div></a>
-      <a class="ref-card" href="https://virtualracingschool.com/" target="_blank" rel="noopener"><div class="ref-card-type">Coaching Platform</div><div class="ref-card-name">Virtual Racing School (VRS)</div><div class="ref-card-desc">Data-driven sim coaching. Upload telemetry, compare to pro laps, and get specific feedback on where you lose time.</div></a>
     </div>
   </div>
 </div></section>
@@ -645,119 +714,226 @@ function drawOio() {
   ctx.scale(2, 2);
   const W = rect.width, H = rect.height;
   ctx.clearRect(0, 0, W, H);
+  const cs = getComputedStyle(document.documentElement);
+  const cBg = cs.getPropertyValue('--canvas-bg').trim();
+  const cTrack = cs.getPropertyValue('--canvas-track').trim();
+  const cEdge = cs.getPropertyValue('--canvas-edge').trim();
+  const cDash = cs.getPropertyValue('--canvas-dash').trim();
+  const cMode = cs.getPropertyValue('--mode').trim();
+  const cKerbRed = cMode === 'light' ? '#b82020' : '#cc2020';
+  const cKerbWht = cMode === 'light' ? '#ffffff' : '#f0ece4';
 
-  // Track background
-  ctx.fillStyle = '#141418';
-  ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = cBg; ctx.fillRect(0, 0, W, H);
 
-  // Track surface
-  const trackW = H * 0.52;
-  const cornerR = W * 0.28;
-  const cx = W * 0.55, cy = H * 0.5;
+  // ── TRACK: Right-hand corner matching your red sketch
+  // Entry from bottom-centre, curving right, exit toward top-right
+  // Two track edges defined as cubic beziers, then the racing lines sit between them
 
-  // Draw road surface (90-degree right-hander)
-  ctx.strokeStyle = '#222228';
-  ctx.lineWidth = trackW;
-  ctx.lineCap = 'butt';
+  // OUTER edge (left boundary — the outside of the right-hand turn)
+  const outerPts = [
+    {x: W*0.28, y: H+20},  // start below canvas (entry)
+    {x: W*0.22, y: H*0.55}, // control 1
+    {x: W*0.30, y: H*0.22}, // control 2
+    {x: W*0.88, y: H*0.06}, // end (exit, top-right)
+  ];
+  // INNER edge (right boundary — the inside of the turn, where the apex kerb is)
+  const innerPts = [
+    {x: W*0.52, y: H+20},
+    {x: W*0.50, y: H*0.55},
+    {x: W*0.58, y: H*0.30},
+    {x: W*0.88, y: H*0.22},
+  ];
+
+  // Helper: evaluate cubic bezier at t
+  function bezAt(pts, t) {
+    const u=1-t;
+    return {
+      x: u*u*u*pts[0].x + 3*u*u*t*pts[1].x + 3*u*t*t*pts[2].x + t*t*t*pts[3].x,
+      y: u*u*u*pts[0].y + 3*u*u*t*pts[1].y + 3*u*t*t*pts[2].y + t*t*t*pts[3].y
+    };
+  }
+  // Helper: interpolate between inner and outer at parameter t, blend 0=inner 1=outer
+  function trackPt(t, blend) {
+    const inner = bezAt(innerPts, t);
+    const outer = bezAt(outerPts, t);
+    return {x: inner.x + (outer.x - inner.x)*blend, y: inner.y + (outer.y - inner.y)*blend};
+  }
+
+  // ── Draw TRACK SURFACE (filled polygon between the two edges)
   ctx.beginPath();
-  ctx.moveTo(0, cy + trackW * 0.05);
-  ctx.lineTo(cx - cornerR, cy + trackW * 0.05);
-  ctx.arc(cx - cornerR, cy + trackW * 0.05 - cornerR, cornerR, Math.PI / 2, 0, true);
-  ctx.lineTo(cx - cornerR + cornerR, 0);
+  ctx.moveTo(outerPts[0].x, outerPts[0].y);
+  ctx.bezierCurveTo(outerPts[1].x,outerPts[1].y, outerPts[2].x,outerPts[2].y, outerPts[3].x,outerPts[3].y);
+  ctx.lineTo(innerPts[3].x, innerPts[3].y);
+  // Inner edge in reverse
+  ctx.bezierCurveTo(innerPts[2].x,innerPts[2].y, innerPts[1].x,innerPts[1].y, innerPts[0].x,innerPts[0].y);
+  ctx.closePath();
+  ctx.fillStyle = cTrack;
+  ctx.fill();
+
+  // ── Draw TRACK EDGES
+  ctx.lineWidth = 2.5; ctx.strokeStyle = cEdge;
+  ctx.beginPath();
+  ctx.moveTo(outerPts[0].x, outerPts[0].y);
+  ctx.bezierCurveTo(outerPts[1].x,outerPts[1].y, outerPts[2].x,outerPts[2].y, outerPts[3].x,outerPts[3].y);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.moveTo(innerPts[0].x, innerPts[0].y);
+  ctx.bezierCurveTo(innerPts[1].x,innerPts[1].y, innerPts[2].x,innerPts[2].y, innerPts[3].x,innerPts[3].y);
   ctx.stroke();
 
-  // Track edges
-  ctx.strokeStyle = '#3a3a42';
-  ctx.lineWidth = 2;
-  const drawEdge = (offset) => {
-    ctx.beginPath();
-    ctx.moveTo(0, cy + trackW * 0.05 + offset);
-    ctx.lineTo(cx - cornerR, cy + trackW * 0.05 + offset);
-    ctx.arc(cx - cornerR, cy + trackW * 0.05 - cornerR, cornerR - offset, Math.PI / 2, 0, true);
-    ctx.lineTo(cx - cornerR + cornerR - offset, 0);
-    ctx.stroke();
-  };
-  drawEdge(trackW / 2);
-  drawEdge(-trackW / 2);
+  // ── Centre line dashes
+  ctx.strokeStyle = cDash; ctx.lineWidth = 1.5; ctx.setLineDash([14, 16]);
+  ctx.beginPath();
+  for (let t=0; t<=1; t+=0.005) { const p=trackPt(t,0.5); t===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y); }
+  ctx.stroke(); ctx.setLineDash([]);
 
-  // Kerbing at apex
-  const kerbR = cornerR - trackW / 2;
-  for (let a = 0; a < Math.PI / 2; a += 0.06) {
-    const col = Math.floor(a / 0.06) % 2 === 0 ? '#cc3030' : '#f0f0e8';
-    ctx.strokeStyle = col;
-    ctx.lineWidth = 6;
-    ctx.beginPath();
-    ctx.arc(cx - cornerR, cy + trackW * 0.05 - cornerR, kerbR, Math.PI / 2 - a, Math.PI / 2 - a - 0.03, true);
-    ctx.stroke();
+  // ── KERBING on INNER EDGE at apex area (t ≈ 0.45 to 0.65)
+  for (let t=0.38; t<0.68; t+=0.015) {
+    const col = Math.floor((t-0.38)/0.015) % 2 === 0 ? cKerbRed : cKerbWht;
+    const p1 = bezAt(innerPts, t);
+    const p2 = bezAt(innerPts, t+0.008);
+    ctx.strokeStyle = col; ctx.lineWidth = 8; ctx.lineCap = 'butt';
+    ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+  }
+  // ── KERBING on OUTER EDGE at exit (t ≈ 0.75 to 0.92)
+  for (let t=0.78; t<0.95; t+=0.015) {
+    const col = Math.floor((t-0.78)/0.015) % 2 === 0 ? cKerbRed : cKerbWht;
+    const p1 = bezAt(outerPts, t);
+    const p2 = bezAt(outerPts, t+0.008);
+    ctx.strokeStyle = col; ctx.lineWidth = 8; ctx.lineCap = 'butt';
+    ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
   }
 
-  // Racing lines
-  const t = (performance.now() % 4000) / 4000;
+  // ── RACING LINE — each line is ONE cubic bezier. No points, no segments.
+  // Just 4 positions on the track: start, 2 control points, end.
+  // ctx.bezierCurveTo produces exactly the natural flowing arc.
 
-  const drawLine = (name, color, cpx1, cpy1, cpx2, cpy2, alpha) => {
-    ctx.strokeStyle = color;
+  function drawBezierLine(label, color, p0, cp1, cp2, p3, alpha) {
+    // p0, cp1, cp2, p3 are {t, b} — position along track & blend inner/outer
+    const s  = trackPt(p0.t,  p0.b);
+    const c1 = trackPt(cp1.t, cp1.b);
+    const c2 = trackPt(cp2.t, cp2.b);
+    const e  = trackPt(p3.t,  p3.b);
+
     ctx.globalAlpha = alpha;
-    ctx.lineWidth = 3;
-    ctx.setLineDash([]);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3.5;
+    ctx.lineCap = 'round';
     ctx.beginPath();
-    // Entry straight
-    const entryY = cy + trackW * 0.05 + cpx1;
-    const exitX = cx - cornerR + cornerR + cpy1;
-    ctx.moveTo(0, entryY);
-    // Through corner using bezier
-    ctx.bezierCurveTo(
-      cx * 0.4, entryY,
-      cx - cornerR + cpx2, cy + trackW * 0.05 - cornerR + cpy2,
-      exitX, 0
-    );
+    ctx.moveTo(s.x, s.y);
+    ctx.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, e.x, e.y);
     ctx.stroke();
 
-    // Animated dot
-    const dotT = t;
-    const dx = exitX * dotT * dotT;
-    const dy = entryY * (1 - dotT) * (1 - dotT);
-    // Simple parametric position
-    const px = (1-dotT)*(1-dotT)*0 + 2*(1-dotT)*dotT*(cx*0.4) + dotT*dotT*exitX;
-    // Approximate the Y with quadratic bezier for the dot
-    const py2 = (1-dotT)*(1-dotT)*entryY + 2*(1-dotT)*dotT*(entryY*0.3) + dotT*dotT*0;
+    // Animated dot — evaluate cubic bezier at parameter t
+    const time = (performance.now() % 3200) / 3200;
+    const u = 1 - time;
+    const dotX = u*u*u*s.x + 3*u*u*time*c1.x + 3*u*time*time*c2.x + time*time*time*e.x;
+    const dotY = u*u*u*s.y + 3*u*u*time*c1.y + 3*u*time*time*c2.y + time*time*time*e.y;
 
-    ctx.beginPath();
-    ctx.arc(px, py2, 5, 0, Math.PI * 2);
-    ctx.fillStyle = color;
-    ctx.fill();
+    // Glow ring
+    ctx.beginPath(); ctx.arc(dotX, dotY, 14, 0, Math.PI*2);
+    ctx.fillStyle = color + '25'; ctx.fill();
+    // Solid dot
+    ctx.beginPath(); ctx.arc(dotX, dotY, 6, 0, Math.PI*2);
+    ctx.fillStyle = color; ctx.fill();
+    ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(dotX, dotY, 6, 0, Math.PI*2); ctx.stroke();
 
-    // Label
+    // Label near start
     ctx.fillStyle = color;
-    ctx.font = '500 11px IBM Plex Mono, monospace';
-    ctx.globalAlpha = alpha * 0.8;
-    ctx.fillText(name, 12, entryY - 10);
+    ctx.font = '600 11px IBM Plex Mono, monospace';
+    ctx.fillText(label, s.x + 10, s.y - 10);
     ctx.globalAlpha = 1;
-  };
-
-  const outerOff = trackW * 0.38;
-  const innerOff = -trackW * 0.35;
-
-  if (oioMode === 'correct' || oioMode === 'compare') {
-    drawLine('CORRECT', '#2ec4b6', outerOff, innerOff, -cornerR * 0.15, cornerR * 0.35, oioMode === 'compare' ? 0.7 : 1);
-  }
-  if (oioMode === 'early' || oioMode === 'compare') {
-    drawLine('EARLY TURN-IN', '#e8388a', 0, trackW * 0.1, -cornerR * 0.6, cornerR * 0.7, oioMode === 'compare' ? 0.6 : 1);
-  }
-  if (oioMode === 'late' || oioMode === 'compare') {
-    drawLine('LATE APEX', '#e85d30', outerOff, innerOff * 0.7, -cornerR * 0.05, cornerR * 0.15, oioMode === 'compare' ? 0.6 : 1);
   }
 
-  // Labels at key points
-  ctx.globalAlpha = 0.5;
-  ctx.fillStyle = '#8a8a96';
+  // ── LINE DEFINITIONS — just 4 points each, the bezier does the rest
+  // {t: position along track 0→1, b: blend 0=inner 1=outer}
+
+  const showC = oioMode === 'correct' || oioMode === 'compare';
+  const showE = oioMode === 'early' || oioMode === 'compare';
+  const showL = oioMode === 'late' || oioMode === 'compare';
+  const compA = oioMode === 'compare' ? 0.55 : 1;
+
+  // WRONG (early turn-in) — the fundamental error: not wide enough at entry,
+  // turns in before the proper turn-in point, apexes too early, then the car
+  // geometry forces it wide on exit with no road left
+  if (showE) drawBezierLine('EARLY TURN-IN', '#e8388a',
+    {t:0.0, b:0.48},   // Start: mid-track — first mistake, not positioned wide
+    {t:0.16, b:0.04},  // Control 1: reaches inner edge far too early (t=0.16 vs correct ~0.5)
+    {t:0.50, b:0.62},  // Control 2: already well past mid-track, drifting outward
+    {t:1.0, b:1.08},   // End: off track — no room left, the corner geometry punishes you
+    oioMode==='compare' ? 0.4 : 0.85
+  );
+
+  // LATE APEX — holds the outside longer, delays turn-in, apexes later than
+  // geometric centre. Exit is straighter so throttle comes earlier. Still uses
+  // near-full track width on exit — the advantage is angle, not less road used.
+  if (showL) drawBezierLine('LATE APEX', '#e85d30',
+    {t:0.0, b:0.94},   // Start: very wide outside, same as correct
+    {t:0.45, b:0.68},  // Control 1: holds outside much longer — delayed turn-in
+    {t:0.72, b:0.06},  // Control 2: apex happens later (t=0.72 vs correct ~0.55)
+    {t:1.0, b:0.92},   // End: still uses most of the exit road
+    compA
+  );
+
+  // CORRECT (out-in-out) — the textbook racing line. Wide entry (outer edge),
+  // smooth single arc through the corner, apex just past geometric centre
+  // (slightly late for better exit), tracks out to the outer exit kerb.
+  if (showC) drawBezierLine('CORRECT LINE', '#2ec4b6',
+    {t:0.0, b:0.94},   // Start: near outer edge (OUT) — use all available road
+    {t:0.28, b:0.38},  // Control 1: smooth gradual turn-in, committed but not rushed
+    {t:0.55, b:0.05},  // Control 2: apex just past mid-corner, grazes inner kerb (IN)
+    {t:1.0, b:0.97},   // End: tracks all the way out to outer exit kerb (OUT)
+    compA
+  );
+
+  // ── OUT / IN / OUT labels along correct line
+  if (showC) {
+    ctx.globalAlpha = 0.95;
+    ctx.font = '800 16px Outfit, sans-serif';
+    const pOut1 = trackPt(0.02, 0.94);
+    ctx.fillStyle = '#2ec4b6'; ctx.fillText('OUT', pOut1.x - 42, pOut1.y);
+    const pIn = trackPt(0.48, 0.10);
+    ctx.fillStyle = '#e8388a'; ctx.fillText('IN', pIn.x + 14, pIn.y + 5);
+    const pOut2 = trackPt(0.96, 0.97);
+    ctx.fillStyle = '#2ec4b6'; ctx.fillText('OUT', pOut2.x - 44, pOut2.y + 18);
+    ctx.globalAlpha = 1;
+  }
+
+  // ── "RUNS WIDE!" warning on early turn-in
+  if (showE && !showC && !showL) {
+    const pW = trackPt(0.86, 1.0);
+    ctx.font = '700 12px IBM Plex Mono, monospace';
+    ctx.fillStyle = '#e8388a'; ctx.globalAlpha = 0.9;
+    ctx.fillText('RUNS WIDE!', pW.x - 50, pW.y - 12);
+    // Danger arrow
+    ctx.strokeStyle = '#e8388a'; ctx.lineWidth = 2; ctx.setLineDash([4,4]);
+    ctx.beginPath(); ctx.moveTo(pW.x-5, pW.y); ctx.lineTo(pW.x+20, pW.y-15); ctx.stroke();
+    ctx.setLineDash([]); ctx.globalAlpha = 1;
+  }
+
+  // ── Static labels
+  ctx.globalAlpha = 0.4;
   ctx.font = '500 10px IBM Plex Mono, monospace';
-  ctx.fillText('ENTRY', 10, H - 14);
-  ctx.fillText('APEX', cx - cornerR - 20, cy - cornerR - 20);
-  ctx.save();
-  ctx.translate(W - 20, H * 0.4);
-  ctx.rotate(-Math.PI / 2);
-  ctx.fillText('EXIT', 0, 0);
-  ctx.restore();
+  ctx.fillStyle = cMode==='light'?'#5a5a66':'#8a8a96';
+  const lEntry = trackPt(0.0, 0.5);
+  ctx.fillText('ENTRY', lEntry.x - 8, lEntry.y + 16);
+  const lExit = trackPt(1.0, 0.5);
+  ctx.fillText('EXIT', lExit.x - 8, lExit.y - 8);
+  // Apex kerb label
+  const lApex = trackPt(0.53, -0.08);
+  ctx.font = '400 9px IBM Plex Mono, monospace';
+  ctx.fillText('kerb', lApex.x + 8, lApex.y + 4);
+
+  // ── Legend in compare mode
+  if (oioMode === 'compare') {
+    const lx = 14, ly = H - 52;
+    ctx.globalAlpha = 0.8;
+    ctx.font = '500 10px IBM Plex Mono, monospace';
+    ctx.fillStyle='#2ec4b6'; ctx.fillRect(lx,ly,18,3); ctx.fillText('Correct (out-in-out)',lx+24,ly+4);
+    ctx.fillStyle='#e8388a'; ctx.fillRect(lx,ly+16,18,3); ctx.fillText('Early turn-in (wrong)',lx+24,ly+20);
+    ctx.fillStyle='#e85d30'; ctx.fillRect(lx,ly+32,18,3); ctx.fillText('Late apex (advanced)',lx+24,ly+36);
+  }
   ctx.globalAlpha = 1;
 
   requestAnimationFrame(drawOio);

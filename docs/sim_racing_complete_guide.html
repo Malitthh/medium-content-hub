@@ -1067,7 +1067,21 @@
       border-radius: 8px;
       padding: 14px 16px;
       display: flex;
-      gap: 14px
+      gap: 14px;
+      position: relative;
+      cursor: default;
+      transition: border-color .2s;
+      overflow: visible
+    }
+
+    .term-item:hover {
+      border-color: var(--border2);
+      z-index: 10
+    }
+
+    .term-item.has-detail:hover {
+      border-color: var(--pink);
+      z-index: 200
     }
 
     .term-word {
@@ -1087,6 +1101,119 @@
       font-size: 13px;
       color: var(--gray);
       line-height: 1.55
+    }
+
+    /* Hover detail tooltip */
+    .term-detail {
+      display: none;
+      position: absolute;
+      bottom: calc(100% + 10px);
+      left: 0;
+      width: 360px;
+      max-width: min(360px, 90vw);
+      background: var(--bg2);
+      border: 1px solid var(--pink);
+      border-radius: 10px;
+      padding: 16px;
+      font-size: 13px;
+      color: var(--gray);
+      line-height: 1.65;
+      z-index: 500;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .6);
+      pointer-events: none;
+      animation: tooltipIn .15s ease;
+    }
+
+    @keyframes tooltipIn {
+      from {
+        opacity: 0;
+        transform: translateY(6px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .term-item.flip .term-detail {
+      bottom: auto;
+      top: calc(100% + 10px)
+    }
+
+    .term-item.has-detail:hover .term-detail {
+      display: block
+    }
+
+    .term-detail strong {
+      color: var(--white);
+      font-weight: 600
+    }
+
+    .term-detail .dt-head {
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      display: block
+    }
+
+    .term-detail .dt-row {
+      margin-bottom: 8px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px
+    }
+
+    .term-detail .dt-row:last-child {
+      margin: 0;
+      padding: 0;
+      border: none
+    }
+
+    .term-detail .dt-tag {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 9px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 6px;
+      margin-bottom: 4px
+    }
+
+    .dt-rwd {
+      background: rgba(232, 56, 138, .12);
+      color: var(--pink)
+    }
+
+    .dt-fwd {
+      background: rgba(46, 196, 182, .12);
+      color: var(--teal)
+    }
+
+    .dt-awd {
+      background: rgba(232, 93, 48, .12);
+      color: var(--orange)
+    }
+
+    /* small dot indicator on items with detail */
+    .term-item.has-detail .term-word::after {
+      content: ' ›';
+      color: var(--pink);
+      opacity: .5;
+      font-size: 14px
+    }
+
+    /* term-grid must not clip tooltips */
+    .term-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 6px;
+      margin: 24px 0;
+      overflow: visible
     }
 
     /* ═══ FOOTER ═══ */
@@ -2421,93 +2548,72 @@
 
       <div class="section">
         <div class="term-grid">
-          <div class="term-item" style="flex-direction:column;gap:10px">
-            <div style="display:flex;gap:14px;align-items:flex-start">
-              <div class="term-word">Understeer</div>
-              <div class="term-def">Front tyres lose grip &mdash; the car pushes wide of the intended line regardless of
-                how much you turn the wheel. Also called <em>push</em> in American motorsport. The front washes out, the
-                nose goes straight.</div>
-            </div>
-            <div
-              style="background:var(--surface2);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--gray);line-height:1.65">
-              <strong style="color:var(--teal);display:block;margin-bottom:6px">How drivetrain affects
-                understeer</strong>
-              <strong style="color:var(--white)">FWD</strong> &mdash; Most prone to understeer. The front wheels are
-              doing three jobs at once: steering, driving, and braking. Under power, the driven wheels lose cornering
-              traction first. Easing the throttle mid-corner often helps the front bite again.<br><br>
-              <strong style="color:var(--white)">RWD</strong> &mdash; Less prone to understeer at corner entry. The
-              fronts only steer and brake, so they have more traction budget for turning. Understeer in RWD usually
-              means the car is overloaded on entry or the setup is nose-heavy.<br><br>
-              <strong style="color:var(--white)">AWD</strong> &mdash; Can understeer under power when torque goes to the
-              front axle. The front wheels run out of grip trying to both pull the car forward and steer. More
-              predictable than FWD or RWD but harder to correct once it starts.
+          <div class="term-item has-detail">
+            <div class="term-word">Understeer</div>
+            <div class="term-def">Front tyres lose grip &mdash; the car pushes wide of the intended line regardless of
+              steering input.</div>
+            <div class="term-detail">
+              <span class="dt-head" style="color:var(--teal)">Understeer by drivetrain</span>
+              <div class="dt-row"><span class="dt-tag dt-fwd">FWD</span><strong>Most prone.</strong> Front wheels steer,
+                drive, and brake simultaneously. Under power, driven wheels lose cornering traction first. Easing
+                throttle mid-corner often restores bite.</div>
+              <div class="dt-row"><span class="dt-tag dt-rwd">RWD</span><strong>Less prone.</strong> Fronts only steer
+                and brake, leaving more grip budget for turning. Understeer in RWD usually means setup is nose-heavy or
+                entry speed is too high.</div>
+              <div class="dt-row"><span class="dt-tag dt-awd">AWD</span><strong>Moderate.</strong> Can understeer under
+                power when torque pushes front wheels beyond their grip limit. More predictable onset but harder to
+                correct once established.</div>
             </div>
           </div>
 
-          <div class="term-item" style="flex-direction:column;gap:10px">
-            <div style="display:flex;gap:14px;align-items:flex-start">
-              <div class="term-word">Oversteer</div>
-              <div class="term-def">Rear tyres lose grip &mdash; the rear steps out, the back end tries to overtake the
-                front. Requires countersteering (turning into the slide) to correct. Can be gradual and controllable, or
-                sudden and violent.</div>
-            </div>
-            <div
-              style="background:var(--surface2);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--gray);line-height:1.65">
-              <strong style="color:var(--pink);display:block;margin-bottom:6px">How drivetrain affects
-                oversteer</strong>
-              <strong style="color:var(--white)">RWD</strong> &mdash; Most prone to oversteer, especially on corner exit
-              under power. The rear wheels must both drive and provide lateral grip simultaneously. Too much throttle
-              too early and the rear breaks away. This is the classic drift scenario &mdash; deliberate, controlled rear
-              oversteer in RWD cars. Lift-off mid-corner also causes snap oversteer as weight transfers forward and
-              unloads the rear suddenly.<br><br>
-              <strong style="color:var(--white)">FWD</strong> &mdash; Rarely oversteers under power. The rear has
-              nothing to do but provide cornering grip. However, sudden lift-off mid-corner (lift-off oversteer) or a
-              very slippery surface can cause the rear to swing wide. Less dramatic than RWD but still catchable. Some
-              FWD cars use it deliberately as a rotation technique on tight corners.<br><br>
-              <strong style="color:var(--white)">AWD</strong> &mdash; Generally the most neutral. Power distribution
-              between axles reduces the chance of either end breaking loose. However, at the limit AWD oversteer feels
-              more sudden because stability builds confidence &mdash; when it lets go it tends to go all at once. Torque
-              vectoring AWD systems can actively prevent or induce yaw.
+          <div class="term-item has-detail">
+            <div class="term-word">Oversteer</div>
+            <div class="term-def">Rear tyres lose grip &mdash; the rear steps out. Requires countersteering to correct.
+              Can be gradual or sudden.</div>
+            <div class="term-detail">
+              <span class="dt-head" style="color:var(--pink)">Oversteer by drivetrain</span>
+              <div class="dt-row"><span class="dt-tag dt-rwd">RWD</span><strong>Most prone.</strong> Rear wheels must
+                drive and provide lateral grip simultaneously. Too much throttle too early and the rear breaks away
+                &mdash; the classic drift scenario. Lift-off oversteer also severe.</div>
+              <div class="dt-row"><span class="dt-tag dt-fwd">FWD</span><strong>Rarely under power.</strong> Rear has no
+                drive force, so it only provides cornering grip. Can oversteer on sudden lift-off as weight slams
+                forward. Some FWD drivers use this deliberately to rotate into tight corners.</div>
+              <div class="dt-row"><span class="dt-tag dt-awd">AWD</span><strong>Least prone.</strong> Power to rear
+                stabilises the car. When AWD does oversteer it tends to be sudden &mdash; the stability builds false
+                confidence right up to the limit.</div>
             </div>
           </div>
 
-          <div class="term-item" style="flex-direction:column;gap:10px">
-            <div style="display:flex;gap:14px;align-items:flex-start">
-              <div class="term-word">Snap Oversteer</div>
-              <div class="term-def">Sudden, violent rear slide with very little warning time. The rear steps out faster
-                than most drivers can react. Often caused by cold tyres with no heat in them, excessive mid-corner
-                speed, combined braking and steering, or abrupt weight transfer.</div>
-            </div>
-            <div
-              style="background:var(--surface2);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--gray);line-height:1.65">
-              <strong style="color:var(--white)">RWD</strong> is the most dangerous for snap oversteer &mdash; high
-              power rear-wheel drive cars can rotate almost instantly. <strong style="color:var(--white)">AWD</strong>
-              can snap without warning at the limit because the driver has less feel for how close to the edge they are.
-              <strong style="color:var(--white)">FWD</strong> is least prone. In sim racing, cold tyre compound
-              (especially in ACC) is the most common cause regardless of drivetrain.
+          <div class="term-item has-detail">
+            <div class="term-word">Snap Oversteer</div>
+            <div class="term-def">Sudden, violent rear slide with very little warning time. Often cold tyres, excessive
+              mid-corner speed, or combined braking and steering.</div>
+            <div class="term-detail">
+              <span class="dt-head" style="color:var(--pink)">Snap oversteer by drivetrain</span>
+              <div class="dt-row"><span class="dt-tag dt-rwd">RWD</span><strong>Most dangerous.</strong> High-power
+                rear-drive cars can rotate almost instantly. Cold tyre + throttle application = immediate snap.</div>
+              <div class="dt-row"><span class="dt-tag dt-fwd">FWD</span><strong>Least prone.</strong> Rear is passive,
+                so snap is rare. Usually caused by very slippery surface or sudden weight transfer on lift.</div>
+              <div class="dt-row"><span class="dt-tag dt-awd">AWD</span><strong>Deceptive.</strong> Less feedback near
+                the limit means snap arrives without warning. Common at track days with AWD performance cars.</div>
             </div>
           </div>
 
-          <div class="term-item" style="flex-direction:column;gap:10px">
-            <div style="display:flex;gap:14px;align-items:flex-start">
-              <div class="term-word">Lift-off Oversteer</div>
-              <div class="term-def">Oversteer caused by suddenly releasing the throttle mid-corner. Weight transfers
-                sharply to the front axle, the rear becomes light and loses lateral grip, and the back end swings out.
-                The faster the lift-off, the more violent the rotation.</div>
-            </div>
-            <div
-              style="background:var(--surface2);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--gray);line-height:1.65">
-              <strong style="color:var(--white)">RWD</strong> &mdash; Most susceptible. The rear has no drive force to
-              stabilise it once you lift, so it unloads and swings freely. Experienced drivers use this deliberately to
-              rotate a slow RWD car into a hairpin &mdash; a controlled lift-off snap followed by countersteer and
-              throttle.<br><br>
-              <strong style="color:var(--white)">FWD</strong> &mdash; Also very prone. In FWD, the front immediately
-              grips harder when you lift (weight shifts there), which pivots the car around the front axle and throws
-              the rear out. This is the main rotation technique in FWD motorsport: lift late, let the rear come around,
-              catch it, then drive out.<br><br>
-              <strong style="color:var(--white)">AWD</strong> &mdash; Least prone due to rear drive stabilising the rear
-              axle. However at the limit it can still occur, and because AWD drivers are less experienced managing it,
-              it often catches them off guard.
+          <div class="term-item has-detail">
+            <div class="term-word">Lift-off Oversteer</div>
+            <div class="term-def">Oversteer from suddenly releasing throttle mid-corner. Weight transfers to front, rear
+              unloads and swings out.</div>
+            <div class="term-detail">
+              <span class="dt-head" style="color:var(--orange)">Lift-off oversteer by drivetrain</span>
+              <div class="dt-row"><span class="dt-tag dt-rwd">RWD</span><strong>Very susceptible.</strong> Rear has no
+                drive force once you lift, unloads immediately. Skilled drivers use it deliberately to rotate into
+                hairpins &mdash; lift, snap, countersteer, throttle.</div>
+              <div class="dt-row"><span class="dt-tag dt-fwd">FWD</span><strong>Also very prone.</strong> Lifting sends
+                weight sharply to the front, pivoting the car around the front axle. Standard FWD rotation technique:
+                late lift, let rear swing, catch, drive.</div>
+              <div class="dt-row"><span class="dt-tag dt-awd">AWD</span><strong>Least prone.</strong> Rear drive force
+                provides stability on lift. Can still occur at very high cornering loads &mdash; and drivers accustomed
+                to AWD grip are least prepared to catch it.</div>
             </div>
           </div>
           <div class="term-item">
@@ -2872,6 +2978,7 @@
       if (showC) drawLine('#2ec4b6',
         buildLine(0.47, 0.28, 0.92, 0.96, true), lineA);
 
+
       // ── LABELS ──
       if (showC) {
         ctx.globalAlpha = 0.95; ctx.font = '800 14px Outfit,sans-serif';
@@ -2926,7 +3033,21 @@
     }
     requestAnimationFrame(drawOio);
 
-    // ── NAV HIGHLIGHT ON SCROLL
+    // ── TERM TOOLTIP FLIP (prevent tooltip going off-screen top)
+    document.querySelectorAll('.term-item.has-detail').forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const rect = item.getBoundingClientRect();
+        item.classList.toggle('flip', rect.top < 280);
+      });
+    });
+    // ── TOOLTIP FLIP — if item is near top of viewport, show tooltip below instead
+    document.querySelectorAll('.term-item.has-detail').forEach(item => {
+      item.addEventListener('mouseenter', () => {
+        const rect = item.getBoundingClientRect();
+        item.classList.toggle('flip', rect.top < 220);
+      });
+    });
+
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.toc-link');
     window.addEventListener('scroll', () => {

@@ -725,216 +725,230 @@ function drawOio() {
 
   ctx.fillStyle = cBg; ctx.fillRect(0, 0, W, H);
 
-  // ── TRACK: Right-hand corner matching your red sketch
-  // Entry from bottom-centre, curving right, exit toward top-right
-  // Two track edges defined as cubic beziers, then the racing lines sit between them
+  // ════════════════════════════════════════════════════
+  // AERIAL TOP-DOWN CORNER  
+  // Car approaches from BELOW (south), turns RIGHT, exits EAST
+  // Canvas shows:
+  //   - Bottom portion: short entry straight visible, car coming up
+  //   - Center-left: the corner arc
+  //   - Right portion: long exit straight showing "OUT" positions
+  // ════════════════════════════════════════════════════
 
-  // OUTER edge (left boundary — the outside of the right-hand turn)
-  const outerPts = [
-    {x: W*0.28, y: H+20},  // start below canvas (entry)
-    {x: W*0.22, y: H*0.55}, // control 1
-    {x: W*0.30, y: H*0.22}, // control 2
-    {x: W*0.88, y: H*0.06}, // end (exit, top-right)
-  ];
-  // INNER edge (right boundary — the inside of the turn, where the apex kerb is)
-  const innerPts = [
-    {x: W*0.52, y: H+20},
-    {x: W*0.50, y: H*0.55},
-    {x: W*0.58, y: H*0.30},
-    {x: W*0.88, y: H*0.22},
-  ];
+  const PAD  = 14;
+  const Rin  = H * 0.28;
+  const TW   = H * 0.15;
+  const Rout = Rin + TW;
+  const arcX = PAD + Rout;          // arc center x (outer wall at PAD)
+  const arcY = H * 0.74;            // arc center y (within canvas, 74% down)
+  const mg   = TW * 0.07;
 
-  // Helper: evaluate cubic bezier at t
-  function bezAt(pts, t) {
-    const u=1-t;
-    return {
-      x: u*u*u*pts[0].x + 3*u*u*t*pts[1].x + 3*u*t*t*pts[2].x + t*t*t*pts[3].x,
-      y: u*u*u*pts[0].y + 3*u*u*t*pts[1].y + 3*u*t*t*pts[2].y + t*t*t*pts[3].y
-    };
-  }
-  // Helper: interpolate between inner and outer at parameter t, blend 0=inner 1=outer
-  function trackPt(t, blend) {
-    const inner = bezAt(innerPts, t);
-    const outer = bezAt(outerPts, t);
-    return {x: inner.x + (outer.x - inner.x)*blend, y: inner.y + (outer.y - inner.y)*blend};
-  }
+  const eOX = PAD;                   // entry outer x (left)
+  const eIX = PAD + TW;             // entry inner x
+  const xOY = arcY - Rout;          // exit outer y (top)
+  const xIY = arcY - Rin;           // exit inner y
+  const Rmid = Rin + TW * 0.5;
 
-  // ── Draw TRACK SURFACE (filled polygon between the two edges)
-  ctx.beginPath();
-  ctx.moveTo(outerPts[0].x, outerPts[0].y);
-  ctx.bezierCurveTo(outerPts[1].x,outerPts[1].y, outerPts[2].x,outerPts[2].y, outerPts[3].x,outerPts[3].y);
-  ctx.lineTo(innerPts[3].x, innerPts[3].y);
-  // Inner edge in reverse
-  ctx.bezierCurveTo(innerPts[2].x,innerPts[2].y, innerPts[1].x,innerPts[1].y, innerPts[0].x,innerPts[0].y);
-  ctx.closePath();
+  // ── TRACK ──
   ctx.fillStyle = cTrack;
-  ctx.fill();
+  ctx.beginPath();
+  ctx.moveTo(eOX, H + 10);          // outer: off bottom
+  ctx.lineTo(eOX, arcY);
+  ctx.arc(arcX, arcY, Rout, Math.PI, Math.PI * 1.5, false);
+  ctx.lineTo(W, xOY);
+  ctx.lineTo(W, xIY);
+  ctx.lineTo(arcX, xIY);
+  ctx.arc(arcX, arcY, Rin, Math.PI * 1.5, Math.PI, true);
+  ctx.lineTo(eIX, H + 10);
+  ctx.closePath(); ctx.fill();
 
-  // ── Draw TRACK EDGES
-  ctx.lineWidth = 2.5; ctx.strokeStyle = cEdge;
+  // Edges
+  ctx.strokeStyle = cEdge; ctx.lineWidth = 2.5;
   ctx.beginPath();
-  ctx.moveTo(outerPts[0].x, outerPts[0].y);
-  ctx.bezierCurveTo(outerPts[1].x,outerPts[1].y, outerPts[2].x,outerPts[2].y, outerPts[3].x,outerPts[3].y);
-  ctx.stroke();
+  ctx.moveTo(eOX, H + 10); ctx.lineTo(eOX, arcY);
+  ctx.arc(arcX, arcY, Rout, Math.PI, Math.PI * 1.5, false);
+  ctx.lineTo(W, xOY); ctx.stroke();
   ctx.beginPath();
-  ctx.moveTo(innerPts[0].x, innerPts[0].y);
-  ctx.bezierCurveTo(innerPts[1].x,innerPts[1].y, innerPts[2].x,innerPts[2].y, innerPts[3].x,innerPts[3].y);
-  ctx.stroke();
+  ctx.moveTo(eIX, H + 10); ctx.lineTo(eIX, arcY);
+  ctx.arc(arcX, arcY, Rin, Math.PI, Math.PI * 1.5, false);
+  ctx.lineTo(W, xIY); ctx.stroke();
 
-  // ── Centre line dashes
-  ctx.strokeStyle = cDash; ctx.lineWidth = 1.5; ctx.setLineDash([14, 16]);
+  // Centre dashes
+  ctx.strokeStyle = cDash; ctx.lineWidth = 1.5; ctx.setLineDash([12, 15]);
   ctx.beginPath();
-  for (let t=0; t<=1; t+=0.005) { const p=trackPt(t,0.5); t===0?ctx.moveTo(p.x,p.y):ctx.lineTo(p.x,p.y); }
+  ctx.moveTo(PAD + TW * 0.5, H + 10);
+  ctx.lineTo(arcX - Rmid, arcY);
+  ctx.arc(arcX, arcY, Rmid, Math.PI, Math.PI * 1.5, false);
+  ctx.lineTo(W, arcY - Rmid);
   ctx.stroke(); ctx.setLineDash([]);
 
-  // ── KERBING on INNER EDGE at apex area (t ≈ 0.45 to 0.65)
-  for (let t=0.38; t<0.68; t+=0.015) {
-    const col = Math.floor((t-0.38)/0.015) % 2 === 0 ? cKerbRed : cKerbWht;
-    const p1 = bezAt(innerPts, t);
-    const p2 = bezAt(innerPts, t+0.008);
-    ctx.strokeStyle = col; ctx.lineWidth = 8; ctx.lineCap = 'butt';
-    ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+  // ── KERBS ──
+  // APEX kerb on INNER wall (38–62% of arc)
+  for (let t = 0.38; t < 0.62; t += 0.013) {
+    const a1 = Math.PI + Math.PI * 0.5 * t;
+    const kc = Math.floor((t - 0.38) / 0.013) % 2 === 0 ? cKerbRed : cKerbWht;
+    ctx.strokeStyle = kc; ctx.lineWidth = 9; ctx.lineCap = 'butt';
+    ctx.beginPath(); ctx.arc(arcX, arcY, Rin, a1, a1 + 0.007, false); ctx.stroke();
   }
-  // ── KERBING on OUTER EDGE at exit (t ≈ 0.75 to 0.92)
-  for (let t=0.78; t<0.95; t+=0.015) {
-    const col = Math.floor((t-0.78)/0.015) % 2 === 0 ? cKerbRed : cKerbWht;
-    const p1 = bezAt(outerPts, t);
-    const p2 = bezAt(outerPts, t+0.008);
-    ctx.strokeStyle = col; ctx.lineWidth = 8; ctx.lineCap = 'butt';
-    ctx.beginPath(); ctx.moveTo(p1.x, p1.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+  // EXIT kerb on OUTER wall (82–100% + exit straight)
+  for (let t = 0.82; t < 1.0; t += 0.013) {
+    const a1 = Math.PI + Math.PI * 0.5 * t;
+    const kc = Math.floor((t - 0.82) / 0.013) % 2 === 0 ? cKerbRed : cKerbWht;
+    ctx.strokeStyle = kc; ctx.lineWidth = 9; ctx.lineCap = 'butt';
+    ctx.beginPath(); ctx.arc(arcX, arcY, Rout, a1, a1 + 0.007, false); ctx.stroke();
   }
-
-  // ── RACING LINE — each line is ONE cubic bezier. No points, no segments.
-  // Just 4 positions on the track: start, 2 control points, end.
-  // ctx.bezierCurveTo produces exactly the natural flowing arc.
-
-  function drawBezierLine(label, color, p0, cp1, cp2, p3, alpha) {
-    // p0, cp1, cp2, p3 are {t, b} — position along track & blend inner/outer
-    const s  = trackPt(p0.t,  p0.b);
-    const c1 = trackPt(cp1.t, cp1.b);
-    const c2 = trackPt(cp2.t, cp2.b);
-    const e  = trackPt(p3.t,  p3.b);
-
-    ctx.globalAlpha = alpha;
-    ctx.strokeStyle = color;
-    ctx.lineWidth = 3.5;
-    ctx.lineCap = 'round';
+  for (let i = 0; i < 8; i++) {
+    const kc = i % 2 === 0 ? cKerbRed : cKerbWht;
+    ctx.strokeStyle = kc; ctx.lineWidth = 9; ctx.lineCap = 'butt';
     ctx.beginPath();
-    ctx.moveTo(s.x, s.y);
-    ctx.bezierCurveTo(c1.x, c1.y, c2.x, c2.y, e.x, e.y);
+    ctx.moveTo(arcX + i * 11, xOY);
+    ctx.lineTo(arcX + (i + 1) * 11, xOY);
     ctx.stroke();
+  }
 
-    // Animated dot — evaluate cubic bezier at parameter t
-    const time = (performance.now() % 3200) / 3200;
-    const u = 1 - time;
-    const dotX = u*u*u*s.x + 3*u*u*time*c1.x + 3*u*time*time*c2.x + time*time*time*e.x;
-    const dotY = u*u*u*s.y + 3*u*u*time*c1.y + 3*u*time*time*c2.y + time*time*time*e.y;
+  // ── BRAKE MARKERS at BOTTOM of entry straight ──
+  // (car approaches from below — markers near bottom of canvas)
+  const bmX = eOX + TW * 0.44;
+  const bmStart = H * 0.88;
+  [[bmStart, '1'], [bmStart + 24, '2'], [bmStart + 46, '3']].forEach(([by, lbl]) => {
+    ctx.fillStyle = cMode === 'light' ? '#bb2020' : '#dd3333';
+    ctx.fillRect(bmX - 3, by, 6, 18);
+    ctx.font = '700 9px IBM Plex Mono,monospace'; ctx.textAlign = 'center';
+    ctx.fillText(lbl, bmX, by - 4);
+  });
 
-    // Glow ring
-    ctx.beginPath(); ctx.arc(dotX, dotY, 14, 0, Math.PI*2);
-    ctx.fillStyle = color + '25'; ctx.fill();
-    // Solid dot
-    ctx.beginPath(); ctx.arc(dotX, dotY, 6, 0, Math.PI*2);
+  // ════════════════════════════════════════════════════
+  // PARAMETRIC LINES
+  // b=1 → outer wall (wide)   b=0 → inner wall (tight)
+  // Bell curve zeroed at t=0 and t=1 → kink-free entry/exit
+  // ════════════════════════════════════════════════════
+
+  function r(b) { return Rin + mg + (TW - 2 * mg) * b; }
+
+  function buildLine(apexT, sigma, entB, extB, clamp) {
+    const rE = r(entB), rX = r(extB);
+    const dipMax = (TW - 2 * mg) * 0.88;
+
+    // Bell zeroed at edges
+    const G = t => Math.exp(-((t - apexT) ** 2) / (2 * sigma ** 2));
+    const edge = Math.max(G(0), G(1));
+    const peak = G(apexT) - edge;
+    const bell = t => peak > 0 ? Math.max(0, G(t) - edge) / peak : 0;
+
+    const pts = [], NS = 10, STEPS = 80;
+
+    // ENTRY: bottom of canvas (y=H+10) going UP to corner (y=arcY)
+    const ex = arcX - rE;
+    for (let j = 0; j < NS; j++) {
+      // j=0: y = H+10 (below canvas, car approaching)
+      // j=NS-1: y = arcY (at corner entry)
+      const fy = H + 10 - (H + 10 - arcY) * j / (NS - 1);
+      pts.push({ x: ex, y: fy });
+    }
+
+    // CORNER ARC: angle from PI (left) to 3PI/2 (up)
+    for (let i = 0; i <= STEPS; i++) {
+      const t = i / STEPS;
+      const angle = Math.PI + Math.PI * 0.5 * t;
+      const baseR = rE + (rX - rE) * t;
+      let rad = baseR - dipMax * bell(t);
+      if (clamp) rad = Math.max(Rin + mg, Math.min(Rout - mg, rad));
+      pts.push({ x: arcX + rad * Math.cos(angle), y: arcY + rad * Math.sin(angle) });
+    }
+
+    // EXIT: from corner (arcX, arcY-rX) going RIGHT to canvas edge
+    const ey = arcY - rX;
+    for (let j = 1; j <= NS; j++) {
+      pts.push({ x: arcX + (W - arcX) * j / NS, y: ey });
+    }
+
+    return pts;
+  }
+
+  function drawLine(color, pts, alpha) {
+    ctx.globalAlpha = alpha;
+    ctx.strokeStyle = color; ctx.lineWidth = 3.5;
+    ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+    ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i].x, pts[i].y);
+    ctx.stroke();
+    const t = (performance.now() % 3800) / 3800;
+    const idx = t * (pts.length - 1);
+    const i0 = Math.floor(idx), i1 = Math.min(i0 + 1, pts.length - 1);
+    const f = idx - i0;
+    const dx = pts[i0].x + (pts[i1].x - pts[i0].x) * f;
+    const dy = pts[i0].y + (pts[i1].y - pts[i0].y) * f;
+    ctx.beginPath(); ctx.arc(dx, dy, 11, 0, Math.PI * 2);
+    ctx.fillStyle = color + '18'; ctx.fill();
+    ctx.beginPath(); ctx.arc(dx, dy, 5, 0, Math.PI * 2);
     ctx.fillStyle = color; ctx.fill();
-    ctx.strokeStyle = 'rgba(255,255,255,0.35)'; ctx.lineWidth = 1.5;
-    ctx.beginPath(); ctx.arc(dotX, dotY, 6, 0, Math.PI*2); ctx.stroke();
-
-    // Label near start
-    ctx.fillStyle = color;
-    ctx.font = '600 11px IBM Plex Mono, monospace';
-    ctx.fillText(label, s.x + 10, s.y - 10);
+    ctx.strokeStyle = 'rgba(255,255,255,0.22)'; ctx.lineWidth = 1.5;
+    ctx.beginPath(); ctx.arc(dx, dy, 5, 0, Math.PI * 2); ctx.stroke();
     ctx.globalAlpha = 1;
   }
-
-  // ── LINE DEFINITIONS — just 4 points each, the bezier does the rest
-  // {t: position along track 0→1, b: blend 0=inner 1=outer}
 
   const showC = oioMode === 'correct' || oioMode === 'compare';
-  const showE = oioMode === 'early' || oioMode === 'compare';
-  const showL = oioMode === 'late' || oioMode === 'compare';
-  const compA = oioMode === 'compare' ? 0.55 : 1;
+  const showE = oioMode === 'early'   || oioMode === 'compare';
+  const showL = oioMode === 'late'    || oioMode === 'compare';
+  const lineA = oioMode === 'compare' ? 0.55 : 1;
 
-  // WRONG (early turn-in) — the fundamental error: not wide enough at entry,
-  // turns in before the proper turn-in point, apexes too early, then the car
-  // geometry forces it wide on exit with no road left
-  if (showE) drawBezierLine('EARLY TURN-IN', '#e8388a',
-    {t:0.0, b:0.48},   // Start: mid-track — first mistake, not positioned wide
-    {t:0.16, b:0.04},  // Control 1: reaches inner edge far too early (t=0.16 vs correct ~0.5)
-    {t:0.50, b:0.62},  // Control 2: already well past mid-track, drifting outward
-    {t:1.0, b:1.08},   // End: off track — no room left, the corner geometry punishes you
-    oioMode==='compare' ? 0.4 : 0.85
-  );
+  //              apexT  sigma  entB   extB   clamp
+  if (showE) drawLine('#e8388a',
+    buildLine(0.22, 0.24, 0.50, 1.55, false),
+    oioMode === 'compare' ? 0.42 : 0.90);
+  if (showL) drawLine('#e85d30',
+    buildLine(0.68, 0.30, 0.94, 0.90, true), lineA);
+  if (showC) drawLine('#2ec4b6',
+    buildLine(0.50, 0.38, 0.94, 0.94, true), lineA);
 
-  // LATE APEX — holds the outside longer, delays turn-in, apexes later than
-  // geometric centre. Exit is straighter so throttle comes earlier. Still uses
-  // near-full track width on exit — the advantage is angle, not less road used.
-  if (showL) drawBezierLine('LATE APEX', '#e85d30',
-    {t:0.0, b:0.94},   // Start: very wide outside, same as correct
-    {t:0.45, b:0.68},  // Control 1: holds outside much longer — delayed turn-in
-    {t:0.72, b:0.06},  // Control 2: apex happens later (t=0.72 vs correct ~0.55)
-    {t:1.0, b:0.92},   // End: still uses most of the exit road
-    compA
-  );
-
-  // CORRECT (out-in-out) — the textbook racing line. Wide entry (outer edge),
-  // smooth single arc through the corner, apex just past geometric centre
-  // (slightly late for better exit), tracks out to the outer exit kerb.
-  if (showC) drawBezierLine('CORRECT LINE', '#2ec4b6',
-    {t:0.0, b:0.94},   // Start: near outer edge (OUT) — use all available road
-    {t:0.28, b:0.38},  // Control 1: smooth gradual turn-in, committed but not rushed
-    {t:0.55, b:0.05},  // Control 2: apex just past mid-corner, grazes inner kerb (IN)
-    {t:1.0, b:0.97},   // End: tracks all the way out to outer exit kerb (OUT)
-    compA
-  );
-
-  // ── OUT / IN / OUT labels along correct line
+  // ── LABELS ──
   if (showC) {
-    ctx.globalAlpha = 0.95;
-    ctx.font = '800 16px Outfit, sans-serif';
-    const pOut1 = trackPt(0.02, 0.94);
-    ctx.fillStyle = '#2ec4b6'; ctx.fillText('OUT', pOut1.x - 42, pOut1.y);
-    const pIn = trackPt(0.48, 0.10);
-    ctx.fillStyle = '#e8388a'; ctx.fillText('IN', pIn.x + 14, pIn.y + 5);
-    const pOut2 = trackPt(0.96, 0.97);
-    ctx.fillStyle = '#2ec4b6'; ctx.fillText('OUT', pOut2.x - 44, pOut2.y + 18);
+    ctx.globalAlpha = 0.95; ctx.font = '800 14px Outfit,sans-serif';
+    // OUT at entry — right of inner wall, near bottom
+    ctx.fillStyle = '#2ec4b6'; ctx.textAlign = 'right';
+    ctx.fillText('OUT', eOX - 6, H * 0.84);
+    // IN at apex — near inner kerb, mid-corner
+    const apA = Math.PI + Math.PI * 0.5 * 0.50;
+    ctx.fillStyle = '#e8388a'; ctx.textAlign = 'left';
+    ctx.fillText('IN', arcX + (Rin + 12) * Math.cos(apA), arcY + (Rin + 12) * Math.sin(apA) - 4);
+    // OUT at exit — right half, near outer wall (top of exit)
+    ctx.fillStyle = '#2ec4b6';
+    ctx.fillText('OUT', arcX + (W - arcX) * 0.52, xOY - 10);
+    ctx.globalAlpha = 1;
+  }
+  if (showE && !showC && !showL) {
+    ctx.globalAlpha = 0.88; ctx.font = '700 11px IBM Plex Mono,monospace';
+    ctx.fillStyle = '#e8388a'; ctx.textAlign = 'center';
+    ctx.fillText('RUNS WIDE! (off track)', arcX + (W - arcX) * 0.50, xOY - 20);
     ctx.globalAlpha = 1;
   }
 
-  // ── "RUNS WIDE!" warning on early turn-in
-  if (showE && !showC && !showL) {
-    const pW = trackPt(0.86, 1.0);
-    ctx.font = '700 12px IBM Plex Mono, monospace';
-    ctx.fillStyle = '#e8388a'; ctx.globalAlpha = 0.9;
-    ctx.fillText('RUNS WIDE!', pW.x - 50, pW.y - 12);
-    // Danger arrow
-    ctx.strokeStyle = '#e8388a'; ctx.lineWidth = 2; ctx.setLineDash([4,4]);
-    ctx.beginPath(); ctx.moveTo(pW.x-5, pW.y); ctx.lineTo(pW.x+20, pW.y-15); ctx.stroke();
-    ctx.setLineDash([]); ctx.globalAlpha = 1;
-  }
-
-  // ── Static labels
-  ctx.globalAlpha = 0.4;
-  ctx.font = '500 10px IBM Plex Mono, monospace';
-  ctx.fillStyle = cMode==='light'?'#5a5a66':'#8a8a96';
-  const lEntry = trackPt(0.0, 0.5);
-  ctx.fillText('ENTRY', lEntry.x - 8, lEntry.y + 16);
-  const lExit = trackPt(1.0, 0.5);
-  ctx.fillText('EXIT', lExit.x - 8, lExit.y - 8);
-  // Apex kerb label
-  const lApex = trackPt(0.53, -0.08);
-  ctx.font = '400 9px IBM Plex Mono, monospace';
-  ctx.fillText('kerb', lApex.x + 8, lApex.y + 4);
-
-  // ── Legend in compare mode
-  if (oioMode === 'compare') {
-    const lx = 14, ly = H - 52;
-    ctx.globalAlpha = 0.8;
-    ctx.font = '500 10px IBM Plex Mono, monospace';
-    ctx.fillStyle='#2ec4b6'; ctx.fillRect(lx,ly,18,3); ctx.fillText('Correct (out-in-out)',lx+24,ly+4);
-    ctx.fillStyle='#e8388a'; ctx.fillRect(lx,ly+16,18,3); ctx.fillText('Early turn-in (wrong)',lx+24,ly+20);
-    ctx.fillStyle='#e85d30'; ctx.fillRect(lx,ly+32,18,3); ctx.fillText('Late apex (advanced)',lx+24,ly+36);
-  }
+  // Static
+  ctx.globalAlpha = 0.40; ctx.font = '500 10px IBM Plex Mono,monospace';
+  ctx.fillStyle = cMode === 'light' ? '#5a5a66' : '#8a8a96';
+  ctx.textAlign = 'center';
+  ctx.fillText('↑  ENTRY  ↑', PAD + TW * 0.5, H * 0.98);
+  ctx.fillText('EXIT  →', arcX + (W - arcX) * 0.85, arcY - Rmid + 18);
+  ctx.font = '400 9px IBM Plex Mono,monospace'; ctx.textAlign = 'right';
+  const kla = Math.PI + Math.PI * 0.5 * 0.50;
+  ctx.fillText('apex kerb',
+    arcX + (Rin - 10) * Math.cos(kla) - 4,
+    arcY + (Rin - 10) * Math.sin(kla));
   ctx.globalAlpha = 1;
+
+  // Legend
+  if (oioMode === 'compare') {
+    const lx = eIX + 12, ly = H - 52;
+    ctx.globalAlpha = 0.85; ctx.textAlign = 'left';
+    ctx.font = '500 10px IBM Plex Mono,monospace';
+    ctx.fillStyle = '#2ec4b6'; ctx.fillRect(lx, ly, 18, 3);
+    ctx.fillText('Correct (out-in-out)', lx + 24, ly + 4);
+    ctx.fillStyle = '#e8388a'; ctx.fillRect(lx, ly + 16, 18, 3);
+    ctx.fillText('Early turn-in (wrong)', lx + 24, ly + 20);
+    ctx.fillStyle = '#e85d30'; ctx.fillRect(lx, ly + 32, 18, 3);
+    ctx.fillText('Late apex (advanced)', lx + 24, ly + 36);
+    ctx.globalAlpha = 1;
+  }
+
 
   requestAnimationFrame(drawOio);
 }

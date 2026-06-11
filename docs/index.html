@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Complete Racing & Tuning Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500;600&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+/* DARK THEME */
+:root,[data-theme="dark"]{
+  --bg:#080A0F; --bg2:#0D1018; --bg3:#111420;
+  --surface:#141828; --surface2:#1A1F30;
+  --border:rgba(255,255,255,0.07); --border2:rgba(255,255,255,0.13);
+  --red:#E8263A; --red-dim:rgba(232,38,58,0.12);
+  --amber:#F5A623; --amber-dim:rgba(245,166,35,0.12);
+  --cyan:#00C9D4; --cyan-dim:rgba(0,201,212,0.10);
+  --blue:#3D8EF5; --blue-dim:rgba(61,142,245,0.10);
+  --green:#2ECC71; --green-dim:rgba(46,204,113,0.10);
+  --white:#F0EDE8; --gray:#7A7A8C; --gray2:#4A4A5C;
+  --text:rgba(240,237,232,0.76);
+  --nav-bg:rgba(8,10,15,0.94);
+  --grid-line:rgba(255,255,255,0.022);
+  --flag-tooltip-bg:#0D1018;
+  --font:"Barlow Condensed",sans-serif;
+  --body:"Barlow",sans-serif;
+  --mono:"Share Tech Mono",monospace;
+}
+
+/* LIGHT THEME */
+[data-theme="light"]{
+  --bg:#F5F3EF; --bg2:#EDEAE4; --bg3:#E5E2DC;
+  --surface:#FFFFFF; --surface2:#F0EDE8;
+  --border:rgba(0,0,0,0.08); --border2:rgba(0,0,0,0.15);
+  --red:#C41230; --red-dim:rgba(196,18,48,0.09);
+  --amber:#B56900; --amber-dim:rgba(181,105,0,0.09);
+  --cyan:#007880; --cyan-dim:rgba(0,120,128,0.09);
+  --blue:#1A5CC8; --blue-dim:rgba(26,92,200,0.09);
+  --green:#1A8040; --green-dim:rgba(26,128,64,0.09);
+  --white:#16141C; --gray:#58586A; --gray2:#909098;
+  --text:rgba(22,20,28,0.74);
+  --nav-bg:rgba(245,243,239,0.96);
+  --grid-line:rgba(0,0,0,0.035);
+  --flag-tooltip-bg:#EDEAE4;
+}
+
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--body);font-size:16px;line-height:1.75;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
+
+/* THEME TOGGLE */
+.theme-toggle{position:fixed;bottom:24px;right:24px;z-index:999;width:48px;height:48px;border-radius:50%;background:var(--surface);border:1px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:all .25s}
+.theme-toggle:hover{border-color:var(--red);transform:scale(1.08)}
+.icon-dark{display:block}
+.icon-light{display:none}
+[data-theme="light"] .icon-dark{display:none}
+[data-theme="light"] .icon-light{display:block}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;border-bottom:1px solid var(--border2);padding:80px 0 60px}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(var(--grid-line) 1px,transparent 1px),linear-gradient(90deg,var(--grid-line) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse at center,black 30%,transparent 80%)}
+.hero-glow{position:absolute;top:-200px;right:-100px;width:700px;height:700px;background:radial-gradient(circle,rgba(232,38,58,0.09) 0%,transparent 65%);pointer-events:none}
+.hero-glow2{position:absolute;bottom:-100px;left:-50px;width:500px;height:500px;background:radial-gradient(circle,rgba(0,201,212,0.06) 0%,transparent 65%);pointer-events:none}
+.hero-stripe{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--red),var(--amber))}
+.hero-inner{position:relative;max-width:1200px;margin:0 auto;padding:0 52px;width:100%}
+.hero-eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.22em;color:var(--red);text-transform:uppercase;margin-bottom:24px;display:flex;align-items:center;gap:16px}
+.hero-eyebrow::before{content:"";width:40px;height:1px;background:var(--red)}
+.hero-title{font-family:var(--font);font-size:clamp(64px,10vw,148px);font-weight:900;line-height:.88;letter-spacing:-.02em;margin-bottom:8px}
+.hero-title .t1{display:block;color:var(--white)}
+.hero-title .t2{display:block;-webkit-text-stroke:2px var(--red);color:transparent;letter-spacing:.01em}
+.hero-title .t3{display:block;color:var(--white);font-size:.5em;font-weight:300;letter-spacing:.06em;margin-top:10px;opacity:.6}
+.hero-sub{font-size:17px;color:var(--gray);max-width:560px;line-height:1.7;margin:28px 0 44px;font-weight:300}
+.hero-stats{display:flex;gap:44px;flex-wrap:wrap}
+.stat-num{font-family:var(--font);font-size:42px;font-weight:800;color:var(--red);line-height:1}
+.stat-label{font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--gray2);text-transform:uppercase;margin-top:4px}
+.hero-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px}
+.pill{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:7px 14px;border-radius:100px;border:1px solid var(--border2);background:var(--surface);color:var(--gray)}
+.pill.r{border-color:rgba(232,38,58,.3);color:var(--red);background:var(--red-dim)}
+
+/* PART DIVIDER */
+.part-divider{background:var(--bg2);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);padding:36px 0;text-align:center;position:relative;overflow:hidden}
+.part-divider::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,var(--red-dim),transparent);opacity:.4}
+.part-label{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gray);margin-bottom:6px;position:relative}
+.part-name{font-family:var(--font);font-size:clamp(32px,5vw,56px);font-weight:900;color:var(--white);letter-spacing:.02em;position:relative}
+.part-bg-num{font-family:var(--font);font-size:140px;font-weight:900;position:absolute;right:8%;top:50%;transform:translateY(-50%);color:var(--red);opacity:.05;line-height:1;pointer-events:none}
+
+/* NAV */
+.nav{background:var(--nav-bg);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 32px;display:flex;overflow-x:auto;scrollbar-width:none;align-items:center}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-section{font-family:var(--mono);font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);padding:14px 12px 14px 8px;white-space:nowrap;border-right:1px solid var(--border);margin-right:4px}
+.nav-link{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray2);padding:14px 12px;text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:all .2s}
+.nav-link:hover{color:var(--white);border-bottom-color:var(--red)}
+.nav-link.active{color:var(--red);border-bottom-color:var(--red)}
+.nav-sep{width:1px;background:var(--border);margin:8px 4px;align-self:stretch}
+
+/* LAYOUT */
+.container{max-width:1200px;margin:0 auto;padding:0 52px}
+.chapter{padding:96px 0 44px;border-bottom:1px solid var(--border)}
+.ch-num{font-family:var(--mono);font-size:10px;letter-spacing:.22em;color:var(--red);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.ch-num::before{content:"";width:28px;height:1px;background:var(--red)}
+.ch-title{font-family:var(--font);font-size:clamp(36px,5vw,68px);font-weight:900;line-height:.95;letter-spacing:-.01em;margin-bottom:18px}
+.ch-intro{font-size:17px;color:var(--gray);max-width:640px;font-weight:300;line-height:1.75}
+.section{padding:44px 0;border-bottom:1px solid var(--border)}
+.section:last-child{border-bottom:none}
+.sec-title{font-family:var(--font);font-size:26px;font-weight:700;margin-bottom:16px;letter-spacing:-.01em}
+p{color:var(--text);margin-bottom:14px;font-weight:300}
+p:last-child{margin-bottom:0}
+strong{color:var(--white);font-weight:600}
+
+/* CALLOUT */
+.callout{background:var(--surface);border-left:3px solid var(--red);padding:18px 22px;border-radius:0 8px 8px 0;margin:20px 0}
+.callout.amber{border-left-color:var(--amber)}
+.callout.cyan{border-left-color:var(--cyan)}
+.callout.blue{border-left-color:var(--blue)}
+.callout.green{border-left-color:var(--green)}
+.co-label,.co-lbl{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:8px;color:var(--red)}
+.callout.amber .co-label,.callout.amber .co-lbl{color:var(--amber)}
+.callout.cyan .co-label,.callout.cyan .co-lbl{color:var(--cyan)}
+.callout.blue .co-label,.callout.blue .co-lbl{color:var(--blue)}
+.callout p{color:var(--text);margin:0}
+
+/* CONCEPT / CARDS */
+.concept-grid,.drivetrain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin:22px 0}
+.concept-card,.dt-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px;position:relative;overflow:hidden}
+.concept-card::after{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+.concept-card.red::after{background:var(--red)}
+.concept-card.amber::after{background:var(--amber)}
+.concept-card.cyan::after{background:var(--cyan)}
+.dt-card::before{content:"";position:absolute;top:0;left:0;right:0;height:2px}
+.dt-card.rwd::before{background:var(--red)}
+.dt-card.fwd::before{background:var(--blue)}
+.dt-card.awd::before{background:var(--green)}
+.card-icon,.dt-badge{font-family:var(--font);font-size:40px;font-weight:900;opacity:.25;line-height:1;margin-bottom:8px;color:var(--gray2)}
+.dt-badge{opacity:1}
+.dt-card.rwd .dt-badge{color:var(--red)}
+.dt-card.fwd .dt-badge{color:var(--blue)}
+.dt-card.awd .dt-badge{color:var(--green)}
+.card-title,.dt-name{font-size:15px;font-weight:600;color:var(--white);margin-bottom:8px}
+.concept-card p,.dt-card p{font-size:13px;color:var(--gray);margin-bottom:8px;line-height:1.65}
+.concept-card p:last-child,.dt-card p:last-child{margin:0}
+.dt-tag{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;display:inline-block;margin:3px 3px 3px 0}
+.dt-tag.need{background:var(--amber-dim);color:var(--amber)}
+.dt-tag.avoid{background:var(--red-dim);color:var(--red)}
+.dt-tag.info{background:var(--blue-dim);color:var(--blue)}
+
+/* SEQUENCE */
+.sequence{display:flex;align-items:center;margin:22px 0;overflow-x:auto;padding:4px 0}
+.seq-step{flex-shrink:0;background:var(--surface);border:1px solid var(--border2);border-radius:8px;padding:14px 20px;text-align:center;min-width:100px}
+.seq-step.hl{background:var(--red-dim);border-color:var(--red)}
+.seq-lbl{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray);margin-bottom:4px}
+.seq-val{font-family:var(--font);font-size:20px;font-weight:700;color:var(--white)}
+.seq-arr{flex-shrink:0;width:28px;text-align:center;color:var(--gray2)}
+
+/* CUE LIST */
+.cue-list{display:flex;flex-direction:column;gap:10px;margin:22px 0}
+.cue-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.cue-badge{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:600;background:var(--red-dim);color:var(--red);border:1px solid rgba(232,38,58,.3)}
+[data-theme="light"] .cue-badge{border-color:rgba(196,18,48,.25)}
+.cue-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:6px}
+.cue-item p{font-size:14px;color:var(--gray);margin:0;line-height:1.65}
+
+/* TAGS */
+.tag{font-family:var(--mono);font-size:9px;letter-spacing:.06em;text-transform:uppercase;padding:3px 8px;border-radius:4px;display:inline-block;margin:2px 3px 2px 0}
+.tag-sim{background:var(--cyan-dim);color:var(--cyan)}
+.tag-real{background:var(--red-dim);color:var(--red)}
+.tag-tip{background:var(--amber-dim);color:var(--amber)}
+
+/* ASSISTS */
+.assists-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:22px 0}
+.assist-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px}
+.assist-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.assist-name{font-size:15px;font-weight:600;color:var(--white)}
+.badge{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:3px 8px;border-radius:4px;text-transform:uppercase}
+.badge-on{background:var(--cyan-dim);color:var(--cyan)}
+.badge-warn{background:var(--amber-dim);color:var(--amber)}
+.assist-card p{font-size:13px;color:var(--gray);line-height:1.6;margin-bottom:10px}
+.assist-card p:last-child{margin:0}
+
+/* STEPS */
+.steps{counter-reset:step;margin:22px 0;display:flex;flex-direction:column;gap:3px}
+.step{counter-increment:step;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px 16px 54px;position:relative;font-size:15px;color:var(--text);line-height:1.6}
+.step::before{content:counter(step);position:absolute;left:18px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:16px;font-weight:600;color:var(--red)}
+.step strong{color:var(--white)}
+
+/* FLAGS */
+.flag-table{display:flex;flex-direction:column;gap:6px;margin:22px 0}
+.flag-entry{display:grid;grid-template-columns:80px 1fr;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;min-height:68px}
+.flag-visual{display:flex;align-items:center;justify-content:center;padding:10px}
+.flag-info{padding:14px 18px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--border)}
+.flag-info-name{font-size:15px;font-weight:600;color:var(--white);margin-bottom:3px}
+.flag-info-desc{font-size:13px;color:var(--gray);line-height:1.55}
+.flag-render{width:52px;height:34px;border-radius:3px;box-shadow:0 1px 4px rgba(0,0,0,.4);overflow:hidden;position:relative;flex-shrink:0}
+.f-green{background:#22c55e}
+.f-yellow{background:#eab308}
+.f-dyellow{background:#eab308}
+.f-dyellow::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(0,0,0,.2)}
+.f-red{background:#ef4444}
+.f-blue{background:#3b82f6}
+.f-blue::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,transparent 40%,rgba(255,255,255,.2) 50%,transparent 60%)}
+.f-black{background:#111;border:1px solid #333}
+.f-bw{background:linear-gradient(135deg,#111 50%,#eee 50%)}
+.f-meatball{background:#111;border:1px solid #333;display:flex;align-items:center;justify-content:center}
+.f-meatball::after{content:"";width:18px;height:18px;border-radius:50%;background:#e85d30}
+.f-white{background:#e8e8e0;border:1px solid #ccc}
+.f-chequered{background-image:repeating-conic-gradient(#111 0% 25%,#f0f0e8 0% 50%);background-size:10px 10px}
+.f-sc{background:linear-gradient(90deg,#fde047 50%,#111 50%)}
+
+/* TERMS */
+.term-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:6px;margin:22px 0;overflow:visible}
+.term-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;gap:14px;position:relative;cursor:default;transition:border-color .2s;overflow:visible}
+.term-item.has-detail:hover{border-color:var(--red);z-index:100}
+.term-word{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--red);min-width:110px;max-width:130px;word-wrap:break-word;padding-top:1px}
+.term-def{font-size:13px;color:var(--gray);line-height:1.55}
+.term-detail{display:none;position:absolute;bottom:calc(100% + 10px);left:0;width:340px;max-width:min(340px,90vw);background:var(--flag-tooltip-bg);border:1px solid var(--red);border-radius:10px;padding:16px;font-size:13px;color:var(--gray);line-height:1.65;z-index:500;box-shadow:0 12px 40px rgba(0,0,0,.5);pointer-events:none}
+.term-item.has-detail:hover .term-detail{display:block}
+.term-item.flip .term-detail{bottom:auto;top:calc(100% + 10px)}
+.dt-head{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:block;color:var(--red)}
+.term-detail p{color:var(--gray);margin-bottom:8px}
+.term-detail p:last-child{margin:0}
+
+/* PRIORITY */
+.priority-list{display:flex;flex-direction:column;gap:8px;margin:22px 0}
+.priority-item{display:grid;grid-template-columns:56px 1fr;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+.p-rank{font-family:var(--font);font-size:28px;font-weight:900;display:flex;align-items:center;justify-content:center;padding:16px;border-right:1px solid var(--border)}
+.p-body{padding:16px 20px}
+.p-name{font-size:16px;font-weight:600;color:var(--white);margin-bottom:4px}
+.p-desc{font-size:14px;color:var(--gray);line-height:1.6}
+
+/* PHYSICS DEMO */
+.physics-demo{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin:22px 0}
+.physics-controls{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:20px}
+.phys-btn{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:10px 18px;border-radius:6px;border:1px solid var(--border2);background:var(--surface2);color:var(--gray);cursor:pointer;transition:.2s}
+.phys-btn:hover{color:var(--white);border-color:var(--red)}
+.phys-btn.active{background:var(--red-dim);color:var(--red);border-color:var(--red)}
+.tyre-visual{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px}
+.tyre-corner{text-align:center}
+.tyre-circle{width:80px;height:80px;border-radius:50%;margin:0 auto 10px;border:3px solid var(--border2);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:14px;font-weight:600;transition:all .4s ease}
+.tyre-pct{color:var(--white)}
+.tyre-label{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--gray)}
+.physics-explain{background:var(--bg3);border-radius:8px;padding:16px;margin-top:16px;font-size:14px;color:var(--text);line-height:1.7;border-left:3px solid var(--amber)}
+
+/* QUIZ */
+.quiz-section{background:var(--bg3);border-radius:12px;padding:32px;margin:24px 0;border:1px solid var(--border2)}
+.quiz-title{font-family:var(--font);font-size:24px;font-weight:700;margin-bottom:6px}
+.quiz-sub{font-size:14px;color:var(--gray);margin-bottom:24px}
+.quiz-q{margin-bottom:28px}
+.q-text{font-size:16px;color:var(--white);font-weight:500;margin-bottom:14px;line-height:1.5}
+.q-options{display:flex;flex-direction:column;gap:8px}
+.q-opt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;cursor:pointer;font-size:14px;color:var(--text);transition:all .15s;text-align:left;font-family:var(--body)}
+.q-opt:hover{border-color:var(--border2);color:var(--white)}
+.q-opt.correct{background:var(--cyan-dim);border-color:var(--cyan);color:var(--cyan)}
+.q-opt.wrong{background:var(--red-dim);border-color:var(--red);color:var(--red)}
+.q-opt.disabled{cursor:default}
+.q-feedback{margin-top:10px;padding:12px 16px;border-radius:8px;font-size:14px;line-height:1.6;display:none}
+.q-feedback.show{display:block}
+.q-feedback.ok{background:var(--cyan-dim);border-left:3px solid var(--cyan);color:var(--text)}
+.q-feedback.no{background:var(--red-dim);border-left:3px solid var(--red);color:var(--text)}
+.quiz-score{text-align:center;padding:24px;font-family:var(--font);font-size:36px;font-weight:800;color:var(--red);display:none}
+.quiz-score.show{display:block}
+.quiz-score span{display:block;font-family:var(--body);font-size:15px;color:var(--gray);font-weight:300;margin-top:8px}
+.quiz-reset{display:none;margin:16px auto 0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:12px 28px;border-radius:8px;border:1px solid var(--border2);background:var(--surface);color:var(--gray);cursor:pointer;transition:.2s}
+.quiz-reset.show{display:block}
+.quiz-reset:hover{border-color:var(--red);color:var(--red)}
+
+/* TUNING PARAMS */
+.param-list{display:flex;flex-direction:column;gap:3px;margin:22px 0}
+.param{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s;cursor:pointer}
+.param:hover{border-color:var(--border2)}
+.param.open{border-color:var(--amber)}
+.param-header{display:grid;grid-template-columns:1fr auto;padding:18px 20px;align-items:center;gap:16px}
+.param-left{display:flex;flex-direction:column;gap:4px}
+.param-name{font-size:15px;font-weight:600;color:var(--white)}
+.param-short{font-size:13px;color:var(--gray)}
+.param-right{display:flex;align-items:center;gap:10px}
+.param-effect{font-family:var(--mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;padding:4px 10px;border-radius:4px}
+.pe-grip{background:var(--green-dim);color:var(--green)}
+.pe-balance{background:var(--amber-dim);color:var(--amber)}
+.pe-aero{background:var(--blue-dim);color:var(--blue)}
+.pe-engine{background:var(--red-dim);color:var(--red)}
+.pe-mechanical{background:rgba(196,181,253,.09);color:#9A7BFF}
+[data-theme="light"] .pe-mechanical{background:rgba(109,40,217,.08);color:#6D28D9}
+.param-chevron{color:var(--gray2);transition:transform .25s;font-size:12px}
+.param.open .param-chevron{transform:rotate(180deg)}
+.param-body{display:none;padding:0 20px 20px;border-top:1px solid var(--border)}
+.param.open .param-body{display:block}
+.param-body p{font-size:14px;margin-bottom:12px;line-height:1.7}
+
+.slider-demo{margin:14px 0}
+.slider-label{display:flex;justify-content:space-between;margin-bottom:8px}
+.slider-label span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--gray)}
+.s-val{color:var(--amber)}
+.slider-track{height:6px;background:var(--surface2);border-radius:3px;position:relative;cursor:pointer}
+.slider-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--amber));transition:width .1s}
+.slider-thumb{width:14px;height:14px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);position:absolute;top:50%;transform:translate(-50%,-50%);cursor:grab;box-shadow:0 0 8px rgba(245,166,35,.4);transition:left .1s}
+.slider-extremes{display:flex;justify-content:space-between;margin-top:6px}
+.slider-extremes span{font-size:11px;color:var(--gray2)}
+.effect-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.effect-box{background:var(--bg3);border-radius:8px;padding:12px}
+.effect-box-label{font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px}
+.effect-box-label.increase{color:var(--green)}
+.effect-box-label.decrease{color:var(--red)}
+.effect-box p{font-size:12px;color:var(--gray);margin:0;line-height:1.55}
+.car-note{margin-top:12px;padding:12px 16px;border-radius:8px;background:var(--amber-dim);border-left:2px solid var(--amber);font-size:13px;color:var(--text);line-height:1.65}
+
+.cat-header{display:flex;align-items:center;gap:14px;margin:36px 0 16px}
+.cat-line{flex:1;height:1px;background:var(--border)}
+.cat-label{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--gray2);white-space:nowrap}
+
+/* PHILOSOPHY CARDS */
+.philosophy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:22px 0}
+.phil-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px}
+.phil-num{font-family:var(--font);font-size:48px;color:var(--gray2);opacity:.25;line-height:1;margin-bottom:8px}
+.phil-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:8px}
+.phil-card p{font-size:13px;color:var(--gray);margin:0;line-height:1.65}
+
+/* CAR SELECTOR */
+.car-selector{background:var(--surface);border:1px solid var(--border2);border-radius:12px;padding:24px;margin:22px 0}
+.cs-title{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
+.cs-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.cs-btn{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;border-radius:8px;border:1px solid var(--border2);background:var(--surface2);color:var(--gray);cursor:pointer;transition:.2s}
+.cs-btn:hover{color:var(--white)}
+.cs-btn.active{background:var(--amber-dim);border-color:rgba(245,166,35,.4);color:var(--amber)}
+.car-profile{display:none}
+.car-profile.show{display:block}
+.cp-name{font-family:var(--font);font-size:22px;color:var(--white);margin-bottom:4px}
+.cp-sub{font-size:13px;color:var(--gray);margin-bottom:16px}
+.cp-params{display:flex;flex-direction:column;gap:6px}
+.cp-row{display:grid;grid-template-columns:180px 1fr auto;gap:12px;align-items:center;background:var(--bg3);border-radius:8px;padding:10px 14px}
+.cp-param-name{font-size:13px;color:var(--gray)}
+.cp-bar-wrap{height:6px;background:var(--bg2);border-radius:3px;overflow:hidden}
+.cp-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--amber));transition:width .4s}
+.cp-val{font-family:var(--mono);font-size:11px;color:var(--amber);white-space:nowrap}
+.cp-explanation{margin-top:16px;padding:14px 18px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--amber);font-size:14px;color:var(--text);line-height:1.7}
+
+/* PROBLEM SOLVER */
+.problem-grid{display:flex;flex-direction:column;gap:6px;margin:22px 0}
+.problem-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;cursor:pointer;transition:border-color .2s}
+.problem-item:hover,.problem-item.open{border-color:var(--amber)}
+.problem-header{padding:16px 20px;display:flex;justify-content:space-between;align-items:center}
+.problem-q{font-size:15px;font-weight:500;color:var(--white)}
+.problem-chevron{color:var(--gray2);font-size:12px;transition:transform .2s}
+.problem-item.open .problem-chevron{transform:rotate(180deg)}
+.problem-body{display:none;padding:0 20px 18px;border-top:1px solid var(--border)}
+.problem-item.open .problem-body{display:block}
+.fix-list{margin-top:12px;display:flex;flex-direction:column;gap:6px}
+.fix-row{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13px;color:var(--text);align-items:start;padding:8px 12px;background:var(--bg3);border-radius:6px}
+.fix-arrow{color:var(--amber);font-weight:600}
+
+/* WARNING */
+.warning{background:var(--red-dim);border:1px solid rgba(232,38,58,.2);border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;align-items:flex-start}
+.warning p{color:var(--text);margin:0;font-size:14px;line-height:1.7}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* FOOTER */
+footer{padding:80px 0 60px;border-top:1px solid var(--border);text-align:center}
+.footer-title{font-family:var(--font);font-size:clamp(36px,6vw,60px);font-weight:900;background:linear-gradient(90deg,var(--red),var(--amber));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px}
+.footer-sub{font-family:var(--mono);font-size:11px;letter-spacing:.07em;color:var(--gray2);line-height:1.9}
+.footer-line{width:50px;height:2px;background:linear-gradient(90deg,var(--red),var(--amber));margin:22px auto 0;border-radius:2px}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .container,.hero-inner{padding:0 20px}
+  .hero-title{font-size:clamp(48px,12vw,72px)}
+  .concept-grid,.drivetrain-grid,.philosophy-grid{grid-template-columns:1fr}
+  .assists-grid{grid-template-columns:1fr}
+  .term-grid{grid-template-columns:1fr}
+  .effect-row{grid-template-columns:1fr}
+  .cp-row{grid-template-columns:110px 1fr auto}
+  .flag-entry{grid-template-columns:64px 1fr}
+  .sequence{flex-wrap:wrap;gap:6px}
+  .seq-arr{display:none}
+  .param-header{grid-template-columns:1fr}
+  .param-right{margin-top:6px}
+  .theme-toggle{bottom:16px;right:16px;width:44px;height:44px;font-size:18px}
+  .hero-stats{gap:24px}
+}
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" onclick="toggleTheme()">
+  <span class="icon-dark">&#9728;&#65039;</span>
+  <span class="icon-light">&#127769;</span>
+</button>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-stripe"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">The Complete Reference &middot; Racing + Car Tuning</div>
+    <h1 class="hero-title">
+      <span class="t1">MASTER</span>
+      <span class="t2">THE CAR</span>
+      <span class="t3">Physics &middot; Race Craft &middot; Flags &middot; Tuning &middot; Problem Solver</span>
+    </h1>
+    <p class="hero-sub">Everything you need to understand a car from the inside out &mdash; how to drive it, read it, tune it, and fix it when something feels wrong.</p>
+    <div class="hero-stats">
+      <div><div class="stat-num">2</div><div class="stat-label">Parts</div></div>
+      <div><div class="stat-num">16</div><div class="stat-label">Chapters</div></div>
+      <div><div class="stat-num">40+</div><div class="stat-label">Terms</div></div>
+      <div><div class="stat-num">Quiz</div><div class="stat-label">Included</div></div>
+    </div>
+    <div class="hero-pills">
+      <span class="pill r">Part 1 &mdash; Racing</span>
+      <span class="pill">Physics</span><span class="pill">Traction</span><span class="pill">Racing Line</span>
+      <span class="pill">Track Reading</span><span class="pill">Assists</span><span class="pill">Race Craft</span>
+      <span class="pill">Flags</span><span class="pill">Terminology</span><span class="pill">Quiz</span>
+      <span class="pill r">Part 2 &mdash; Tuning</span>
+      <span class="pill">Why Cars Differ</span><span class="pill">Tyres</span><span class="pill">Gearing</span>
+      <span class="pill">Suspension</span><span class="pill">Alignment</span><span class="pill">ARB</span>
+      <span class="pill">Brakes</span><span class="pill">Aero</span><span class="pill">Differential</span>
+      <span class="pill">Car Profiles</span><span class="pill">Problem Solver</span>
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <span class="nav-section">Part 1</span>
+    <a class="nav-link" href="#physics">Physics</a>
+    <a class="nav-link" href="#traction">Traction</a>
+    <a class="nav-link" href="#racing-line">Racing Line</a>
+    <a class="nav-link" href="#track-reading">Track Reading</a>
+    <a class="nav-link" href="#assists">Assists</a>
+    <a class="nav-link" href="#racecraft">Race Craft</a>
+    <a class="nav-link" href="#flags">Flags</a>
+    <a class="nav-link" href="#terms">Terms</a>
+    <a class="nav-link" href="#quiz">Quiz</a>
+    <div class="nav-sep"></div>
+    <span class="nav-section">Part 2</span>
+    <a class="nav-link" href="#why-different">Why Cars Differ</a>
+    <a class="nav-link" href="#tyres">Tyres</a>
+    <a class="nav-link" href="#gearing">Gearing</a>
+    <a class="nav-link" href="#suspension">Suspension</a>
+    <a class="nav-link" href="#alignment">Alignment</a>
+    <a class="nav-link" href="#arb">ARB</a>
+    <a class="nav-link" href="#brakes">Brakes</a>
+    <a class="nav-link" href="#aero">Aero</a>
+    <a class="nav-link" href="#diff">Diff</a>
+    <a class="nav-link" href="#profiles">Profiles</a>
+    <a class="nav-link" href="#problems">Fix It</a>
+  </div>
+</nav>
+
+<!-- PART 1 DIVIDER -->
+<div class="part-divider">
+  <div class="part-label">Part One</div>
+  <div class="part-name">RACING KNOWLEDGE<div class="part-bg-num">01</div></div>
+</div>
+
+<!-- CH1: PHYSICS -->
+<section id="physics"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 01 &middot; Car Physics</div>
+    <h2 class="ch-title">The car doesn&rsquo;t lie.<br>Physics always wins.</h2>
+    <p class="ch-intro">Before you can be fast, understand what is happening underneath you. Every slide, every push, every wheelspin has a cause rooted in physics.</p>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">Weight Transfer &mdash; The Foundation</h3>
+    <p>A car&rsquo;s four tyres share the vehicle&rsquo;s total weight. But that weight shifts with every input. A tyre carrying more weight has more grip. This is why the outside rear tyre does so much work in a corner &mdash; it&rsquo;s under maximum load.</p>
+    <div class="physics-demo">
+      <p style="font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:14px">Interactive &middot; Weight Transfer Visualiser</p>
+      <div class="physics-controls">
+        <button class="phys-btn active" onclick="setPhysics('neutral',this)">Neutral / Coasting</button>
+        <button class="phys-btn" onclick="setPhysics('braking',this)">Hard Braking</button>
+        <button class="phys-btn" onclick="setPhysics('acceleration',this)">Full Throttle</button>
+        <button class="phys-btn" onclick="setPhysics('cornering',this)">Left Corner</button>
+      </div>
+      <div class="tyre-visual">
+        <div class="tyre-corner"><div class="tyre-circle" id="tfl"><span class="tyre-pct" id="pfl">25%</span></div><div class="tyre-label">Front Left</div></div>
+        <div class="tyre-corner"><div class="tyre-circle" id="tfr"><span class="tyre-pct" id="pfr">25%</span></div><div class="tyre-label">Front Right</div></div>
+        <div class="tyre-corner"><div class="tyre-circle" id="trl"><span class="tyre-pct" id="prl">25%</span></div><div class="tyre-label">Rear Left</div></div>
+        <div class="tyre-corner"><div class="tyre-circle" id="trr"><span class="tyre-pct" id="prr">25%</span></div><div class="tyre-label">Rear Right</div></div>
+      </div>
+      <div class="physics-explain" id="phys-explain">Coasting with equal weight distribution. All four tyres share the load evenly. Any input shifts this balance.</div>
+    </div>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">Understeer, Oversteer &amp; Neutral Handling</h3>
+    <div class="concept-grid">
+      <div class="concept-card red reveal"><div class="card-icon">US</div><div class="card-title">Understeer &mdash; Front Slides Wide</div><p>Front tyres overwhelmed. The car goes straight regardless of steering angle. Causes: too much entry speed, too much throttle in FWD, front-heavy setup.</p><p><strong>Fix:</strong> Ease throttle, wait for re-grip, use a later apex next lap.</p></div>
+      <div class="concept-card amber reveal"><div class="card-icon">OS</div><div class="card-title">Oversteer &mdash; Rear Steps Out</div><p>Rear tyres lose traction. Requires countersteer. Causes: too much throttle on exit (RWD), braking into a corner, cold tyres, sudden lift-off mid-corner.</p><p><strong>Fix:</strong> Countersteer smoothly. Never lift suddenly &mdash; it worsens it.</p></div>
+      <div class="concept-card cyan reveal"><div class="card-icon">NE</div><div class="card-title">Neutral &mdash; The Goal</div><p>Neither end dominates. Car rotates cleanly. Achieved through correct inputs, proper setup, and understanding the traction budget at all four corners.</p><p><strong>Feel for:</strong> The car going exactly where you point it.</p></div>
+    </div>
+    <div class="callout amber"><div class="co-label">Drivetrain matters</div><p><strong>RWD</strong> is most prone to oversteer &mdash; rear wheels drive AND provide lateral grip. <strong>FWD</strong> understeers under power &mdash; fronts doing everything. <strong>AWD</strong> is most stable but snaps without warning at the limit.</p></div>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">Snap Oversteer vs Gradual Oversteer</h3>
+    <p><strong>Gradual oversteer</strong> builds progressively &mdash; you feel it coming and have time to catch it. <strong>Snap oversteer</strong> happens almost instantly &mdash; cold tyre, sudden weight shift, bumpy corner. By the time your brain registers it, it&rsquo;s already too far gone.</p>
+    <div class="callout"><div class="co-label">Real World</div><p>If the rear breaks loose on a wet road, <strong>do not lift suddenly</strong> &mdash; this transfers weight forward, further unloading the rear. Ease off smoothly and steer gently into the slide. This is counterintuitive but correct.</p></div>
+  </div>
+</div></section>
+
+<!-- CH2: TRACTION -->
+<section id="traction"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 02 &middot; The Traction Budget</div>
+    <h2 class="ch-title">Every tyre has exactly<br>100% of grip to spend.</h2>
+    <p class="ch-intro">The single most important mental model in driving. Understand it and every input decision becomes logical.</p>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">The Friction Circle</h3>
+    <p>Each tyre can provide a maximum total force &mdash; picture a circle. Braking uses one direction. Cornering uses another. Acceleration uses another. <strong>You can combine forces, but never exceed the circle&rsquo;s edge.</strong> Use 90% on braking and only 10% remains for turning.</p>
+    <div class="callout cyan"><div class="co-label">The Golden Sequence</div><p>Brake fully &rarr; release brake &rarr; turn in &rarr; unwind wheel &rarr; apply throttle. Each action gets the tyre&rsquo;s full attention. This is physics, not preference.</p></div>
+    <div class="sequence">
+      <div class="seq-step hl"><div class="seq-lbl">Step 1</div><div class="seq-val">BRAKE</div></div>
+      <div class="seq-arr">&rarr;</div>
+      <div class="seq-step"><div class="seq-lbl">Transition</div><div class="seq-val">RELEASE</div></div>
+      <div class="seq-arr">&rarr;</div>
+      <div class="seq-step hl"><div class="seq-lbl">Step 2</div><div class="seq-val">TURN</div></div>
+      <div class="seq-arr">&rarr;</div>
+      <div class="seq-step"><div class="seq-lbl">Transition</div><div class="seq-val">UNWIND</div></div>
+      <div class="seq-arr">&rarr;</div>
+      <div class="seq-step hl"><div class="seq-lbl">Step 3</div><div class="seq-val">GAS</div></div>
+    </div>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">Threshold Braking &amp; Trail Braking</h3>
+    <p>Peak braking force occurs at the exact moment just before wheel lock. Brake any harder and you lock up &mdash; losing steering and increasing stopping distance. Brake less and you leave performance unused.</p>
+    <div class="callout amber"><div class="co-label">Trail Braking</div><p>Gradually releasing brake pressure as you turn in keeps weight on the front tyres through corner entry &mdash; improving rotation and reducing understeer. Used by every professional racing driver. Also genuinely useful on real roads in emergency situations.</p></div>
+  </div>
+</div></section>
+
+<!-- CH3: RACING LINE -->
+<section id="racing-line"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 03 &middot; The Racing Line</div>
+    <h2 class="ch-title">The fastest path is never<br>the shortest path.</h2>
+    <p class="ch-intro">The racing line maximises corner radius &mdash; a larger radius allows higher speed without exceeding the traction budget.</p>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">Out &mdash; In &mdash; Out</h3>
+    <p>Start wide, cut to the inside at the apex, track back out wide. You turn the corner into the largest possible arc. Larger arc = less steering angle = more speed through the corner.</p>
+    <div class="concept-grid">
+      <div class="concept-card cyan reveal"><div class="card-icon">OUT</div><div class="card-title">Wide Entry</div><p>Position on the outside before the corner. This sets up the maximum possible arc and gives you the longest run-up to the apex. Don&rsquo;t move toward the inside yet.</p></div>
+      <div class="concept-card red reveal"><div class="card-icon">IN</div><div class="card-title">Apex &mdash; Cut Inside</div><p>The innermost point you clip. <strong>Late apex</strong> &mdash; hitting the inside kerb past the geometric midpoint &mdash; is almost always faster because it straightens the exit sooner.</p></div>
+      <div class="concept-card cyan reveal"><div class="card-icon">OUT</div><div class="card-title">Wide Exit &mdash; Track Out</div><p>Let the car drift back to the outside as you unwind the wheel and apply progressive throttle. Use every centimetre of tarmac available to you.</p></div>
+    </div>
+    <div class="callout"><div class="co-label">The beginner trap</div><p>Most beginners lose time on <strong>exit</strong>, not entry. Turning in too early forces a lift on exit &mdash; killing all the time gained. Always sacrifice entry to optimise exit, especially before a long straight.</p></div>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">Corner Combinations</h3>
+    <div class="cue-list">
+      <div class="cue-item reveal"><div class="cue-badge">1</div><div><div class="cue-title">Chicane &mdash; sacrifice the first, own the second</div><p>The exit of the second element leads onto the straight. Accept a slightly slower entry for a cleaner, earlier-throttle exit. <span class="tag tag-tip">Exit speed = straight speed</span></p></div></div>
+      <div class="cue-item reveal"><div class="cue-badge">2</div><div><div class="cue-title">Double Apex &mdash; two clips, one corner</div><p>Stay wide through the first half, then cut cleanly to the second apex for a straight exit. Rushing the first apex ruins the second. <span class="tag tag-sim">Eau Rouge, Copse</span></p></div></div>
+      <div class="cue-item reveal"><div class="cue-badge">3</div><div><div class="cue-title">Hairpin &mdash; latest possible apex</div><p>Tightest corners, longest straights. Late apex means earlier throttle and maximum exit speed. Brake deep, turn in late, be patient with power. <span class="tag tag-tip">Power out early = wins races</span></p></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CH4: TRACK READING -->
+<section id="track-reading"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 04 &middot; Reading the Track</div>
+    <h2 class="ch-title">5 visual cues that replace<br>memorisation entirely.</h2>
+    <p class="ch-intro">Every circuit tells you what it needs. Read the environment in real time and drive an unfamiliar track confidently from lap one.</p>
+  </div>
+  <div class="section">
+    <div class="cue-list">
+      <div class="cue-item reveal"><div class="cue-badge">1</div><div><div class="cue-title">Brake markers &mdash; which side of the track to be on</div><p>100m boards on the <strong>left</strong> = right-hand corner coming. Boards on the <strong>right</strong> = left-hand corner. Before you even see the corner, the boards are already telling you where to position. <span class="tag tag-sim">Cockpit cam in sim</span><span class="tag tag-real">Real track days too</span></p></div></div>
+      <div class="cue-item reveal"><div class="cue-badge">2</div><div><div class="cue-title">Kerbing &mdash; corners announce themselves</div><p>Sudden kerbing appearing on a straight means a corner is arriving. Begin preparation immediately: position wide, start trail braking, locate your turn-in point. The kerb gives you advance notice. <span class="tag tag-sim">All sims</span><span class="tag tag-real">Identical on real circuits</span></p></div></div>
+      <div class="cue-item reveal"><div class="cue-badge">3</div><div><div class="cue-title">Braking requirement &mdash; hard, lift, or flat?</div><p>Distance boards present = hard braking. No boards but track compression = lift or feather. No boards, flat entry = commit fully. Correctly identifying these three saves enormous amounts of lap time. <span class="tag tag-sim">FFB confirms over-braking</span></p></div></div>
+      <div class="cue-item reveal"><div class="cue-badge">4</div><div><div class="cue-title">Gear selection &mdash; your instant corner descriptor</div><p>2nd gear = slow, tight, hard braking, late apex. 3rd gear = medium speed, standard line. 4th gear = fast sweeper, light brake or lift only. Know the gear and you have the whole picture. <span class="tag tag-real">How drivers brief engineers</span></p></div></div>
+      <div class="cue-item reveal"><div class="cue-badge">5</div><div><div class="cue-title">Apex kerb visibility &mdash; wait or commit?</div><p>Can see the apex kerb early = tight corner, <strong>wait</strong> for late apex. Cannot see it = long sweeper, <strong>carry speed</strong>. Prevents the most common beginner mistake &mdash; turning in too early. <span class="tag tag-sim">Cockpit or bumper cam</span></p></div></div>
+    </div>
+    <div class="callout cyan"><div class="co-label">Combined Read &mdash; An Example</div><p>Brake markers on the right &rarr; left-hander. Distance boards present &rarr; hard braking. Apex kerb visible early &rarr; tight corner, late apex. 2nd gear &rarr; confirms it&rsquo;s slow. Kerbing begins on entry &rarr; turn in now. None of that required memorisation. All read from the environment in real time.</p></div>
+  </div>
+</div></section>
+
+<!-- CH5: ASSISTS -->
+<section id="assists"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 05 &middot; Driving Without Assists</div>
+    <h2 class="ch-title">Remove the safety net.<br>Find real speed.</h2>
+    <p class="ch-intro">Assists hide the car&rsquo;s true behaviour. Removing them systematically reveals a faster, more complete driver.</p>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">The Three Core Assists</h3>
+    <div class="assists-grid">
+      <div class="assist-card reveal"><div class="assist-hdr"><div class="assist-name">ABS</div><span class="badge badge-on">Anti-lock Braking</span></div><p><strong>On:</strong> Maximum brake pressure without locking. System modulates automatically.</p><p><strong>Off:</strong> You must threshold brake manually. Lock a wheel and you lose steering entirely.</p><p><strong>Learn it:</strong> Brake earlier. Slowly increase pressure to the onset of lock, then back off fractionally. That edge is your new brake point.</p></div>
+      <div class="assist-card reveal"><div class="assist-hdr"><div class="assist-name">Traction Control</div><span class="badge badge-on">TC</span></div><p><strong>On:</strong> Throttle cut when wheels spin. You can be aggressive on corner exit without consequence.</p><p><strong>Off:</strong> RWD cars snap oversteerly if you apply full throttle before the car is pointing straight. You feel the rear squirm and must modulate.</p><p><strong>Learn it:</strong> Exit corners at 30&ndash;40% throttle. Build progressively over many laps as you feel the limit.</p></div>
+      <div class="assist-card reveal"><div class="assist-hdr"><div class="assist-name">Stability Control</div><span class="badge badge-warn">Hardest to remove</span></div><p><strong>On:</strong> Individual brakes applied automatically to counteract slides. Car straightens itself.</p><p><strong>Off:</strong> Every slide needs manual countersteer. Hardest skill, biggest reward.</p><p><strong>Learn it:</strong> Lower AI significantly. Expect spins. Each spin teaches you where the limit is.</p></div>
+    </div>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">The Step-Down Method</h3>
+    <p>Never strip all assists at once. Build each neural pathway one at a time:</p>
+    <div class="steps">
+      <div class="step reveal"><strong>All assists on</strong> &mdash; learn the track layout. Focus only on racing line and brake points. Don&rsquo;t try to do everything at once.</div>
+      <div class="step reveal"><strong>Remove Stability Control</strong> &mdash; lower AI by 10. Start feeling the rear. Countersteering becomes muscle memory over 20&ndash;30 laps.</div>
+      <div class="step reveal"><strong>Remove Traction Control</strong> &mdash; lower AI by another 5&ndash;10. Be patient with throttle on exit. Feel the tyres at their limit.</div>
+      <div class="step reveal"><strong>Remove ABS</strong> &mdash; lower AI by 5. Trail brake release. Feel for the onset of lock. Brake earlier, build pressure back up.</div>
+      <div class="step reveal"><strong>All assists off</strong> &mdash; you are now feeling everything the car feels. Raise AI gradually. You will be measurably faster.</div>
+    </div>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">Force Feedback &mdash; Your Information Channel</h3>
+    <p>FFB is not an assist &mdash; it is <strong>data</strong>. The wheel goes light when the front understeers. It vibrates when tyres are near the limit. It jolts over kerbs and changes texture over different surfaces. Set it where you feel detail clearly without it overpowering you.</p>
+  </div>
+</div></section>
+
+<!-- CH6: RACE CRAFT -->
+<section id="racecraft"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 06 &middot; Race Craft</div>
+    <h2 class="ch-title">Fast laps alone<br>don&rsquo;t win races.</h2>
+    <p class="ch-intro">The moment you race other humans, raw pace is only one factor. Positioning, composure, and tyre management matter equally.</p>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">Overtaking &mdash; The Core Rules</h3>
+    <p>The <strong>50% rule:</strong> if your nose is level with the other driver&rsquo;s cockpit by the apex, you have a right to track position. If you&rsquo;re not there, you don&rsquo;t. Any contact at that point is your responsibility.</p>
+    <div class="callout cyan"><div class="co-label">Defending</div><p>One defensive move only. Moving twice is a &ldquo;chop&rdquo; &mdash; penalised in most series. Cover the inside before the braking zone. If they go outside, that is their choice and their risk to manage.</p></div>
+    <div class="callout"><div class="co-label">The Divebomb Trap</div><p>Late, aggressive braking moves look spectacular but usually overshoot the corner, cause contact, or result in a penalty. A calculated undercut on the next lap is almost always better strategy than a risky Pass at Turn 1.</p></div>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">What Actually Wins Races &mdash; Priority Ranked</h3>
+    <div class="priority-list">
+      <div class="priority-item reveal"><div class="p-rank" style="color:var(--red)">01</div><div class="p-body"><div class="p-name">Consistency over single fast laps</div><div class="p-desc">A driver doing 1:32.4 every lap beats one doing 1:31.8 then 1:33.5 then making an error. Variance is the enemy. Smooth, repeatable laps compound over race distance.</div></div></div>
+      <div class="priority-item reveal"><div class="p-rank" style="color:var(--amber)">02</div><div class="p-body"><div class="p-name">Tyre management &mdash; especially the final stint</div><div class="p-desc">Tyres degrade. Drivers who manage them have more grip when it matters most. Lift and coast in safe positions. Every unnecessary heavy-braking corner costs tyre life that compounds.</div></div></div>
+      <div class="priority-item reveal"><div class="p-rank" style="color:var(--cyan)">03</div><div class="p-body"><div class="p-name">First lap composure &mdash; survive Turn 1</div><div class="p-desc">Most incidents happen on the opening lap. Panic braking causes chain reactions. Brake at your normal reference point, hold your line, and let the chaos sort itself out around you.</div></div></div>
+      <div class="priority-item reveal"><div class="p-rank" style="color:var(--gray)">04</div><div class="p-body"><div class="p-name">Dirty air management</div><div class="p-desc">Following close disrupts your front downforce and increases braking distances. Leave a 1&ndash;1.5 second gap when following closely to maintain aerodynamic performance and tyre health.</div></div></div>
+    </div>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">Post-Race Analysis &mdash; How You Actually Improve</h3>
+    <div class="cue-list">
+      <div class="cue-item reveal"><div class="cue-badge">?</div><div><div class="cue-title">Where did I lose time?</div><p>Use sector times. If Sector 2 is consistently 0.3s off pace, that&rsquo;s your focus. Don&rsquo;t guess &mdash; the data tells you exactly.</p></div></div>
+      <div class="cue-item reveal"><div class="cue-badge">?</div><div><div class="cue-title">Where did incidents happen?</div><p>Repeat incidents at the same corner mean a technique issue, not bad luck. Identify it, name it, approach it differently next session.</p></div></div>
+      <div class="cue-item reveal"><div class="cue-badge">?</div><div><div class="cue-title">What was my tyre state in the final laps?</div><p>Significantly slower in the last third = you overdrove the tyres early. Pace left = too conservative. Find the balance through data, not guesswork.</p></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CH7: FLAGS -->
+<section id="flags"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 07 &middot; Racing Flags</div>
+    <h2 class="ch-title">The universal language<br>of motorsport.</h2>
+    <p class="ch-intro">Know them without hesitation &mdash; hesitating costs a penalty or a crash.</p>
+  </div>
+  <div class="section">
+    <div class="flag-table">
+      <div class="flag-entry reveal"><div class="flag-visual"><div class="flag-render f-green"></div></div><div class="flag-info"><div class="flag-info-name">Green Flag</div><div class="flag-info-desc">Session started or resumed. Track clear. Full racing speed, no restrictions.</div></div></div>
+      <div class="flag-entry reveal"><div class="flag-visual"><div class="flag-render f-yellow"></div></div><div class="flag-info"><div class="flag-info-name">Yellow Flag</div><div class="flag-info-desc">Hazard on track in this sector. Slow down. No overtaking. Be prepared for avoiding action.</div></div></div>
+      <div class="flag-entry reveal"><div class="flag-visual"><div class="flag-render f-dyellow"></div></div><div class="flag-info"><div class="flag-info-name">Double Yellow</div><div class="flag-info-desc">Serious hazard &mdash; track may be blocked. Slow drastically. Prepare to stop. No overtaking under any circumstances.</div></div></div>
+      <div class="flag-entry reveal"><div class="flag-visual"><div class="flag-render f-red"></div></div><div class="flag-info"><div class="flag-info-name">Red Flag</div><div class="flag-info-desc">Session stopped. Return to pit lane at reduced speed. Do not race. Serious incident or dangerous conditions on track.</div></div></div>
+      <div class="flag-entry reveal"><div class="flag-visual"><div class="flag-render f-blue"></div></div><div class="flag-info"><div class="flag-info-name">Blue Flag</div><div class="flag-info-desc">You are a lapped car. A lead-lap car is approaching. Move aside within three blue flags or receive a time penalty.</div></div></div>
+      <div class="flag-entry reveal"><div class="flag-visual"><div class="flag-render f-black"></div></div><div class="flag-info"><div class="flag-info-name">Black Flag</div><div class="flag-info-desc">Disqualification. Return to pits immediately. Shown with your car number. Most severe individual penalty in motorsport.</div></div></div>
+      <div class="flag-entry reveal"><div class="flag-visual"><div class="flag-render f-bw"></div></div><div class="flag-info"><div class="flag-info-name">Black &amp; White Flag</div><div class="flag-info-desc">Final warning for unsporting behaviour &mdash; weaving, blocking, dangerous driving. Next offence results in a penalty.</div></div></div>
+      <div class="flag-entry reveal"><div class="flag-visual"><div class="flag-render f-meatball"></div></div><div class="flag-info"><div class="flag-info-name">Meatball Flag (Black + Orange circle)</div><div class="flag-info-desc">Your car has a mechanical defect or is shedding debris. Return to the pits on your next lap for inspection.</div></div></div>
+      <div class="flag-entry reveal"><div class="flag-visual"><div class="flag-render f-white"></div></div><div class="flag-info"><div class="flag-info-name">White Flag</div><div class="flag-info-desc">Slow vehicle on track ahead &mdash; safety car, recovery truck, or heavily damaged car. Proceed with caution.</div></div></div>
+      <div class="flag-entry reveal"><div class="flag-visual"><div class="flag-render f-chequered"></div></div><div class="flag-info"><div class="flag-info-name">Chequered Flag</div><div class="flag-info-desc">Race or session finished. Slow progressively. Do not make sudden moves. The result is now decided.</div></div></div>
+      <div class="flag-entry reveal"><div class="flag-visual"><div class="flag-render f-sc"></div></div><div class="flag-info"><div class="flag-info-name">Safety Car (Yellow + SC board)</div><div class="flag-info-desc">Safety car deployed. Maintain your delta time. No overtaking. Gaps close &mdash; creates strategic pit stop windows.</div></div></div>
+    </div>
+    <div class="callout cyan"><div class="co-label">In the Sim HUD</div><p>Most sims display flag indicators per sector. A yellow in Sector 2 means the hazard is there specifically &mdash; not the whole circuit. Read the sector indicator, not just the colour.</p></div>
+  </div>
+</div></section>
+
+<!-- CH8: TERMINOLOGY -->
+<section id="terms"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 08 &middot; Terminology</div>
+    <h2 class="ch-title">Speak the language<br>of the paddock.</h2>
+    <p class="ch-intro">Terms from F1 commentary, team radio, sim communities, and real track day briefings. Hover terms marked &rsaquo; for a deeper explanation.</p>
+  </div>
+  <div class="section">
+    <div class="term-grid">
+      <div class="term-item has-detail"><div class="term-word">Understeer &rsaquo;</div><div class="term-def">Front tyres lose grip &mdash; car pushes wide regardless of steering angle.</div><div class="term-detail"><span class="dt-head">By drivetrain</span><p><strong>FWD:</strong> Most prone. Fronts steer, drive, and brake at once. Easing throttle often restores grip.</p><p><strong>RWD:</strong> Less prone. Usually means entry speed too high or nose-heavy setup.</p><p><strong>AWD:</strong> Moderate. Under power, fronts can exceed grip limit. Hard to correct once established.</p></div></div>
+      <div class="term-item has-detail"><div class="term-word">Oversteer &rsaquo;</div><div class="term-def">Rear tyres lose grip &mdash; rear slides out. Requires countersteering to correct.</div><div class="term-detail"><span class="dt-head">By drivetrain</span><p><strong>RWD:</strong> Most prone. Too much throttle = rear breaks away. Classic drift. Lift-off oversteer also pronounced.</p><p><strong>FWD:</strong> Rarely under power. Can oversteer on sudden lift-off &mdash; some drivers use this deliberately to rotate.</p><p><strong>AWD:</strong> Least prone but most dangerous when it occurs &mdash; arrives suddenly without warning.</p></div></div>
+      <div class="term-item has-detail"><div class="term-word">Snap Oversteer &rsaquo;</div><div class="term-def">Sudden, violent rear slide with very little warning. Cold tyres or combined braking + steering.</div><div class="term-detail"><span class="dt-head">Why it matters</span><p>Snap rotates the car faster than human reaction time in some cases. The brain takes ~150ms to register and respond. At speed, that is several metres of uncontrolled rotation.</p><p><strong>Prevention:</strong> Warm tyres properly, smooth inputs, never combine hard braking with full steering lock.</p></div></div>
+      <div class="term-item"><div class="term-word">Trail Braking</div><div class="term-def">Gradually releasing brake into corner entry to keep weight on the front for rotation and grip.</div></div>
+      <div class="term-item"><div class="term-word">Lift-off Oversteer</div><div class="term-def">Releasing throttle mid-corner transfers weight forward, unloading the rear which swings out.</div></div>
+      <div class="term-item"><div class="term-word">Lock-up</div><div class="term-def">Braking so hard a wheel stops rotating while the car moves. Flat spot + complete loss of steering.</div></div>
+      <div class="term-item"><div class="term-word">Late Apex</div><div class="term-def">Turning in later, hitting the inside kerb past the geometric midpoint. Allows earlier throttle on exit.</div></div>
+      <div class="term-item"><div class="term-word">Dirty Air</div><div class="term-def">Turbulent airflow behind a car that reduces the following car&rsquo;s downforce and increases braking distances.</div></div>
+      <div class="term-item"><div class="term-word">DRS</div><div class="term-def">Drag Reduction System &mdash; opens rear wing flap to reduce drag on straights. F1 only. Within 1s of car ahead.</div></div>
+      <div class="term-item"><div class="term-word">ERS / KERS</div><div class="term-def">Energy Recovery System &mdash; harvests braking energy and deploys it as an electrical power boost.</div></div>
+      <div class="term-item"><div class="term-word">Graining</div><div class="term-def">Tyre surface tears before reaching operating temperature. Creates rubber pellets that reduce grip. Cold-condition problem.</div></div>
+      <div class="term-item"><div class="term-word">Blistering</div><div class="term-def">Deep tyre damage from sustained excessive heat. Bubbles form under the compound surface. Causes sudden grip loss.</div></div>
+      <div class="term-item"><div class="term-word">Marbles</div><div class="term-def">Rubber debris shed by tyres that collects off the racing line. Off-line grip dramatically reduced.</div></div>
+      <div class="term-item"><div class="term-word">Apex</div><div class="term-def">The innermost point a car clips on the racing line. Can be geometric (midpoint) or late (past midpoint).</div></div>
+      <div class="term-item"><div class="term-word">Delta Time</div><div class="term-def">Your time relative to a reference lap. Positive = slower. Negative = faster. Also the target under VSC.</div></div>
+      <div class="term-item"><div class="term-word">Undercut</div><div class="term-def">Pit before your rival, set faster laps on fresh tyres, emerge ahead when they pit. Track position via strategy.</div></div>
+      <div class="term-item"><div class="term-word">Overcut</div><div class="term-def">Stay out longer than your rival, build a gap, emerge ahead when they pit. Counter to the undercut.</div></div>
+      <div class="term-item"><div class="term-word">VSC</div><div class="term-def">Virtual Safety Car &mdash; drivers maintain a prescribed delta time. Gaps remain unchanged, unlike physical SC.</div></div>
+      <div class="term-item"><div class="term-word">Box</div><div class="term-def">Radio code for &ldquo;pit in.&rdquo; The word &ldquo;pit&rdquo; is avoided as it sounds similar to &ldquo;split&rdquo; on team radio.</div></div>
+      <div class="term-item"><div class="term-word">Traction Circle</div><div class="term-def">Visual model of a tyre&rsquo;s total grip capacity. Any combination of forces must stay within the circle&rsquo;s edge.</div></div>
+      <div class="term-item"><div class="term-word">Sector Time</div><div class="term-def">Track split into three sectors. Individual times reveal exactly where you gain or lose relative to a reference.</div></div>
+      <div class="term-item"><div class="term-word">Flat Spot</div><div class="term-def">Tyre worn flat from a lock-up. Causes vibration at speed and reduced braking effectiveness. Irreversible without a stop.</div></div>
+      <div class="term-item"><div class="term-word">Safety Rating</div><div class="term-def">iRacing metric measuring how cleanly you race. Determines your licence tier and which series you can enter.</div></div>
+      <div class="term-item"><div class="term-word">Traction Circle</div><div class="term-def">Model showing a tyre&rsquo;s total grip. Combined braking and cornering forces must not exceed the circle boundary.</div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- QUIZ -->
+<section id="quiz"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Self Assessment</div>
+    <h2 class="ch-title">Test your knowledge.</h2>
+    <p class="ch-intro">10 questions across physics, race craft, and flags. Full explanations for every answer &mdash; right or wrong.</p>
+  </div>
+  <div class="section">
+    <div class="quiz-section">
+      <div class="quiz-title">Racing Knowledge Quiz</div>
+      <div class="quiz-sub">10 questions &middot; tap the answer you believe is correct</div>
+      <div id="quiz-container"></div>
+      <div class="quiz-score" id="quiz-score"></div>
+      <button class="quiz-reset" id="quiz-reset" onclick="resetQuiz()">Restart Quiz</button>
+    </div>
+  </div>
+</div></section>
+
+<!-- PART 2 DIVIDER -->
+<div class="part-divider">
+  <div class="part-label">Part Two</div>
+  <div class="part-name">CAR TUNING<div class="part-bg-num">02</div></div>
+</div>
+
+<!-- WHY CARS DIFFER -->
+<section id="why-different"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 09 &middot; Why Cars Need Different Tuning</div>
+    <h2 class="ch-title">Same settings,<br>completely different result.</h2>
+    <p class="ch-intro">A tune that makes an F1 car faster will make a muscle car dangerous. Every tuning decision depends on drivetrain layout, weight distribution, and power delivery. Understand this before touching any setting.</p>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">The Three Drivetrain Personalities</h3>
+    <div class="drivetrain-grid">
+      <div class="dt-card rwd reveal"><div class="dt-badge">RWD</div><div class="dt-name">Rear-Wheel Drive</div><p>The rear wheels must drive the car forward AND provide lateral cornering grip simultaneously. This fundamental conflict is the source of oversteer.</p><p><strong>Tuning priority:</strong> Rear grip and stability first. Too stiff at rear = snap oversteer. Too soft = understeer on throttle.</p><span class="dt-tag need">Stiffer rear ARB</span><span class="dt-tag need">More rear downforce</span><span class="dt-tag need">Rear diff locking</span><span class="dt-tag avoid">Avoid loose rear setup</span><p style="margin-top:10px"><strong>Examples:</strong> Ferrari 488, BMW M3, Porsche 911, Nissan 370Z</p></div>
+      <div class="dt-card fwd reveal"><div class="dt-badge">FWD</div><div class="dt-name">Front-Wheel Drive</div><p>The fronts must steer, drive, and brake all at once. This is why FWD cars understeer under power &mdash; the front tyres are overloaded with too many demands.</p><p><strong>Tuning priority:</strong> Reduce understeer. Achieve rotation on entry so the fronts can focus on driving the car out.</p><span class="dt-tag need">Softer front ARB</span><span class="dt-tag need">More front camber</span><span class="dt-tag avoid">Avoid stiff front setup</span><p style="margin-top:10px"><strong>Examples:</strong> Honda Civic Type R, VW Golf GTI, Renault Megane RS</p></div>
+      <div class="dt-card awd reveal"><div class="dt-badge">AWD</div><div class="dt-name">All-Wheel Drive</div><p>Power to all four wheels. Most stable platform but least communicative. AWD hides the limit then reaches it suddenly. Torque split between front and rear changes everything.</p><p><strong>Tuning priority:</strong> Balance the torque split. Too much front = understeer. Too much rear = snap oversteer.</p><span class="dt-tag need">Adjust torque split</span><span class="dt-tag info">Centre diff critical</span><span class="dt-tag avoid">Don&rsquo;t trust the stability</span><p style="margin-top:10px"><strong>Examples:</strong> Subaru WRX STI, Mitsubishi EVO, Audi R8</p></div>
+    </div>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">Weight Distribution &mdash; The Hidden Variable</h3>
+    <p>Where the engine sits determines the car&rsquo;s natural balance before any tuning. This is why two RWD cars can behave completely differently from each other.</p>
+    <div class="philosophy-grid">
+      <div class="phil-card reveal"><div class="phil-num">FR</div><div class="phil-title">Front-Engine, Rear-Drive</div><p>Most common RWD layout. Weight over the front axle, rear is lighter. Prone to oversteer under power. BMW M cars, Mustang, most sports cars.</p></div>
+      <div class="phil-card reveal"><div class="phil-num">MR</div><div class="phil-title">Mid-Engine, Rear-Drive</div><p>Near-perfect 50:50 weight distribution. Naturally balanced but rotates very quickly. Requires careful ARB and diff tuning. Ferrari 458, McLaren 720S, Lamborghini Hurac&aacute;n.</p></div>
+      <div class="phil-card reveal"><div class="phil-num">RR</div><div class="phil-title">Rear-Engine, Rear-Drive</div><p>Engine behind the rear axle creates a pendulum effect &mdash; once the rear starts rotating, it keeps going. Porsche 911. Requires very conservative setup and smooth inputs.</p></div>
+      <div class="phil-card reveal"><div class="phil-num">FF</div><div class="phil-title">Front-Engine, Front-Drive</div><p>Engine over front wheels means nose-heavy balance. Fronts doing everything. Natural understeer tendency requires soft front ARB, negative camber, and careful diff setup.</p></div>
+    </div>
+    <div class="callout"><div class="co-label">The key principle</div><p>Every tuning decision aims to move handling toward neutral &mdash; neither pushing the front (understeer) nor swinging the rear (oversteer). Your starting point depends entirely on the car&rsquo;s architecture. Understanding where you start is half the tuning job.</p></div>
+  </div>
+  <div class="section">
+    <h3 class="sec-title">Power Delivery Changes Everything Too</h3>
+    <p><strong>High-torque, low-revving engines</strong> (V8 muscle cars, diesels) produce peak grip demand instantly. These cars need stiffer, more planted setups to absorb sudden torque spikes without the rear stepping out.</p>
+    <p><strong>High-revving, low-torque engines</strong> build power progressively. The car has time to settle into acceleration. Softer, more reactive setups work better &mdash; the driver can modulate more precisely.</p>
+    <p><strong>Turbocharged engines</strong> have power lag followed by a surge. The setup must account for the car&rsquo;s behaviour both before boost arrives and after. Differential preload and traction control mapping become especially important.</p>
+  </div>
+</div></section>
+
+<!-- TYRES -->
+<section id="tyres"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 10 &middot; Tyres &amp; Pressures</div>
+    <h2 class="ch-title">Start here. Always.</h2>
+    <p class="ch-intro">Tyre pressure affects grip, wear rate, temperature, and handling balance. The fastest, cheapest adjustment you can make. Get this right before touching anything else.</p>
+  </div>
+  <div class="section">
+    <div class="cat-header"><div class="cat-line"></div><div class="cat-label">Tyre Pressure</div><div class="cat-line"></div></div>
+    <div class="param-list">
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Front Tyre Pressure</div><div class="param-short">Controls front grip, temperature, and wear pattern</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Too low = tyre rolls onto sidewall, vague feel, edge wears faster. Too high = only centre contacts road, middle overheats quickly and wears. Both reduce grip.</p><div class="slider-demo"><div class="slider-label"><span>Pressure</span><span class="s-val" id="fp-val">28 PSI</span></div><div class="slider-track" onclick="updateSlider(this,'fp-val',18,38,'PSI',event)"><div class="slider-fill" style="width:55%"></div><div class="slider-thumb" style="left:55%"></div></div><div class="slider-extremes"><span>18 PSI &mdash; Too low, vague</span><span>38 PSI &mdash; Too high, overheats</span></div></div><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">Increase pressure when</div><p>Centre of tyre cold, edges overheating. Car feels nervous. Tyre rolling onto sidewall under hard cornering.</p></div><div class="effect-box"><div class="effect-box-label decrease">Decrease pressure when</div><p>Centre overheating, edges cold. Car feels vague and imprecise. Contact patch too small.</p></div></div><div class="car-note"><strong>RWD:</strong> Slightly higher front pressure &mdash; front only steers and brakes, not driving. <strong>FWD:</strong> Lower front pressure to maximise contact patch for the overworked front tyres. <strong>AWD:</strong> Balanced pressures, within 1&ndash;2 PSI front to rear.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Rear Tyre Pressure</div><div class="param-short">Controls rear grip, traction, and stability</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>High rear pressure reduces contact patch &mdash; less traction for RWD, more oversteer tendency. Low rear pressure gives more contact patch and grip, but the tyre can overheat under sustained heavy load.</p><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">Increase pressure when</div><p>Rear too grippy causing exit understeer. Rear degrading slower than fronts &mdash; uneven wear pattern.</p></div><div class="effect-box"><div class="effect-box-label decrease">Decrease pressure when</div><p>Rear losing grip or overheating mid-race. Rear degrading significantly faster than fronts.</p></div></div><div class="car-note"><strong>RWD:</strong> Lower rear pressure = more contact patch = more traction. Critical for high-powered cars. <strong>FWD:</strong> Lower rear pressure allows rear to flex slightly, actually reducing understeer tendency. <strong>AWD:</strong> Match front and rear pressures closely.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Tyre Compound Selection</div><div class="param-short">Softer = more peak grip, faster degradation. Harder = less grip, longer life.</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p><strong>Soft compound:</strong> Most pliable rubber, highest peak grip, reaches temperature quickly, degrades fastest. Good for qualifying laps or short race stints.</p><p><strong>Medium compound:</strong> The balance point. Consistent over race distance. Default choice for most race setups and conditions.</p><p><strong>Hard compound:</strong> Resists heat and wear. Takes many laps to warm up &mdash; you will feel understeer and poor grip until temperature builds. Ideal for long stints or hot track conditions.</p><div class="car-note"><strong>Heavy, high-powered cars</strong> generate more tyre heat through mass and power &mdash; often need a harder compound than expected. <strong>Lightweight cars</strong> struggle to generate tyre heat and often need softer compounds even in warm conditions.</div></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- GEARING -->
+<section id="gearing"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 11 &middot; Gearing</div>
+    <h2 class="ch-title">Put your power<br>where you need it.</h2>
+    <p class="ch-intro">Gearing determines where in the rev range you operate on each section of track. Wrong gearing means running out of revs before the braking zone or spending time in the engine&rsquo;s dead zone.</p>
+  </div>
+  <div class="section">
+    <div class="param-list">
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Final Drive Ratio</div><div class="param-short">Master control &mdash; affects all gears simultaneously</div></div><div class="param-right"><span class="param-effect pe-engine">Engine</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>A shorter (higher number) final drive compresses the entire gear range &mdash; the car hits each gear&rsquo;s rev limit sooner. A longer (lower number) final drive spreads the range wider &mdash; each gear covers more speed before the next shift.</p><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">Shorter (higher number)</div><p>Better acceleration. Hits rev limit sooner. Better for tight tracks. Risk: hitting rev limit before the braking zone on long straights.</p></div><div class="effect-box"><div class="effect-box-label decrease">Longer (lower number)</div><p>Better top speed. More speed per gear. Better for high-speed circuits. Risk: sluggish corner exit if engine drops below power band.</p></div></div><div class="car-note"><strong>High-torque engines</strong> can run longer final drives and still pull hard. <strong>High-revving low-torque engines</strong> need shorter final drives to stay in their narrow power band. Match the final drive to your slowest corner &mdash; that corner should put the car in its peak torque zone on exit.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Individual Gear Ratios (1st&ndash;6th)</div><div class="param-short">Fine-tune where each gear peaks and hands off</div></div><div class="param-right"><span class="param-effect pe-engine">Engine</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Goal: every shift point should occur near peak power. <strong>1st:</strong> Always short, only for launch. <strong>Middle gears (2nd&ndash;4th):</strong> Your corner-exit gears &mdash; tune so your most important slow corner puts you in the mid-power-band on exit. <strong>Top gear:</strong> Should reach maximum circuit speed slightly before the braking zone, not right at it.</p><div class="car-note"><strong>Turbocharged:</strong> Keep gears shorter and closer together. Stay above the turbo spool speed &mdash; dropping too low means waiting for boost to build, losing time. <strong>Naturally aspirated:</strong> Wider spread is acceptable since power delivery is linear across the rev range.</div></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- SUSPENSION -->
+<section id="suspension"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 12 &middot; Suspension</div>
+    <h2 class="ch-title">The car&rsquo;s connection<br>to the road.</h2>
+    <p class="ch-intro">Suspension controls how the car reacts to bumps, weight transfer, and cornering forces. The most complex tuning area &mdash; small changes have large effects on balance.</p>
+  </div>
+  <div class="section">
+    <div class="cat-header"><div class="cat-line"></div><div class="cat-label">Springs</div><div class="cat-line"></div></div>
+    <div class="param-list">
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Spring Rate &mdash; Front</div><div class="param-short">Controls front dive under braking and front roll in corners</div></div><div class="param-right"><span class="param-effect pe-balance">Balance</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Stiff front springs = less dive under braking, less body roll, sharper turn-in. But less compliance over bumps &mdash; the front can lose contact over crests and rough sections.</p><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">Stiffer front springs</div><p>Reduces understeer. Better high-speed stability. Sharper turn-in. Can cause bouncing on rough tracks and loss of grip over bumps.</p></div><div class="effect-box"><div class="effect-box-label decrease">Softer front springs</div><p>More understeer. More compliance over bumps, better traction on rough tracks. Car feels lazier on initial turn-in.</p></div></div><div class="car-note"><strong>FWD:</strong> Stiffer front springs reduce understeer &mdash; front compresses less and maintains contact patch better. <strong>High-downforce:</strong> Can run very stiff springs because aero provides the compliance springs normally would.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Spring Rate &mdash; Rear</div><div class="param-short">Controls rear squat under acceleration and rear roll</div></div><div class="param-right"><span class="param-effect pe-balance">Balance</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Stiffer rear = less squat = more stability under power. But rear can bounce on bumps and lose traction intermittently. Softer rear = rear tyre stays planted over bumps better, but too soft means excessive weight transfer causing oversteer.</p><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">Stiffer rear springs</div><p>Reduces oversteer tendency. More rear stability under power. Better for smooth tracks. Risk: rear skipping on rough surfaces.</p></div><div class="effect-box"><div class="effect-box-label decrease">Softer rear springs</div><p>Better grip over bumpy surfaces. Tyre follows road better. Too soft causes oversteer as rear squats excessively under power.</p></div></div><div class="car-note"><strong>RWD critical:</strong> Too stiff = snap oversteer on bumpy corners. Too soft = unpredictable under heavy braking. Aim for settled but compliant. <strong>FWD:</strong> Softer rear lets the rear swing slightly on entry &mdash; useful for rotation.</div></div></div>
+    </div>
+
+    <div class="cat-header"><div class="cat-line"></div><div class="cat-label">Dampers (Shock Absorbers)</div><div class="cat-line"></div></div>
+    <div class="param-list">
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Bump Damping &mdash; Front &amp; Rear</div><div class="param-short">Controls how fast the suspension compresses over a bump</div></div><div class="param-right"><span class="param-effect pe-mechanical">Mechanical</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p><strong>Too stiff:</strong> Suspension cannot compress quickly enough over bumps. Tyre bounces rather than following the road. You lose contact patch and grip. <strong>Too soft:</strong> Suspension dives too easily. Weight transfer happens suddenly. Car feels loose and unpredictable under hard inputs.</p><div class="car-note">Start bump damping at 60&ndash;70% of the maximum available range. Adjust only after springs are set correctly &mdash; dampers fine-tune the spring&rsquo;s behaviour, not the overall stiffness direction.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Rebound Damping &mdash; Front &amp; Rear</div><div class="param-short">Controls how fast the suspension extends after compression</div></div><div class="param-right"><span class="param-effect pe-mechanical">Mechanical</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p><strong>Too stiff:</strong> Suspension is slow to return after compression. Car gets &ldquo;stuck&rdquo; in a compressed state, especially in chicanes and fast direction changes. Feels locked down. <strong>Too soft:</strong> Car bounces back too quickly &mdash; unsettled over a series of bumps.</p><div class="car-note">Rebound is typically set higher than bump damping. A common starting ratio is 6&ndash;7 bump : 9&ndash;10 rebound (on a scale of 1&ndash;10). High-downforce cars need higher rebound to control spring motion at high speed.</div></div></div>
+    </div>
+
+    <div class="cat-header"><div class="cat-line"></div><div class="cat-label">Ride Height</div><div class="cat-line"></div></div>
+    <div class="param-list">
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Ride Height &mdash; Front &amp; Rear</div><div class="param-short">Affects aero, centre of gravity, and ground clearance</div></div><div class="param-right"><span class="param-effect pe-aero">Aero</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Lower ride height reduces the centre of gravity (less body roll, more stable cornering) and on aerodynamic cars increases the venturi effect under the floor &mdash; more downforce. But too low = bottoming out over bumps. <strong>Rake angle</strong> (rear higher than front) pushes aerodynamic balance toward the front &mdash; more front downforce. Most race cars run slight rear-high rake.</p><div class="car-note"><strong>High-downforce cars:</strong> Even 2mm ride height change shifts aero balance significantly. Must be measured precisely. <strong>Road and muscle cars:</strong> Ride height mainly affects CoG &mdash; lower is generally better until you start bottoming out on bumps.</div></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ALIGNMENT -->
+<section id="alignment"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 13 &middot; Wheel Alignment</div>
+    <h2 class="ch-title">Angle the tyre.<br>Change the grip.</h2>
+    <p class="ch-intro">How the tyre sits relative to the road determines its contact patch shape. Among the highest-impact, most misunderstood tuning parameters available to you.</p>
+  </div>
+  <div class="section">
+    <div class="param-list">
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Camber &mdash; Front</div><div class="param-short">Tyre tilt inward (negative) or outward (positive) viewed from front</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>When cornering, outside tyres tilt outward due to body roll. Negative camber pre-tilts the tyre inward so when the car rolls in a corner, the tyre becomes more upright &mdash; maximising contact patch and cornering grip. Too much negative camber = inner edge wears fast on straights and braking grip is reduced.</p><div class="slider-demo"><div class="slider-label"><span>Front Camber</span><span class="s-val" id="fc-val">-2.5&deg;</span></div><div class="slider-track" onclick="updateSliderCamber(this,'fc-val',-5,0,event)"><div class="slider-fill" style="width:50%"></div><div class="slider-thumb" style="left:50%"></div></div><div class="slider-extremes"><span>-5.0&deg; &mdash; Extreme, inner wear</span><span>0&deg; &mdash; No camber</span></div></div><div class="car-note"><strong>FWD:</strong> More front negative camber (&minus;2.5&deg; to &minus;3.5&deg;) &mdash; front does everything and needs maximum cornering grip. <strong>RWD:</strong> &minus;1.5&deg; to &minus;2.5&deg; typical. Too much sacrifices straight-line braking stability. <strong>High-downforce:</strong> Less camber needed &mdash; aero pushes the tyre flatter in corners anyway.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Camber &mdash; Rear</div><div class="param-short">Rear tyre tilt &mdash; affects cornering grip and traction balance</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Rear camber works the same as front but the rear also needs to put power down in RWD/AWD cars. Too much negative camber reduces the contact patch for straight-line traction. Rear camber is typically less negative than front.</p><div class="car-note"><strong>RWD:</strong> Keep conservative at &minus;1.0&deg; to &minus;1.5&deg;. Too much loses traction. <strong>FWD:</strong> &minus;0.5&deg; to &minus;1.0&deg; helps cornering stability without sacrificing anything. <strong>AWD:</strong> Match front and rear more closely &mdash; typically &minus;1.5&deg; to &minus;2.5&deg; front, &minus;1.0&deg; to &minus;1.5&deg; rear.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Toe &mdash; Front</div><div class="param-short">Tyres angled inward (toe-in) or outward (toe-out) viewed from above</div></div><div class="param-right"><span class="param-effect pe-balance">Balance</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p><strong>Toe-out:</strong> More responsive, sharper turn-in &mdash; each tyre already angled toward the corner. But creates instability at high speed. <strong>Toe-in:</strong> More stable, slower turn-in. Better for high-speed circuits. Most road cars run slight toe-in for safety.</p><div class="car-note"><strong>FWD performance:</strong> Small front toe-out helps rotation &mdash; critical for reducing understeer. <strong>High-speed circuits:</strong> Front toe-in for stability on long straights.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Toe &mdash; Rear</div><div class="param-short">Major stability vs rotation trade-off</div></div><div class="param-right"><span class="param-effect pe-balance">Balance</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p><strong>Rear toe-in</strong> (standard): creates a self-correcting effect. If the rear starts to slide, the rear tyres angle to resist the slide. More stability, less rotation. <strong>Rear toe-out:</strong> Increases rotation dramatically. Can cause high-speed instability. Rarely used except in drift setups.</p><div class="car-note"><strong>RWD:</strong> Rear toe-in almost always better &mdash; controls oversteer tendency. 0.1&deg; to 0.2&deg; is typical. <strong>FWD:</strong> Slight rear toe-in adds stability and reduces rear swing on lift-off. <strong>Both:</strong> Never go to rear toe-out unless you specifically want rotation at the cost of stability.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Caster Angle</div><div class="param-short">Steering axis tilt &mdash; affects self-centering and dynamic camber</div></div><div class="param-right"><span class="param-effect pe-balance">Balance</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Higher positive caster creates more self-centering force &mdash; the steering naturally wants to return to straight ahead. Also adds dynamic negative camber when steering is applied, improving cornering grip. Requires more steering effort but gives better high-speed stability and feedback.</p><div class="car-note">Most performance cars benefit from higher positive caster (5&deg;&ndash;7&deg; or more). In sim racing, higher caster directly improves force feedback quality &mdash; you feel the tyres more clearly through the steering wheel.</div></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- ARB -->
+<section id="arb"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 14 &middot; Anti-Roll Bars</div>
+    <h2 class="ch-title">Control the roll.<br>Dial the balance.</h2>
+    <p class="ch-intro">Anti-roll bars resist the car rolling in corners. Critically, they affect handling balance independently of spring rates &mdash; and their effect is counterintuitive.</p>
+  </div>
+  <div class="section">
+    <div class="callout blue"><div class="co-lbl">The counterintuitive truth</div><p>A stiffer ARB increases load transfer at that axle. The axle with the stiffer ARB has <strong>less total cornering traction</strong> because the inside tyre unloads more aggressively. Stiffer front ARB = more understeer. Stiffer rear ARB = more oversteer. This is counterintuitive but correct.</p></div>
+    <div class="param-list">
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Front Anti-Roll Bar Stiffness</div><div class="param-short">Controls front lateral load transfer &mdash; understeer/oversteer balance lever</div></div><div class="param-right"><span class="param-effect pe-balance">Balance</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Stiffening the front ARB increases load transfer at the front axle. The inside front tyre unloads more aggressively. The front axle as a whole has <em>less</em> total cornering traction &mdash; resulting in more understeer. This is counterintuitive but proven.</p><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">Stiffer front ARB</div><p>More understeer. Better flat cornering (less body roll). Car resists rotation. More stable but pushes wide.</p></div><div class="effect-box"><div class="effect-box-label decrease">Softer front ARB</div><p>Less understeer. Front rotates more freely. More body roll. Better on bumpy tracks. Can create oversteer if rear ARB is much stiffer.</p></div></div><div class="car-note"><strong>FWD:</strong> Softer front ARB is the primary understeer fix &mdash; front axle has more traction when load transfer is gentler. This single change makes the biggest difference in FWD handling. <strong>RWD:</strong> A stiffer front ARB than rear helps stability and reduces aggressive rotation on corner entry.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Rear Anti-Roll Bar Stiffness</div><div class="param-short">Controls rear lateral load transfer &mdash; major oversteer lever</div></div><div class="param-right"><span class="param-effect pe-balance">Balance</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Stiffer rear ARB increases load transfer at the rear axle &mdash; inside rear unloads more, rear has less total cornering traction. Result: <strong>more oversteer</strong> tendency.</p><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">Stiffer rear ARB</div><p>More oversteer. Rear rotates more freely. Car feels agile. Risk: rear steps out under power or mid-corner.</p></div><div class="effect-box"><div class="effect-box-label decrease">Softer rear ARB</div><p>Less oversteer. Rear is more planted. Better traction on corner exit for RWD. Safer overall. More understeer tendency.</p></div></div><div class="car-note"><strong>RWD:</strong> This is your primary oversteer control. Rear stepping out too much? Soften rear ARB before touching anything else. <strong>FWD:</strong> Stiffer rear ARB can help corner-entry rotation &mdash; unloading the rear lets the car pivot. <strong>AWD:</strong> Typically rear ARB slightly stiffer than front to prevent torque understeer.</div></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- BRAKES -->
+<section id="brakes"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 15 &middot; Brakes</div>
+    <h2 class="ch-title">Balance the stop.<br>Control the entry.</h2>
+    <p class="ch-intro">Brake balance determines which end slows more aggressively. One of the few settings drivers adjust live during a race from the steering wheel.</p>
+  </div>
+  <div class="section">
+    <div class="param-list">
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Brake Balance (Bias) &mdash; Front / Rear</div><div class="param-short">Proportion of braking force applied to front vs rear axle</div></div><div class="param-right"><span class="param-effect pe-balance">Balance</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Under hard braking, weight transfers to the front &mdash; the front tyres have more grip and can take more braking force. Most race cars run 55&ndash;65% front bias. <strong>Too much front:</strong> Rear brakes contribute little and front overheats on long braking zones. <strong>Too much rear:</strong> Rear locks easily (it&rsquo;s light during braking), causing rotation and spin.</p><div class="slider-demo"><div class="slider-label"><span>Brake Bias</span><span class="s-val" id="bb-val">60% Front</span></div><div class="slider-track" onclick="updateBrakeBias(this,'bb-val',event)"><div class="slider-fill" style="width:60%"></div><div class="slider-thumb" style="left:60%"></div></div><div class="slider-extremes"><span>50% Front / 50% Rear</span><span>75% Front / 25% Rear</span></div></div><div class="car-note"><strong>High-downforce cars:</strong> More rear bias than road cars &mdash; aero generates rear downforce giving rear tyres more grip under braking. <strong>Rear-engine cars (911):</strong> Can run more rear bias. <strong>FWD:</strong> Higher front bias &mdash; weight and drive are both at the front.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Brake Pressure (Force)</div><div class="param-short">Overall maximum brake force multiplier</div></div><div class="param-right"><span class="param-effect pe-mechanical">Mechanical</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Higher pressure = more stopping force but easier lock-up without ABS. Lower pressure = more modulation range but may not achieve peak braking performance under maximum demand.</p><div class="car-note">With ABS on, higher brake pressure is almost always better &mdash; ABS handles lock prevention. Without ABS, find the pressure where you can feel the threshold clearly. Heavier cars need higher pressure. Lightweight cars with large brake packages may benefit from lower pressure for better modulation feel.</div></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- AERO -->
+<section id="aero"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 15b &middot; Aerodynamics</div>
+    <h2 class="ch-title">Press the car down.<br>Pay with drag.</h2>
+    <p class="ch-intro">Aerodynamics only matter on cars generating meaningful downforce. For most road cars, skip this entirely and focus on mechanical grip instead.</p>
+  </div>
+  <div class="section">
+    <div class="param-list">
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Front Downforce / Front Wing Angle</div><div class="param-short">Front grip at high speed at the cost of straight-line speed</div></div><div class="param-right"><span class="param-effect pe-aero">Aero</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>More front wing angle = more front downforce = less understeer at high speed = more drag = lower top speed. Front and rear downforce must be balanced &mdash; running maximum front with minimum rear creates high-speed oversteer.</p><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">More front wing</div><p>Less high-speed understeer. Better fast sweepers. More braking stability. Costs top speed. Critical at Silverstone, Spa.</p></div><div class="effect-box"><div class="effect-box-label decrease">Less front wing</div><p>Higher top speed. More high-speed understeer. Better for Monza. Rear aerodynamically dominant.</p></div></div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Rear Downforce / Rear Wing Angle</div><div class="param-short">Rear stability and RWD traction vs drag trade-off</div></div><div class="param-right"><span class="param-effect pe-aero">Aero</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Rear wing creates downforce over the rear axle &mdash; more traction for RWD at high speed and better high-speed stability. The largest drag-producing component on most race cars.</p><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">More rear wing</div><p>More rear grip at speed. Better stability. Improved RWD traction on corner exits. Significant top speed loss.</p></div><div class="effect-box"><div class="effect-box-label decrease">Less rear wing</div><p>Higher top speed. Rear feels light at speed. More oversteer in fast corners. Used at low-drag circuits: Monza, Le Mans.</p></div></div><div class="car-note"><strong>RWD at high speed:</strong> Without sufficient rear downforce, the rear becomes light under acceleration and snaps into oversteer. This is why F1 cars run massive wings at Monaco and tiny wings at Monza &mdash; the circuit dictates the aero level, not personal preference.</div></div></div>
+    </div>
+    <div class="callout blue"><div class="co-lbl">No meaningful aero on your car?</div><p>Most muscle cars, touring cars, and early sports cars generate negligible aerodynamic downforce. Skip aero tuning entirely for these cars and focus on mechanical grip: springs, dampers, ARBs, camber, and tyres. That is where all the performance lives.</p></div>
+  </div>
+</div></section>
+
+<!-- DIFFERENTIAL -->
+<section id="diff"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Chapter 16 &middot; Differential</div>
+    <h2 class="ch-title">The most misunderstood<br>tuning parameter.</h2>
+    <p class="ch-intro">The differential controls how torque is shared between the two driven wheels on the same axle. The single most impactful parameter for corner exit behaviour.</p>
+  </div>
+  <div class="section">
+    <div class="callout"><div class="co-lbl">What a differential does</div><p>In a corner, the inside wheel travels a shorter distance than the outside wheel. Without a differential, both wheels would be locked together &mdash; the inner would scrub (creating understeer) or the outer would spin. A differential allows each wheel to rotate at different speeds. The tuning question: how much should it resist this speed difference?</p></div>
+    <div class="param-list">
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Acceleration Lock (Power-On Differential)</div><div class="param-short">How locked the diff is when you apply throttle</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p><strong>High lock (closed diff):</strong> Both wheels forced to turn together on throttle. Inside tyre fights the corner &mdash; creates understeer on throttle. But more traction: both tyres contribute. Good for tight, slow corners where maximum traction matters. <strong>Low lock (open diff):</strong> On slippery surface or mid-corner, power goes to the least resistant wheel (usually inside, which is unloaded) &mdash; wheelspin on inside, less overall traction.</p><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">More locking</div><p>More traction on exit. Understeer on throttle. Car pushes wide when accelerating. Stable and consistent. Good for novices.</p></div><div class="effect-box"><div class="effect-box-label decrease">Less locking</div><p>More oversteer on exit. Rear can step out under power. More rotation. Experienced drivers can steer with the throttle.</p></div></div><div class="car-note"><strong>RWD critical:</strong> Enough locking prevents inside wheel spinning uselessly &mdash; but not so much that exit understeer prevents early full throttle. <strong>FWD:</strong> Acceleration locking helps spread torque evenly, reducing the snap toward the spin side. <strong>AWD:</strong> This plus the centre diff split together determine exit character entirely.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Deceleration Lock (Brake-Off Differential)</div><div class="param-short">How locked the diff is when you lift or brake</div></div><div class="param-right"><span class="param-effect pe-balance">Balance</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p><strong>High decel lock:</strong> More engine braking effect on turn-in. The rear can rotate more under braking as both rear wheels are slowed together. Useful for inducing rotation. Can cause oversteer on entry. <strong>Low decel lock:</strong> Less engine braking through the diff. Less rotation on turn-in &mdash; more understeer on entry. Safer, more predictable corner entry behaviour.</p><div class="car-note"><strong>Classic RWD tune:</strong> Low decel lock + medium acceleration lock = stable entry with controlled exit. The low decel lock gives you a clean, predictable turn-in, and the acceleration lock gives enough traction to prevent inside wheelspin on exit.</div></div></div>
+
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Differential Preload</div><div class="param-short">Minimum torque required to allow wheels to rotate at different speeds</div></div><div class="param-right"><span class="param-effect pe-mechanical">Mechanical</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Preload is a baseline resistance built into the differential &mdash; it takes this much torque to allow any speed difference between wheels. The diff is always partially locked regardless of throttle position. <strong>Higher preload:</strong> Always slightly locked, more consistent and predictable, but always creates slight understeer. <strong>Lower preload:</strong> More responsive to throttle and brake inputs, sharper handling, but less consistent across different throttle positions.</p><div class="car-note">Beginners: higher preload is more forgiving. Experienced drivers: lower preload enables throttle-steering &mdash; adjusting the car&rsquo;s angle with fine throttle inputs. This is how professional drivers &ldquo;steer with the throttle&rdquo; in RWD cars at the limit.</div></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- CAR PROFILES -->
+<section id="profiles"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Car Type Profiles &middot; Tuning Starting Points</div>
+    <h2 class="ch-title">Where to start for<br>your type of car.</h2>
+    <p class="ch-intro">Select your car type for recommended tuning directions across all major parameters. These are starting points &mdash; adjust from here based on what you feel on track.</p>
+  </div>
+  <div class="section">
+    <div class="car-selector">
+      <div class="cs-title">Select your car type</div>
+      <div class="cs-btns">
+        <button class="cs-btn active" onclick="setCarProfile('rwd',this)">RWD Sports Car</button>
+        <button class="cs-btn" onclick="setCarProfile('fwd',this)">FWD Hot Hatch</button>
+        <button class="cs-btn" onclick="setCarProfile('awd',this)">AWD / Rally</button>
+        <button class="cs-btn" onclick="setCarProfile('muscle',this)">Muscle / V8</button>
+        <button class="cs-btn" onclick="setCarProfile('gt3',this)">GT3 / Race Car</button>
+      </div>
+
+      <div class="car-profile show" id="profile-rwd">
+        <div class="cp-name">RWD Sports Car</div><div class="cp-sub">e.g. BMW M3, Porsche 911, Nissan 370Z, Ferrari 488</div>
+        <div class="cp-params">
+          <div class="cp-row"><div class="cp-param-name">Tyre Pressure F/R</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:55%"></div></div><div class="cp-val">28 / 26 PSI</div></div>
+          <div class="cp-row"><div class="cp-param-name">Front Camber</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:50%"></div></div><div class="cp-val">-2.0&deg; to -2.5&deg;</div></div>
+          <div class="cp-row"><div class="cp-param-name">Rear Camber</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:35%"></div></div><div class="cp-val">-1.0&deg; to -1.5&deg;</div></div>
+          <div class="cp-row"><div class="cp-param-name">Front ARB</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:60%"></div></div><div class="cp-val">Medium-Stiff</div></div>
+          <div class="cp-row"><div class="cp-param-name">Rear ARB</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:45%"></div></div><div class="cp-val">Medium</div></div>
+          <div class="cp-row"><div class="cp-param-name">Brake Bias</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:65%"></div></div><div class="cp-val">58&ndash;62% Front</div></div>
+          <div class="cp-row"><div class="cp-param-name">Accel Diff Lock</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:55%"></div></div><div class="cp-val">Medium (50&ndash;65%)</div></div>
+          <div class="cp-row"><div class="cp-param-name">Decel Diff Lock</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:35%"></div></div><div class="cp-val">Low-Medium (20&ndash;35%)</div></div>
+        </div>
+        <div class="cp-explanation"><strong>Philosophy:</strong> Front planted for braking, rear compliant enough to allow rotation, differential provides enough locking for clean exits without mid-corner push. Start here and soften rear ARB if you feel too much oversteer, or stiffen it if the car feels too pushy.</div>
+      </div>
+
+      <div class="car-profile" id="profile-fwd">
+        <div class="cp-name">FWD Hot Hatch</div><div class="cp-sub">e.g. Honda Civic Type R, VW Golf GTI, Renault Megane RS</div>
+        <div class="cp-params">
+          <div class="cp-row"><div class="cp-param-name">Tyre Pressure F/R</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:45%"></div></div><div class="cp-val">26 / 28 PSI</div></div>
+          <div class="cp-row"><div class="cp-param-name">Front Camber</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:70%"></div></div><div class="cp-val">-2.5&deg; to -3.5&deg;</div></div>
+          <div class="cp-row"><div class="cp-param-name">Rear Camber</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:20%"></div></div><div class="cp-val">-0.5&deg; to -1.0&deg;</div></div>
+          <div class="cp-row"><div class="cp-param-name">Front ARB</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:35%"></div></div><div class="cp-val">Soft (key setting!)</div></div>
+          <div class="cp-row"><div class="cp-param-name">Rear ARB</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:65%"></div></div><div class="cp-val">Stiff</div></div>
+          <div class="cp-row"><div class="cp-param-name">Brake Bias</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:70%"></div></div><div class="cp-val">62&ndash;68% Front</div></div>
+          <div class="cp-row"><div class="cp-param-name">Accel Diff Lock</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:50%"></div></div><div class="cp-val">Medium (40&ndash;60%)</div></div>
+          <div class="cp-row"><div class="cp-param-name">Decel Diff Lock</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:60%"></div></div><div class="cp-val">Medium-High (50&ndash;70%)</div></div>
+        </div>
+        <div class="cp-explanation"><strong>Philosophy:</strong> Everything targets reducing understeer. Soft front ARB = more front traction. Stiff rear ARB = unloads rear in corners helping rotation. High decel lock combined with stiff rear ARB is the FWD rotation trick. More front camber maximises the overworked front contact patch.</div>
+      </div>
+
+      <div class="car-profile" id="profile-awd">
+        <div class="cp-name">AWD / Rally</div><div class="cp-sub">e.g. Subaru WRX STI, Mitsubishi EVO, Audi Quattro, Ford Focus RS</div>
+        <div class="cp-params">
+          <div class="cp-row"><div class="cp-param-name">Tyre Pressure F/R</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:50%"></div></div><div class="cp-val">27 / 27 PSI</div></div>
+          <div class="cp-row"><div class="cp-param-name">Front Camber</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:55%"></div></div><div class="cp-val">-2.0&deg; to -2.5&deg;</div></div>
+          <div class="cp-row"><div class="cp-param-name">Rear Camber</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:45%"></div></div><div class="cp-val">-1.5&deg; to -2.0&deg;</div></div>
+          <div class="cp-row"><div class="cp-param-name">Front ARB</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:50%"></div></div><div class="cp-val">Medium</div></div>
+          <div class="cp-row"><div class="cp-param-name">Rear ARB</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:60%"></div></div><div class="cp-val">Medium-Stiff</div></div>
+          <div class="cp-row"><div class="cp-param-name">Centre Diff Split</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:55%"></div></div><div class="cp-val">40F / 60R typical</div></div>
+          <div class="cp-row"><div class="cp-param-name">Accel Diff Lock</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:65%"></div></div><div class="cp-val">Medium-High (60&ndash;75%)</div></div>
+        </div>
+        <div class="cp-explanation"><strong>Philosophy:</strong> AWD naturally tends toward understeer. Slightly more torque to the rear via centre diff helps rotation. Rear ARB slightly stiffer than front resists torque understeer. Key AWD challenge: the car feels planted right up to its limit, then suddenly loses traction. Always build in margin.</div>
+      </div>
+
+      <div class="car-profile" id="profile-muscle">
+        <div class="cp-name">Muscle / V8 High-Torque</div><div class="cp-sub">e.g. Dodge Charger Hellcat, Ford Mustang GT500, Chevrolet Camaro ZL1</div>
+        <div class="cp-params">
+          <div class="cp-row"><div class="cp-param-name">Tyre Pressure F/R</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:55%"></div></div><div class="cp-val">30 / 28 PSI</div></div>
+          <div class="cp-row"><div class="cp-param-name">Front Camber</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:45%"></div></div><div class="cp-val">-1.5&deg; to -2.0&deg;</div></div>
+          <div class="cp-row"><div class="cp-param-name">Rear Camber</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:30%"></div></div><div class="cp-val">-1.0&deg;</div></div>
+          <div class="cp-row"><div class="cp-param-name">Front ARB</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:70%"></div></div><div class="cp-val">Stiff</div></div>
+          <div class="cp-row"><div class="cp-param-name">Rear ARB</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:40%"></div></div><div class="cp-val">Soft-Medium</div></div>
+          <div class="cp-row"><div class="cp-param-name">Accel Diff Lock</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:75%"></div></div><div class="cp-val">High (70&ndash;85%)</div></div>
+          <div class="cp-row"><div class="cp-param-name">Spring Rate</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:65%"></div></div><div class="cp-val">Stiff overall</div></div>
+        </div>
+        <div class="cp-explanation"><strong>Philosophy:</strong> High-torque engines cause violent weight transfer &mdash; everything must be stiffer to control this. High acceleration diff lock is critical: without it, all 700+ bhp goes to the inside rear wheel and you spin on every corner exit. Stiff front ARB keeps the nose planted. Softer rear ARB prevents both ARBs together making the car skip over bumps and lose traction.</div>
+      </div>
+
+      <div class="car-profile" id="profile-gt3">
+        <div class="cp-name">GT3 / High-Downforce Race Car</div><div class="cp-sub">e.g. Ferrari 488 GT3, Lamborghini Hurac&aacute;n GT3, Porsche 911 GT3-R</div>
+        <div class="cp-params">
+          <div class="cp-row"><div class="cp-param-name">Tyre Pressure F/R</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:45%"></div></div><div class="cp-val">26 / 27 PSI (hot)</div></div>
+          <div class="cp-row"><div class="cp-param-name">Front Camber</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:65%"></div></div><div class="cp-val">-3.0&deg; to -3.5&deg;</div></div>
+          <div class="cp-row"><div class="cp-param-name">Rear Camber</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:55%"></div></div><div class="cp-val">-2.0&deg; to -2.5&deg;</div></div>
+          <div class="cp-row"><div class="cp-param-name">Front ARB</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:78%"></div></div><div class="cp-val">Very Stiff</div></div>
+          <div class="cp-row"><div class="cp-param-name">Rear ARB</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:65%"></div></div><div class="cp-val">Stiff</div></div>
+          <div class="cp-row"><div class="cp-param-name">Wing Level</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:60%"></div></div><div class="cp-val">Circuit-dependent</div></div>
+          <div class="cp-row"><div class="cp-param-name">Brake Bias</div><div class="cp-bar-wrap"><div class="cp-bar" style="width:63%"></div></div><div class="cp-val">56&ndash;62% F (adj. live)</div></div>
+        </div>
+        <div class="cp-explanation"><strong>Philosophy:</strong> At high downforce levels, aero does much of what mechanical grip does on road cars. Springs can be very stiff because aero provides compliance. Camber can be very aggressive. Ride height is critical &mdash; each mm changes aero balance. Choose the aero package based on circuit first. Then balance front/rear aero. Then address mechanical balance. Brake bias is adjusted live on the steering wheel as tyre load changes throughout the race.</div>
+      </div>
+    </div>
+  </div>
+</div></section>
+
+<!-- PROBLEM SOLVER -->
+<section id="problems"><div class="container">
+  <div class="chapter">
+    <div class="ch-num">Problem Solver &middot; What to Change When</div>
+    <h2 class="ch-title">Feel the problem.<br>Find the fix.</h2>
+    <p class="ch-intro">You&rsquo;re on track, something feels wrong. Here are the most common handling problems and what to change first &mdash; in order of impact.</p>
+  </div>
+  <div class="section">
+    <div class="problem-grid">
+      <div class="problem-item" onclick="toggleProblem(this)"><div class="problem-header"><div class="problem-q">Car pushes wide (understeer) in the middle of corners</div><div class="problem-chevron">&#9660;</div></div><div class="problem-body"><p style="font-size:14px;color:var(--text);margin-bottom:0">Classic mid-corner understeer &mdash; front tyres overloaded. Try in this order:</p><div class="fix-list"><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Reduce front tyre pressure by 1&ndash;2 PSI to increase contact patch</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Add more front negative camber (e.g. &minus;2.0&deg; to &minus;2.5&deg;)</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Soften the front anti-roll bar &mdash; less load transfer at front axle = more front traction</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Stiffen the rear anti-roll bar &mdash; more rear load transfer helps the car rotate</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Reduce front spring rate slightly &mdash; more compliance, better tyre contact over bumps</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Driving tip: Use more trail braking to keep weight on the front through corner entry</div></div></div></div></div>
+
+      <div class="problem-item" onclick="toggleProblem(this)"><div class="problem-header"><div class="problem-q">Rear steps out on corner exit &mdash; power oversteer (RWD)</div><div class="problem-chevron">&#9660;</div></div><div class="problem-body"><p style="font-size:14px;color:var(--text);margin-bottom:0">Rear losing traction under acceleration. Try in this order:</p><div class="fix-list"><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Increase acceleration diff lock &mdash; prevents inside wheel spinning uselessly</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Reduce rear tyre pressure by 1 PSI &mdash; more contact patch, more traction</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Soften the rear anti-roll bar &mdash; less load transfer, rear has more traction</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Add more rear downforce (if car has aero) &mdash; pushes rear into the road</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Soften rear springs &mdash; better compliance, rear stays planted over bumps</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Driving tip: Be more patient with throttle &mdash; wait until the car is pointing toward the exit</div></div></div></div></div>
+
+      <div class="problem-item" onclick="toggleProblem(this)"><div class="problem-header"><div class="problem-q">Car snaps into oversteer suddenly on corner entry under braking</div><div class="problem-chevron">&#9660;</div></div><div class="problem-body"><p style="font-size:14px;color:var(--text);margin-bottom:0">Entry snap &mdash; rear unloading too quickly under combined braking and turning:</p><div class="fix-list"><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Increase front brake bias &mdash; less rear braking = rear doesn&rsquo;t lock as easily on entry</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Reduce deceleration diff lock &mdash; less engine braking through diff = less rotation on entry</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Add rear toe-in &mdash; stabilises the rear under combined braking and turning loads</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Soften rear ARB &mdash; rear resists rotation better when it has more traction</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Reduce rear spring rate &mdash; more compliant under combined braking and steering</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Driving tip: Release brake more progressively on turn-in to reduce sudden weight transfer</div></div></div></div></div>
+
+      <div class="problem-item" onclick="toggleProblem(this)"><div class="problem-header"><div class="problem-q">Car feels nervous and unstable at high speed on straights</div><div class="problem-chevron">&#9660;</div></div><div class="problem-body"><p style="font-size:14px;color:var(--text);margin-bottom:0">High-speed instability &mdash; aerodynamic or mechanical balance issue:</p><div class="fix-list"><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Add rear downforce &mdash; rear becomes aerodynamically light at speed without sufficient downforce</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Add front toe-in &mdash; self-centering effect stabilises the front at high speed</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Stiffen front springs &mdash; reduces front dive and bounce at high speed</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Check ride height &mdash; bottoming out creates sudden, dramatic handling changes</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Stiffen front ARB &mdash; reduces lateral instability at the front axle</div></div></div></div></div>
+
+      <div class="problem-item" onclick="toggleProblem(this)"><div class="problem-header"><div class="problem-q">Car bounces and skips over bumps, losing traction mid-corner</div><div class="problem-chevron">&#9660;</div></div><div class="problem-body"><p style="font-size:14px;color:var(--text);margin-bottom:0">Suspension too stiff for the track surface. Try in this order:</p><div class="fix-list"><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Soften bump damping &mdash; suspension compresses more slowly, absorbs rather than transmits the bump</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Soften spring rate at the bouncing end &mdash; more travel available to absorb the impact</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Raise ride height slightly &mdash; more suspension travel before hitting bump stops</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Soften anti-roll bars &mdash; ARBs transmit bumpiness across the axle</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Check tyre pressure &mdash; overinflated tyres amplify every road imperfection significantly</div></div></div></div></div>
+
+      <div class="problem-item" onclick="toggleProblem(this)"><div class="problem-header"><div class="problem-q">Tyres overheating or degrading too quickly mid-race</div><div class="problem-chevron">&#9660;</div></div><div class="problem-body"><p style="font-size:14px;color:var(--text);margin-bottom:0">Thermal degradation &mdash; tyre working too hard. Try in this order:</p><div class="fix-list"><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Check tyre pressure &mdash; overinflated overheats centre; underinflated overheats edges. Read the wear pattern.</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Adjust camber &mdash; incorrect camber makes one part of the tyre do far more work than the rest</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Use a harder compound &mdash; generates less heat at the expense of some peak grip</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Soften spring rate &mdash; less aggressive load transfer = less tyre scrub and heat generation</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Driving tip: Smooth inputs. Aggressive, jerky inputs generate far more tyre heat than smooth ones</div></div></div></div></div>
+
+      <div class="problem-item" onclick="toggleProblem(this)"><div class="problem-header"><div class="problem-q">FWD car understeers massively on throttle out of slow corners</div><div class="problem-chevron">&#9660;</div></div><div class="problem-body"><p style="font-size:14px;color:var(--text);margin-bottom:0">FWD torque understeer &mdash; front wheels overloaded with drive and steering simultaneously:</p><div class="fix-list"><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Soften front ARB &mdash; most impactful FWD change; front axle has more traction</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Stiffen rear ARB &mdash; unloads inside rear on exit, helps the car rotate through the corner</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Increase front negative camber &mdash; more cornering contact patch for the driven front tyres</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Reduce front toe &mdash; slight toe-out helps the wheels point into corner during acceleration</div></div><div class="fix-row"><div class="fix-arrow">&rarr;</div><div>Driving tip: Use a later apex. Get the car straighter before applying full throttle so the fronts are steering less when they need to drive.</div></div></div></div></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-title">MASTER THE CAR.</div>
+    <div class="footer-sub">
+      Part 1: Physics &middot; Traction &middot; Racing Line &middot; Track Reading &middot; Assists &middot; Race Craft &middot; Flags &middot; Terminology &middot; Quiz<br>
+      Part 2: Why Cars Differ &middot; Tyres &middot; Gearing &middot; Suspension &middot; Alignment &middot; ARB &middot; Brakes &middot; Aero &middot; Differential &middot; Car Profiles &middot; Problem Solver
+    </div>
+    <div class="footer-line"></div>
+  </div>
+</footer>
+
+<script>
+// ═══ THEME TOGGLE ═══
+function toggleTheme() {
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('racing-guide-theme', next);
+}
+(function() {
+  const saved = localStorage.getItem('racing-guide-theme');
+  if (saved) document.documentElement.setAttribute('data-theme', saved);
+})();
+
+// ═══ WEIGHT TRANSFER PHYSICS ═══
+const physicsStates = {
+  neutral: {
+    fl:25,fr:25,rl:25,rr:25,
+    explain:"Coasting with balanced weight distribution. All four tyres share the load evenly. This is your baseline — any input shifts this balance immediately."
+  },
+  braking: {
+    fl:38,fr:38,rl:12,rr:12,
+    explain:"Hard braking transfers weight sharply to the front. Front tyres gain grip — great for stopping. Rear tyres unload — this is why snap oversteer can occur when you combine hard braking with a steering input. Never combine hard braking with full steering lock."
+  },
+  acceleration: {
+    fl:14,fr:14,rl:36,rr:36,
+    explain:"Full throttle transfers weight rearward. Rear tyres gain grip, helping power delivery. But the front lightens — understeer risk, especially in tight corners. In RWD: too much throttle too early = rear has too much power and not enough cornering grip. It steps out."
+  },
+  cornering: {
+    fl:14,fr:32,rl:18,rr:36,
+    explain:"Cornering left transfers weight to the right via centrifugal force. Outside (right) tyres carry the majority of the load. This is why the outside front-right and rear-right tyres work hardest in a left-hand corner. Inside tyres unload and contribute less grip — the car rolls onto the outside rubber."
+  }
+};
+
+function setPhysics(mode, btn) {
+  document.querySelectorAll('.phys-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const s = physicsStates[mode];
+  ['fl','fr','rl','rr'].forEach(pos => {
+    const pct = s[pos];
+    const circle = document.getElementById('t' + pos);
+    const label = document.getElementById('p' + pos);
+    label.textContent = pct + '%';
+    const size = 56 + (pct - 12) * 1.4;
+    circle.style.width = size + 'px';
+    circle.style.height = size + 'px';
+    circle.style.margin = '0 auto ' + Math.max(0, (80 - size) / 2) + 'px';
+    if (pct >= 32) {
+      circle.style.borderColor = 'var(--red)';
+      circle.style.background = 'rgba(232,38,58,' + (0.05 + Math.min(1,(pct-25)/20)*0.2) + ')';
+    } else if (pct <= 14) {
+      circle.style.borderColor = 'var(--gray2)';
+      circle.style.background = 'transparent';
+    } else {
+      circle.style.borderColor = 'var(--amber)';
+      circle.style.background = 'rgba(245,166,35,0.07)';
+    }
+  });
+  document.getElementById('phys-explain').textContent = s.explain;
+}
+
+// ═══ PARAM ACCORDION ═══
+function toggleParam(el) {
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.param.open').forEach(p => p.classList.remove('open'));
+  if (!wasOpen) el.classList.add('open');
+}
+
+// ═══ PROBLEM ACCORDION ═══
+function toggleProblem(el) {
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.problem-item.open').forEach(p => p.classList.remove('open'));
+  if (!wasOpen) el.classList.add('open');
+}
+
+// ═══ SLIDERS ═══
+function updateSlider(track, valId, min, max, unit, e) {
+  const rect = track.getBoundingClientRect();
+  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  const val = min + (max - min) * pct;
+  track.querySelector('.slider-fill').style.width = (pct * 100) + '%';
+  track.querySelector('.slider-thumb').style.left = (pct * 100) + '%';
+  document.getElementById(valId).textContent = Math.round(val) + ' ' + unit;
+}
+function updateSliderCamber(track, valId, min, max, e) {
+  const rect = track.getBoundingClientRect();
+  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  const val = min + (max - min) * pct;
+  track.querySelector('.slider-fill').style.width = (pct * 100) + '%';
+  track.querySelector('.slider-thumb').style.left = (pct * 100) + '%';
+  document.getElementById(valId).textContent = val.toFixed(1) + '°';
+}
+function updateBrakeBias(track, valId, e) {
+  const rect = track.getBoundingClientRect();
+  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+  const frontPct = Math.round(50 + pct * 25);
+  track.querySelector('.slider-fill').style.width = (pct * 100) + '%';
+  track.querySelector('.slider-thumb').style.left = (pct * 100) + '%';
+  document.getElementById(valId).textContent = frontPct + '% Front';
+}
+
+// ═══ CAR PROFILE SELECTOR ═══
+function setCarProfile(id, btn) {
+  document.querySelectorAll('.cs-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.car-profile').forEach(p => p.classList.remove('show'));
+  document.getElementById('profile-' + id).classList.add('show');
+}
+
+// ═══ SCROLL REVEAL ═══
+const revealSelectors = [
+  '.concept-card', '.dt-card', '.cue-item', '.flag-entry',
+  '.priority-item', '.assist-card', '.term-item', '.step',
+  '.param', '.phil-card', '.problem-item', '.cp-row', '.reveal'
+];
+document.querySelectorAll(revealSelectors.join(',')).forEach(el => {
+  if (!el.classList.contains('reveal')) el.classList.add('reveal');
+});
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.06, rootMargin: '0px 0px -16px 0px' });
+document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+// ═══ NAV ACTIVE STATE ═══
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  document.querySelectorAll('section[id]').forEach(s => {
+    if (window.scrollY >= s.offsetTop - 150) current = s.getAttribute('id');
+  });
+  navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+}, { passive: true });
+
+// ═══ TERM TOOLTIP FLIP ═══
+document.querySelectorAll('.term-item.has-detail').forEach(item => {
+  item.addEventListener('mouseenter', () => {
+    item.classList.toggle('flip', item.getBoundingClientRect().top < 270);
+  });
+});
+
+// ═══ QUIZ ═══
+const QUIZ = [
+  {
+    q: "You brake hard for a corner and the front wheels lock up. What happens to the car?",
+    opts: ["You stop harder and faster", "You lose all steering — the car slides straight on", "The rear steps out in oversteer", "Nothing — the car still turns normally"],
+    ans: 1,
+    explain: "A locked wheel creates sliding friction, which is less effective than rolling friction. A non-rotating front tyre cannot generate lateral grip at all — turning the wheel does nothing. You slide straight regardless of steering input. This is why threshold braking (staying just below lock) is the goal."
+  },
+  {
+    q: "What does the traction budget mean in driving?",
+    opts: ["How much fuel the car has left", "Each tyre has 100% total grip — spent on braking, cornering, or acceleration", "How many laps your tyres will last", "The total power output of the engine"],
+    ans: 1,
+    explain: "Each tyre provides a maximum total force in any direction — like a budget. Use 80% on braking and only 20% remains for turning. Demand 100% braking AND 100% cornering simultaneously and the tyre exceeds its budget — it gives up. This is the foundation of all car control."
+  },
+  {
+    q: "In a rear-wheel-drive car, you apply full throttle mid-corner while still pointing at the apex. What happens?",
+    opts: ["The car accelerates cleanly out", "The rear tyres spin — the rear steps out in oversteer", "The front pushes wide in understeer", "Nothing — throttle has no effect while cornering"],
+    ans: 1,
+    explain: "RWD rear tyres must provide cornering grip AND drive force simultaneously. Too much throttle overwhelms their traction budget. The rear loses lateral grip and swings out. Fix: feed throttle progressively only once the car is pointing toward the exit and steering angle is being unwound."
+  },
+  {
+    q: "A blue flag is shown to you during a race. What does it mean?",
+    opts: ["Wet conditions ahead — slow down", "A lead-lap car is approaching — move aside", "The session is about to be stopped", "You have a mechanical problem — pit next lap"],
+    ans: 1,
+    explain: "Blue flags are shown to a lapped car being approached by a lead-lap car. You must move aside within three blue flags or receive a time penalty. The battle is not between you and the leader — do not fight it. Yield cleanly and let them through."
+  },
+  {
+    q: "What is a late apex and why is it usually faster?",
+    opts: ["Braking later than normal to gain time", "Turning in later so you reach full throttle sooner on exit", "Using the full width of the kerbing at the apex", "Waiting until the last moment to change gear"],
+    ans: 1,
+    explain: "Late apex means turning in past the geometric midpoint of the corner. This straightens the exit sooner, allowing earlier throttle application. A driver who reaches full throttle just three car-lengths before you compounds that advantage on every single lap. Exit speed matters far more than entry speed."
+  },
+  {
+    q: "Under hard braking, weight transfers forward. What specific risk does this create for an RWD car?",
+    opts: ["Understeer because the front is overloaded", "Snap oversteer because the rear unloads and loses grip", "Loss of engine braking effectiveness", "Overheating the front brake discs"],
+    ans: 1,
+    explain: "During braking, weight moves forward. The rear tyres unload significantly — they have less grip. In RWD, those same rear tyres also need to provide lateral grip for cornering. An unloaded rear tyre can snap sideways very quickly, especially if you combine hard braking with a steering input at the same time."
+  },
+  {
+    q: "What is the correct order to remove driving assists when improving your skills?",
+    opts: ["Remove all assists at once and lower the AI difficulty significantly", "Keep all assists on for as long as possible", "Stability Control first, then TC, then ABS", "Remove ABS first as it is the easiest to learn without"],
+    ans: 2,
+    explain: "The step-down method builds each skill independently. Stability Control first — you learn to catch slides. Then TC — you learn smooth throttle on corner exit. Then ABS — you learn threshold braking. Each step builds a neural pathway. Removing all at once overwhelms the driver and teaches nothing effectively."
+  },
+  {
+    q: "A yellow flag is shown in Sector 2 during your lap. What should you do?",
+    opts: ["Slow down across the entire circuit", "Slow down specifically in Sector 2 — the hazard is there", "Pit immediately on your next lap", "Only slow down if you can see the actual incident with your own eyes"],
+    ans: 1,
+    explain: "Yellow flags are sector-specific. The hazard is located in that specific sector. You must reduce speed and be prepared for avoiding action in that sector only. Overtaking is prohibited through the yellow sector. Modern sims display this as a coloured sector indicator — read the sector, not just the flag colour."
+  },
+  {
+    q: "You are following another car closely in its slipstream. What is the aerodynamic effect on your car?",
+    opts: ["You gain more downforce — the car ahead creates a funnel effect", "Your downforce is reduced — dirty air disrupts airflow over your wings", "Your car becomes more stable because the air is pre-cleared", "No significant aerodynamic effect — only applies at very high speeds"],
+    ans: 1,
+    explain: "The car ahead disrupts and heats the air behind it — this is dirty air. Your front wing and diffuser need clean, undisturbed airflow to generate downforce. In dirty air, your downforce decreases, braking distances increase, and tyres overheat faster. This is why overtaking is genuinely difficult in modern F1 — and why leaving a gap is important for tyre preservation."
+  },
+  {
+    q: "Your car's rear begins to slide mid-corner. What is the correct immediate response?",
+    opts: ["Lift off the throttle sharply to transfer weight back to the rear", "Brake firmly to stabilise the car", "Steer into the slide (countersteer) and modulate throttle smoothly", "Floor the throttle to pull the car straight with engine power"],
+    ans: 2,
+    explain: "Countersteering — steering in the same direction the rear is sliding — is the correct response. Lifting sharply transfers weight forward, further unloading the rear and making the slide worse. Hard braking can lock the fronts and cause a spin. The correct technique: steer into it, ease off throttle smoothly, wait for grip to return, then carefully resume."
+  }
+];
+
+let answers = new Array(QUIZ.length).fill(null);
+let answered = new Array(QUIZ.length).fill(false);
+
+function buildQuiz() {
+  const c = document.getElementById('quiz-container');
+  if (!c) return;
+  c.innerHTML = '';
+  QUIZ.forEach((item, qi) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-q';
+    div.innerHTML =
+      '<div class="q-text">Q' + (qi+1) + '. ' + item.q + '</div>' +
+      '<div class="q-options" id="opts-' + qi + '">' +
+      item.opts.map((o, i) =>
+        '<button class="q-opt" onclick="answerQ(' + qi + ',' + i + ')" id="opt-' + qi + '-' + i + '">' + o + '</button>'
+      ).join('') +
+      '</div>' +
+      '<div class="q-feedback" id="fb-' + qi + '"></div>';
+    c.appendChild(div);
+  });
+}
+
+function answerQ(qi, selected) {
+  if (answered[qi]) return;
+  answered[qi] = true;
+  answers[qi] = selected;
+  const correct = QUIZ[qi].ans;
+  for (let i = 0; i < QUIZ[qi].opts.length; i++) {
+    const btn = document.getElementById('opt-' + qi + '-' + i);
+    btn.classList.add('disabled');
+    if (i === correct) btn.classList.add('correct');
+    else if (i === selected && selected !== correct) btn.classList.add('wrong');
+  }
+  const fb = document.getElementById('fb-' + qi);
+  fb.className = 'q-feedback show ' + (selected === correct ? 'ok' : 'no');
+  fb.innerHTML = '<strong>' + (selected === correct ? '✓ Correct' : '✗ Incorrect') + '</strong> — ' + QUIZ[qi].explain;
+  if (answered.every(Boolean)) showScore();
+}
+
+function showScore() {
+  const score = answers.filter((a, i) => a === QUIZ[i].ans).length;
+  const el = document.getElementById('quiz-score');
+  const rst = document.getElementById('quiz-reset');
+  const msgs = [
+    'Keep studying — revisit Chapters 1–3 on physics and traction.',
+    'Getting there — focus on the physics and traction chapters.',
+    'Solid foundation — refine the edge cases and flag knowledge.',
+    'Strong knowledge — you understand car behaviour very well.',
+    'Excellent — a complete understanding across all areas.'
+  ];
+  el.innerHTML = score + ' / ' + QUIZ.length + ' correct<span>' + msgs[Math.min(Math.floor(score/2), 4)] + '</span>';
+  el.classList.add('show');
+  if (rst) rst.classList.add('show');
+}
+
+function resetQuiz() {
+  answers = new Array(QUIZ.length).fill(null);
+  answered = new Array(QUIZ.length).fill(false);
+  const el = document.getElementById('quiz-score');
+  const rst = document.getElementById('quiz-reset');
+  if (el) el.classList.remove('show');
+  if (rst) rst.classList.remove('show');
+  buildQuiz();
+}
+
+buildQuiz();
+</script>
+</body>
+</html>

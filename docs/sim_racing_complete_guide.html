@@ -31,29 +31,37 @@
 
 /* LIGHT THEME */
 [data-theme="light"]{
-  --bg:#F5F3EF; --bg2:#EDEAE4; --bg3:#E5E2DC;
+  --bg:#F5F3EF; --bg2:#EDEAE4; --bg3:#DDD9D1;
   --surface:#FFFFFF; --surface2:#F0EDE8;
-  --border:rgba(0,0,0,0.08); --border2:rgba(0,0,0,0.15);
-  --red:#C41230; --red-dim:rgba(196,18,48,0.09);
-  --amber:#B56900; --amber-dim:rgba(181,105,0,0.09);
-  --cyan:#007880; --cyan-dim:rgba(0,120,128,0.09);
-  --blue:#1A5CC8; --blue-dim:rgba(26,92,200,0.09);
-  --green:#1A8040; --green-dim:rgba(26,128,64,0.09);
-  --white:#16141C; --gray:#58586A; --gray2:#909098;
-  --text:rgba(22,20,28,0.74);
-  --nav-bg:rgba(245,243,239,0.96);
-  --grid-line:rgba(0,0,0,0.035);
+  --border:rgba(0,0,0,0.09); --border2:rgba(0,0,0,0.17);
+  --red:#B8102C; --red-dim:rgba(184,16,44,0.09);
+  --amber:#965300; --amber-dim:rgba(150,83,0,0.10);
+  --cyan:#006068; --cyan-dim:rgba(0,96,104,0.09);
+  --blue:#1550B8; --blue-dim:rgba(21,80,184,0.09);
+  --green:#145C2A; --green-dim:rgba(20,92,42,0.09);
+  --white:#16141C; --gray:#48485A; --gray2:#888898;
+  --text:rgba(22,20,28,0.80);
+  --nav-bg:rgba(245,243,239,0.97);
+  --grid-line:rgba(0,0,0,0.03);
   --flag-tooltip-bg:#EDEAE4;
 }
 
 html{scroll-behavior:smooth}
 body{background:var(--bg);color:var(--white);font-family:var(--body);font-size:16px;line-height:1.75;font-weight:300;-webkit-font-smoothing:antialiased;overflow-x:hidden;transition:background .3s,color .3s}
-::-webkit-scrollbar{width:3px}
+::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--bg)}
 ::-webkit-scrollbar-thumb{background:var(--red);border-radius:2px}
 
+/* READING PROGRESS BAR */
+#progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:linear-gradient(90deg,var(--cyan),var(--red),var(--amber));z-index:9999;transition:width .1s linear;pointer-events:none}
+
+/* BACK TO TOP */
+#back-to-top{position:fixed;bottom:24px;right:24px;z-index:901;width:46px;height:46px;border-radius:50%;background:var(--surface);border:1px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;box-shadow:0 4px 20px rgba(0,0,0,.3);transition:all .25s;opacity:0;pointer-events:none;color:var(--gray)}
+#back-to-top.show{opacity:1;pointer-events:auto}
+#back-to-top:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px)}
+
 /* THEME TOGGLE */
-.theme-toggle{position:fixed;bottom:24px;right:24px;z-index:999;width:48px;height:48px;border-radius:50%;background:var(--surface);border:1px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:all .25s}
+.theme-toggle{position:fixed;bottom:80px;right:24px;z-index:902;width:46px;height:46px;border-radius:50%;background:var(--surface);border:1px solid var(--border2);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:19px;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:all .25s}
 .theme-toggle:hover{border-color:var(--red);transform:scale(1.08)}
 .icon-dark{display:block}
 .icon-light{display:none}
@@ -126,7 +134,8 @@ strong{color:var(--white);font-weight:600}
 
 /* CONCEPT / CARDS */
 .concept-grid,.drivetrain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin:22px 0}
-.concept-card,.dt-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px;position:relative;overflow:hidden}
+.concept-card,.dt-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px;position:relative;overflow:hidden;transition:border-color .2s,transform .2s,box-shadow .2s}
+.concept-card:hover,.dt-card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.18)}
 .concept-card::after{content:"";position:absolute;top:0;left:0;right:0;height:2px}
 .concept-card.red::after{background:var(--red)}
 .concept-card.amber::after{background:var(--amber)}
@@ -158,7 +167,8 @@ strong{color:var(--white);font-weight:600}
 
 /* CUE LIST */
 .cue-list{display:flex;flex-direction:column;gap:10px;margin:22px 0}
-.cue-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start}
+.cue-item{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;display:grid;grid-template-columns:44px 1fr;gap:14px;align-items:start;transition:border-color .2s,transform .2s}
+.cue-item:hover{border-color:var(--border2);transform:translateX(3px)}
 .cue-badge{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:13px;font-weight:600;background:var(--red-dim);color:var(--red);border:1px solid rgba(232,38,58,.3)}
 [data-theme="light"] .cue-badge{border-color:rgba(196,18,48,.25)}
 .cue-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:6px}
@@ -172,7 +182,8 @@ strong{color:var(--white);font-weight:600}
 
 /* ASSISTS */
 .assists-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:22px 0}
-.assist-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px}
+.assist-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:20px;transition:border-color .2s,box-shadow .2s}
+.assist-card:hover{border-color:var(--border2);box-shadow:0 4px 20px rgba(0,0,0,.12)}
 .assist-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
 .assist-name{font-size:15px;font-weight:600;color:var(--white)}
 .badge{font-family:var(--mono);font-size:9px;letter-spacing:.06em;padding:3px 8px;border-radius:4px;text-transform:uppercase}
@@ -183,13 +194,15 @@ strong{color:var(--white);font-weight:600}
 
 /* STEPS */
 .steps{counter-reset:step;margin:22px 0;display:flex;flex-direction:column;gap:3px}
-.step{counter-increment:step;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px 16px 54px;position:relative;font-size:15px;color:var(--text);line-height:1.6}
+.step{counter-increment:step;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:16px 18px 16px 54px;position:relative;font-size:15px;color:var(--text);line-height:1.6;transition:border-color .2s}
+.step:hover{border-color:var(--red)}
 .step::before{content:counter(step);position:absolute;left:18px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:16px;font-weight:600;color:var(--red)}
 .step strong{color:var(--white)}
 
 /* FLAGS */
 .flag-table{display:flex;flex-direction:column;gap:6px;margin:22px 0}
-.flag-entry{display:grid;grid-template-columns:80px 1fr;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;min-height:68px}
+.flag-entry{display:grid;grid-template-columns:80px 1fr;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;min-height:68px;transition:border-color .2s,box-shadow .2s}
+.flag-entry:hover{border-color:var(--border2);box-shadow:0 2px 12px rgba(0,0,0,.1)}
 .flag-visual{display:flex;align-items:center;justify-content:center;padding:10px}
 .flag-info{padding:14px 18px;display:flex;flex-direction:column;justify-content:center;border-left:1px solid var(--border)}
 .flag-info-name{font-size:15px;font-weight:600;color:var(--white);margin-bottom:3px}
@@ -213,10 +226,12 @@ strong{color:var(--white);font-weight:600}
 /* TERMS */
 .term-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:6px;margin:22px 0;overflow:visible}
 .term-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 16px;display:flex;gap:14px;position:relative;cursor:default;transition:border-color .2s;overflow:visible}
+.term-item.has-detail{cursor:pointer}
 .term-item.has-detail:hover{border-color:var(--red);z-index:100}
 .term-word{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--red);min-width:110px;max-width:130px;word-wrap:break-word;padding-top:1px}
 .term-def{font-size:13px;color:var(--gray);line-height:1.55}
-.term-detail{display:none;position:absolute;bottom:calc(100% + 10px);left:0;width:340px;max-width:min(340px,90vw);background:var(--flag-tooltip-bg);border:1px solid var(--red);border-radius:10px;padding:16px;font-size:13px;color:var(--gray);line-height:1.65;z-index:500;box-shadow:0 12px 40px rgba(0,0,0,.5);pointer-events:none}
+.term-detail{display:none;position:absolute;bottom:calc(100% + 10px);left:0;width:340px;max-width:min(340px,90vw);background:var(--flag-tooltip-bg);border:1px solid var(--red);border-radius:10px;padding:16px;font-size:13px;color:var(--gray);line-height:1.65;z-index:500;box-shadow:0 12px 40px rgba(0,0,0,.5);pointer-events:none;animation:fadeInTooltip .15s ease}
+@keyframes fadeInTooltip{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
 .term-item.has-detail:hover .term-detail{display:block}
 .term-item.flip .term-detail{bottom:auto;top:calc(100% + 10px)}
 .dt-head{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:block;color:var(--red)}
@@ -246,13 +261,39 @@ strong{color:var(--white);font-weight:600}
 
 /* QUIZ */
 .quiz-section{background:var(--bg3);border-radius:12px;padding:32px;margin:24px 0;border:1px solid var(--border2)}
-.quiz-title{font-family:var(--font);font-size:24px;font-weight:700;margin-bottom:6px}
+.quiz-header{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.quiz-title{font-family:var(--font);font-size:24px;font-weight:700;margin-bottom:0}
+.quiz-progress-label{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--gray);text-transform:uppercase}
+.quiz-progress-bar{height:4px;background:var(--border2);border-radius:2px;margin-bottom:20px;overflow:hidden}
+.quiz-progress-fill{height:100%;background:linear-gradient(90deg,var(--cyan),var(--red));border-radius:2px;width:0%;transition:width .4s cubic-bezier(.16,1,.3,1)}
 .quiz-sub{font-size:14px;color:var(--gray);margin-bottom:24px}
-.quiz-q{margin-bottom:28px}
+.quiz-q{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border)}
+.quiz-q:last-child{border-bottom:none;padding-bottom:0;margin-bottom:0}
+.q-num{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--gray);text-transform:uppercase;margin-bottom:8px}
 .q-text{font-size:16px;color:var(--white);font-weight:500;margin-bottom:14px;line-height:1.5}
 .q-options{display:flex;flex-direction:column;gap:8px}
-.q-opt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 16px;cursor:pointer;font-size:14px;color:var(--text);transition:all .15s;text-align:left;font-family:var(--body)}
-.q-opt:hover{border-color:var(--border2);color:var(--white)}
+.q-opt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 16px;cursor:pointer;font-size:14px;color:var(--text);transition:all .15s;text-align:left;font-family:var(--body);display:flex;align-items:center;gap:12px}
+.q-opt-letter{font-family:var(--mono);font-size:10px;color:var(--gray2);min-width:22px;height:22px;border-radius:4px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .15s;letter-spacing:.04em}
+.q-opt:hover:not(.disabled){border-color:var(--border2);color:var(--white);transform:translateX(3px)}
+.q-opt:hover:not(.disabled) .q-opt-letter{border-color:var(--red);color:var(--red)}
+.q-opt.correct{background:var(--cyan-dim);border-color:var(--cyan);color:var(--cyan)}
+.q-opt.correct .q-opt-letter{background:var(--cyan);color:var(--bg);border-color:var(--cyan)}
+.q-opt.wrong{background:var(--red-dim);border-color:var(--red);color:var(--red)}
+.q-opt.wrong .q-opt-letter{background:var(--red);color:#fff;border-color:var(--red)}
+.q-opt.disabled{cursor:default;transform:none!important}
+.q-feedback{margin-top:10px;padding:12px 16px;border-radius:8px;font-size:14px;line-height:1.6;display:none}
+.q-feedback.show{display:block}
+.q-feedback.ok{background:var(--cyan-dim);border-left:3px solid var(--cyan);color:var(--text)}
+.q-feedback.no{background:var(--red-dim);border-left:3px solid var(--red);color:var(--text)}
+.quiz-score{text-align:center;padding:28px;background:var(--surface);border-radius:10px;border:1px solid var(--border2);margin-top:24px;display:none}
+.quiz-score.show{display:block}
+.score-num{font-family:var(--font);font-size:56px;font-weight:900;color:var(--red);line-height:1}
+.score-bar-wrap{height:8px;background:var(--border2);border-radius:4px;margin:16px auto;max-width:300px;overflow:hidden}
+.score-bar-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--amber));border-radius:4px;width:0%;transition:width 1s cubic-bezier(.16,1,.3,1)}
+.score-msg{font-size:15px;color:var(--gray);font-weight:300;margin-top:8px}
+.quiz-reset{display:none;margin:16px auto 0;font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:12px 28px;border-radius:8px;border:1px solid var(--border2);background:var(--surface);color:var(--gray);cursor:pointer;transition:.2s}
+.quiz-reset.show{display:block}
+.quiz-reset:hover{border-color:var(--red);color:var(--red)}
 .q-opt.correct{background:var(--cyan-dim);border-color:var(--cyan);color:var(--cyan)}
 .q-opt.wrong{background:var(--red-dim);border-color:var(--red);color:var(--red)}
 .q-opt.disabled{cursor:default}
@@ -267,8 +308,15 @@ strong{color:var(--white);font-weight:600}
 .quiz-reset.show{display:block}
 .quiz-reset:hover{border-color:var(--red);color:var(--red)}
 
-/* TUNING PARAMS */
-.param-list{display:flex;flex-direction:column;gap:3px;margin:22px 0}
+/* SLIDERS */
+.slider-demo{margin:14px 0}
+.slider-label{display:flex;justify-content:space-between;margin-bottom:8px}
+.slider-label span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--gray)}
+.s-val{color:var(--amber)!important}
+.slider-track{height:8px;background:var(--surface2);border-radius:4px;position:relative;cursor:pointer;user-select:none;touch-action:none}
+.slider-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--blue),var(--amber));transition:width .05s}
+.slider-thumb{width:16px;height:16px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);position:absolute;top:50%;transform:translate(-50%,-50%);cursor:grab;box-shadow:0 0 10px rgba(245,166,35,.45);transition:left .05s}
+.slider-thumb:active{cursor:grabbing;transform:translate(-50%,-50%) scale(1.2)}
 .param{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s;cursor:pointer}
 .param:hover{border-color:var(--border2)}
 .param.open{border-color:var(--amber)}
@@ -287,16 +335,10 @@ strong{color:var(--white);font-weight:600}
 .param-chevron{color:var(--gray2);transition:transform .25s;font-size:12px}
 .param.open .param-chevron{transform:rotate(180deg)}
 .param-body{display:none;padding:0 20px 20px;border-top:1px solid var(--border)}
-.param.open .param-body{display:block}
+.param.open .param-body{display:block;animation:revealDown .2s ease}
+@keyframes revealDown{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
 .param-body p{font-size:14px;margin-bottom:12px;line-height:1.7}
 
-.slider-demo{margin:14px 0}
-.slider-label{display:flex;justify-content:space-between;margin-bottom:8px}
-.slider-label span{font-family:var(--mono);font-size:10px;letter-spacing:.08em;color:var(--gray)}
-.s-val{color:var(--amber)}
-.slider-track{height:6px;background:var(--surface2);border-radius:3px;position:relative;cursor:pointer}
-.slider-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--amber));transition:width .1s}
-.slider-thumb{width:14px;height:14px;border-radius:50%;background:var(--amber);border:2px solid var(--bg);position:absolute;top:50%;transform:translate(-50%,-50%);cursor:grab;box-shadow:0 0 8px rgba(245,166,35,.4);transition:left .1s}
 .slider-extremes{display:flex;justify-content:space-between;margin-top:6px}
 .slider-extremes span{font-size:11px;color:var(--gray2)}
 .effect-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
@@ -313,7 +355,8 @@ strong{color:var(--white);font-weight:600}
 
 /* PHILOSOPHY CARDS */
 .philosophy-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px;margin:22px 0}
-.phil-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px}
+.phil-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:22px;transition:border-color .2s,transform .2s}
+.phil-card:hover{border-color:var(--border2);transform:translateY(-2px)}
 .phil-num{font-family:var(--font);font-size:48px;color:var(--gray2);opacity:.25;line-height:1;margin-bottom:8px}
 .phil-title{font-size:15px;font-weight:600;color:var(--white);margin-bottom:8px}
 .phil-card p{font-size:13px;color:var(--gray);margin:0;line-height:1.65}
@@ -323,7 +366,7 @@ strong{color:var(--white);font-weight:600}
 .cs-title{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:14px}
 .cs-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
 .cs-btn{font-family:var(--mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:10px 20px;border-radius:8px;border:1px solid var(--border2);background:var(--surface2);color:var(--gray);cursor:pointer;transition:.2s}
-.cs-btn:hover{color:var(--white)}
+.cs-btn:hover{color:var(--white);border-color:var(--amber)}
 .cs-btn.active{background:var(--amber-dim);border-color:rgba(245,166,35,.4);color:var(--amber)}
 .car-profile{display:none}
 .car-profile.show{display:block}
@@ -333,7 +376,7 @@ strong{color:var(--white);font-weight:600}
 .cp-row{display:grid;grid-template-columns:180px 1fr auto;gap:12px;align-items:center;background:var(--bg3);border-radius:8px;padding:10px 14px}
 .cp-param-name{font-size:13px;color:var(--gray)}
 .cp-bar-wrap{height:6px;background:var(--bg2);border-radius:3px;overflow:hidden}
-.cp-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--amber));transition:width .4s}
+.cp-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--amber));transition:width .5s cubic-bezier(.16,1,.3,1)}
 .cp-val{font-family:var(--mono);font-size:11px;color:var(--amber);white-space:nowrap}
 .cp-explanation{margin-top:16px;padding:14px 18px;background:var(--bg3);border-radius:8px;border-left:2px solid var(--amber);font-size:14px;color:var(--text);line-height:1.7}
 
@@ -346,7 +389,7 @@ strong{color:var(--white);font-weight:600}
 .problem-chevron{color:var(--gray2);font-size:12px;transition:transform .2s}
 .problem-item.open .problem-chevron{transform:rotate(180deg)}
 .problem-body{display:none;padding:0 20px 18px;border-top:1px solid var(--border)}
-.problem-item.open .problem-body{display:block}
+.problem-item.open .problem-body{display:block;animation:revealDown .2s ease}
 .fix-list{margin-top:12px;display:flex;flex-direction:column;gap:6px}
 .fix-row{display:grid;grid-template-columns:20px 1fr;gap:10px;font-size:13px;color:var(--text);align-items:start;padding:8px 12px;background:var(--bg3);border-radius:6px}
 .fix-arrow{color:var(--amber);font-weight:600}
@@ -355,8 +398,17 @@ strong{color:var(--white);font-weight:600}
 .warning{background:var(--red-dim);border:1px solid rgba(232,38,58,.2);border-radius:10px;padding:18px 22px;margin:22px 0;display:flex;gap:14px;align-items:flex-start}
 .warning p{color:var(--text);margin:0;font-size:14px;line-height:1.7}
 
+/* PRIORITY */
+.priority-list{display:flex;flex-direction:column;gap:8px;margin:22px 0}
+.priority-item{display:grid;grid-template-columns:56px 1fr;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:border-color .2s,transform .2s}
+.priority-item:hover{transform:translateX(4px)}
+.p-rank{font-family:var(--font);font-size:28px;font-weight:900;display:flex;align-items:center;justify-content:center;padding:16px;border-right:1px solid var(--border)}
+.p-body{padding:16px 20px}
+.p-name{font-size:16px;font-weight:600;color:var(--white);margin-bottom:4px}
+.p-desc{font-size:14px;color:var(--gray);line-height:1.6}
+
 /* REVEAL */
-.reveal{opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 
 /* FOOTER */
@@ -379,7 +431,8 @@ footer{padding:80px 0 60px;border-top:1px solid var(--border);text-align:center}
   .seq-arr{display:none}
   .param-header{grid-template-columns:1fr}
   .param-right{margin-top:6px}
-  .theme-toggle{bottom:16px;right:16px;width:44px;height:44px;font-size:18px}
+  .theme-toggle{bottom:80px;right:16px;width:44px;height:44px;font-size:18px}
+  #back-to-top{bottom:18px;right:16px;width:44px;height:44px}
   .hero-stats{gap:24px}
 }
 </style>
@@ -390,6 +443,9 @@ footer{padding:80px 0 60px;border-top:1px solid var(--border);text-align:center}
   <span class="icon-dark">&#9728;&#65039;</span>
   <span class="icon-light">&#127769;</span>
 </button>
+
+<div id="progress-bar"></div>
+<button id="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to top">&#8679;</button>
 
 <!-- HERO -->
 <section class="hero">
@@ -714,11 +770,19 @@ footer{padding:80px 0 60px;border-top:1px solid var(--border);text-align:center}
   </div>
   <div class="section">
     <div class="quiz-section">
-      <div class="quiz-title">Racing Knowledge Quiz</div>
-      <div class="quiz-sub">10 questions &middot; tap the answer you believe is correct</div>
+      <div class="quiz-header">
+        <div class="quiz-title">Racing Knowledge Quiz</div>
+        <div class="quiz-progress-label" id="quiz-progress-label">0 / 10 answered</div>
+      </div>
+      <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quiz-progress-fill"></div></div>
+      <div class="quiz-sub">10 questions &middot; select the answer you believe is correct</div>
       <div id="quiz-container"></div>
-      <div class="quiz-score" id="quiz-score"></div>
-      <button class="quiz-reset" id="quiz-reset" onclick="resetQuiz()">Restart Quiz</button>
+      <div class="quiz-score" id="quiz-score">
+        <div class="score-num" id="score-num-el"></div>
+        <div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar-fill"></div></div>
+        <div class="score-msg" id="score-msg-el"></div>
+      </div>
+      <button class="quiz-reset" id="quiz-reset" onclick="resetQuiz()">&#8635; Restart Quiz</button>
     </div>
   </div>
 </div></section>
@@ -773,7 +837,7 @@ footer{padding:80px 0 60px;border-top:1px solid var(--border);text-align:center}
   <div class="section">
     <div class="cat-header"><div class="cat-line"></div><div class="cat-label">Tyre Pressure</div><div class="cat-line"></div></div>
     <div class="param-list">
-      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Front Tyre Pressure</div><div class="param-short">Controls front grip, temperature, and wear pattern</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Too low = tyre rolls onto sidewall, vague feel, edge wears faster. Too high = only centre contacts road, middle overheats quickly and wears. Both reduce grip.</p><div class="slider-demo"><div class="slider-label"><span>Pressure</span><span class="s-val" id="fp-val">28 PSI</span></div><div class="slider-track" onclick="updateSlider(this,'fp-val',18,38,'PSI',event)"><div class="slider-fill" style="width:55%"></div><div class="slider-thumb" style="left:55%"></div></div><div class="slider-extremes"><span>18 PSI &mdash; Too low, vague</span><span>38 PSI &mdash; Too high, overheats</span></div></div><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">Increase pressure when</div><p>Centre of tyre cold, edges overheating. Car feels nervous. Tyre rolling onto sidewall under hard cornering.</p></div><div class="effect-box"><div class="effect-box-label decrease">Decrease pressure when</div><p>Centre overheating, edges cold. Car feels vague and imprecise. Contact patch too small.</p></div></div><div class="car-note"><strong>RWD:</strong> Slightly higher front pressure &mdash; front only steers and brakes, not driving. <strong>FWD:</strong> Lower front pressure to maximise contact patch for the overworked front tyres. <strong>AWD:</strong> Balanced pressures, within 1&ndash;2 PSI front to rear.</div></div></div>
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Front Tyre Pressure</div><div class="param-short">Controls front grip, temperature, and wear pattern</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Too low = tyre rolls onto sidewall, vague feel, edge wears faster. Too high = only centre contacts road, middle overheats quickly and wears. Both reduce grip.</p><div class="slider-demo"><div class="slider-label"><span>Pressure</span><span class="s-val" id="fp-val">28 PSI</span></div><div class="slider-track" data-min="18" data-max="38" data-unit="PSI" data-target="fp-val" data-init="55"><div class="slider-fill" style="width:55%"></div><div class="slider-thumb" style="left:55%"></div></div><div class="slider-extremes"><span>18 PSI &mdash; Too low, vague</span><span>38 PSI &mdash; Too high, overheats</span></div></div><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">Increase pressure when</div><p>Centre of tyre cold, edges overheating. Car feels nervous. Tyre rolling onto sidewall under hard cornering.</p></div><div class="effect-box"><div class="effect-box-label decrease">Decrease pressure when</div><p>Centre overheating, edges cold. Car feels vague and imprecise. Contact patch too small.</p></div></div><div class="car-note"><strong>RWD:</strong> Slightly higher front pressure &mdash; front only steers and brakes, not driving. <strong>FWD:</strong> Lower front pressure to maximise contact patch for the overworked front tyres. <strong>AWD:</strong> Balanced pressures, within 1&ndash;2 PSI front to rear.</div></div></div>
 
       <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Rear Tyre Pressure</div><div class="param-short">Controls rear grip, traction, and stability</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>High rear pressure reduces contact patch &mdash; less traction for RWD, more oversteer tendency. Low rear pressure gives more contact patch and grip, but the tyre can overheat under sustained heavy load.</p><div class="effect-row"><div class="effect-box"><div class="effect-box-label increase">Increase pressure when</div><p>Rear too grippy causing exit understeer. Rear degrading slower than fronts &mdash; uneven wear pattern.</p></div><div class="effect-box"><div class="effect-box-label decrease">Decrease pressure when</div><p>Rear losing grip or overheating mid-race. Rear degrading significantly faster than fronts.</p></div></div><div class="car-note"><strong>RWD:</strong> Lower rear pressure = more contact patch = more traction. Critical for high-powered cars. <strong>FWD:</strong> Lower rear pressure allows rear to flex slightly, actually reducing understeer tendency. <strong>AWD:</strong> Match front and rear pressures closely.</div></div></div>
 
@@ -836,7 +900,7 @@ footer{padding:80px 0 60px;border-top:1px solid var(--border);text-align:center}
   </div>
   <div class="section">
     <div class="param-list">
-      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Camber &mdash; Front</div><div class="param-short">Tyre tilt inward (negative) or outward (positive) viewed from front</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>When cornering, outside tyres tilt outward due to body roll. Negative camber pre-tilts the tyre inward so when the car rolls in a corner, the tyre becomes more upright &mdash; maximising contact patch and cornering grip. Too much negative camber = inner edge wears fast on straights and braking grip is reduced.</p><div class="slider-demo"><div class="slider-label"><span>Front Camber</span><span class="s-val" id="fc-val">-2.5&deg;</span></div><div class="slider-track" onclick="updateSliderCamber(this,'fc-val',-5,0,event)"><div class="slider-fill" style="width:50%"></div><div class="slider-thumb" style="left:50%"></div></div><div class="slider-extremes"><span>-5.0&deg; &mdash; Extreme, inner wear</span><span>0&deg; &mdash; No camber</span></div></div><div class="car-note"><strong>FWD:</strong> More front negative camber (&minus;2.5&deg; to &minus;3.5&deg;) &mdash; front does everything and needs maximum cornering grip. <strong>RWD:</strong> &minus;1.5&deg; to &minus;2.5&deg; typical. Too much sacrifices straight-line braking stability. <strong>High-downforce:</strong> Less camber needed &mdash; aero pushes the tyre flatter in corners anyway.</div></div></div>
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Camber &mdash; Front</div><div class="param-short">Tyre tilt inward (negative) or outward (positive) viewed from front</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>When cornering, outside tyres tilt outward due to body roll. Negative camber pre-tilts the tyre inward so when the car rolls in a corner, the tyre becomes more upright &mdash; maximising contact patch and cornering grip. Too much negative camber = inner edge wears fast on straights and braking grip is reduced.</p><div class="slider-demo"><div class="slider-label"><span>Front Camber</span><span class="s-val" id="fc-val">-2.5&deg;</span></div><div class="slider-track" data-min="-5" data-max="0" data-unit="deg" data-target="fc-val" data-init="50"><div class="slider-fill" style="width:50%"></div><div class="slider-thumb" style="left:50%"></div></div><div class="slider-extremes"><span>-5.0&deg; &mdash; Extreme, inner wear</span><span>0&deg; &mdash; No camber</span></div></div><div class="car-note"><strong>FWD:</strong> More front negative camber (&minus;2.5&deg; to &minus;3.5&deg;) &mdash; front does everything and needs maximum cornering grip. <strong>RWD:</strong> &minus;1.5&deg; to &minus;2.5&deg; typical. Too much sacrifices straight-line braking stability. <strong>High-downforce:</strong> Less camber needed &mdash; aero pushes the tyre flatter in corners anyway.</div></div></div>
 
       <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Camber &mdash; Rear</div><div class="param-short">Rear tyre tilt &mdash; affects cornering grip and traction balance</div></div><div class="param-right"><span class="param-effect pe-grip">Grip</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Rear camber works the same as front but the rear also needs to put power down in RWD/AWD cars. Too much negative camber reduces the contact patch for straight-line traction. Rear camber is typically less negative than front.</p><div class="car-note"><strong>RWD:</strong> Keep conservative at &minus;1.0&deg; to &minus;1.5&deg;. Too much loses traction. <strong>FWD:</strong> &minus;0.5&deg; to &minus;1.0&deg; helps cornering stability without sacrificing anything. <strong>AWD:</strong> Match front and rear more closely &mdash; typically &minus;1.5&deg; to &minus;2.5&deg; front, &minus;1.0&deg; to &minus;1.5&deg; rear.</div></div></div>
 
@@ -875,7 +939,7 @@ footer{padding:80px 0 60px;border-top:1px solid var(--border);text-align:center}
   </div>
   <div class="section">
     <div class="param-list">
-      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Brake Balance (Bias) &mdash; Front / Rear</div><div class="param-short">Proportion of braking force applied to front vs rear axle</div></div><div class="param-right"><span class="param-effect pe-balance">Balance</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Under hard braking, weight transfers to the front &mdash; the front tyres have more grip and can take more braking force. Most race cars run 55&ndash;65% front bias. <strong>Too much front:</strong> Rear brakes contribute little and front overheats on long braking zones. <strong>Too much rear:</strong> Rear locks easily (it&rsquo;s light during braking), causing rotation and spin.</p><div class="slider-demo"><div class="slider-label"><span>Brake Bias</span><span class="s-val" id="bb-val">60% Front</span></div><div class="slider-track" onclick="updateBrakeBias(this,'bb-val',event)"><div class="slider-fill" style="width:60%"></div><div class="slider-thumb" style="left:60%"></div></div><div class="slider-extremes"><span>50% Front / 50% Rear</span><span>75% Front / 25% Rear</span></div></div><div class="car-note"><strong>High-downforce cars:</strong> More rear bias than road cars &mdash; aero generates rear downforce giving rear tyres more grip under braking. <strong>Rear-engine cars (911):</strong> Can run more rear bias. <strong>FWD:</strong> Higher front bias &mdash; weight and drive are both at the front.</div></div></div>
+      <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Brake Balance (Bias) &mdash; Front / Rear</div><div class="param-short">Proportion of braking force applied to front vs rear axle</div></div><div class="param-right"><span class="param-effect pe-balance">Balance</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Under hard braking, weight transfers to the front &mdash; the front tyres have more grip and can take more braking force. Most race cars run 55&ndash;65% front bias. <strong>Too much front:</strong> Rear brakes contribute little and front overheats on long braking zones. <strong>Too much rear:</strong> Rear locks easily (it&rsquo;s light during braking), causing rotation and spin.</p><div class="slider-demo"><div class="slider-label"><span>Brake Bias</span><span class="s-val" id="bb-val">60% Front</span></div><div class="slider-track" data-mode="brake" data-target="bb-val" data-init="60"><div class="slider-fill" style="width:60%"></div><div class="slider-thumb" style="left:60%"></div></div><div class="slider-extremes"><span>50% Front / 50% Rear</span><span>75% Front / 25% Rear</span></div></div><div class="car-note"><strong>High-downforce cars:</strong> More rear bias than road cars &mdash; aero generates rear downforce giving rear tyres more grip under braking. <strong>Rear-engine cars (911):</strong> Can run more rear bias. <strong>FWD:</strong> Higher front bias &mdash; weight and drive are both at the front.</div></div></div>
 
       <div class="param reveal" onclick="toggleParam(this)"><div class="param-header"><div class="param-left"><div class="param-name">Brake Pressure (Force)</div><div class="param-short">Overall maximum brake force multiplier</div></div><div class="param-right"><span class="param-effect pe-mechanical">Mechanical</span><span class="param-chevron">&#9660;</span></div></div><div class="param-body"><p>Higher pressure = more stopping force but easier lock-up without ABS. Lower pressure = more modulation range but may not achieve peak braking performance under maximum demand.</p><div class="car-note">With ABS on, higher brake pressure is almost always better &mdash; ABS handles lock prevention. Without ABS, find the pressure where you can feel the threshold clearly. Heavier cars need higher pressure. Lightweight cars with large brake packages may benefit from lower pressure for better modulation feel.</div></div></div>
     </div>
@@ -885,7 +949,7 @@ footer{padding:80px 0 60px;border-top:1px solid var(--border);text-align:center}
 <!-- AERO -->
 <section id="aero"><div class="container">
   <div class="chapter">
-    <div class="ch-num">Chapter 15b &middot; Aerodynamics</div>
+    <div class="ch-num">Chapter 16 &middot; Aerodynamics</div>
     <h2 class="ch-title">Press the car down.<br>Pay with drag.</h2>
     <p class="ch-intro">Aerodynamics only matter on cars generating meaningful downforce. For most road cars, skip this entirely and focus on mechanical grip instead.</p>
   </div>
@@ -902,7 +966,7 @@ footer{padding:80px 0 60px;border-top:1px solid var(--border);text-align:center}
 <!-- DIFFERENTIAL -->
 <section id="diff"><div class="container">
   <div class="chapter">
-    <div class="ch-num">Chapter 16 &middot; Differential</div>
+    <div class="ch-num">Chapter 17 &middot; Differential</div>
     <h2 class="ch-title">The most misunderstood<br>tuning parameter.</h2>
     <p class="ch-intro">The differential controls how torque is shared between the two driven wheels on the same axle. The single most impactful parameter for corner exit behaviour.</p>
   </div>
@@ -1050,215 +1114,196 @@ footer{padding:80px 0 60px;border-top:1px solid var(--border);text-align:center}
 </footer>
 
 <script>
-// ═══ THEME TOGGLE ═══
-function toggleTheme() {
-  const html = document.documentElement;
-  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  html.setAttribute('data-theme', next);
-  localStorage.setItem('racing-guide-theme', next);
-}
-(function() {
+// ══ THEME ══
+(function(){
   const saved = localStorage.getItem('racing-guide-theme');
   if (saved) document.documentElement.setAttribute('data-theme', saved);
 })();
+function toggleTheme(){
+  const html = document.documentElement;
+  const next = html.getAttribute('data-theme')==='dark'?'light':'dark';
+  html.setAttribute('data-theme', next);
+  localStorage.setItem('racing-guide-theme', next);
+}
 
-// ═══ WEIGHT TRANSFER PHYSICS ═══
+// ══ READING PROGRESS + BACK TO TOP + NAV ══
+const progressBar = document.getElementById('progress-bar');
+const backToTop = document.getElementById('back-to-top');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  const s = window.scrollY;
+  const h = document.documentElement.scrollHeight - window.innerHeight;
+  if (progressBar) progressBar.style.width = (h > 0 ? (s/h)*100 : 0) + '%';
+  if (backToTop) backToTop.classList.toggle('show', s > 400);
+  let current = '';
+  document.querySelectorAll('section[id]').forEach(sec => {
+    if (s >= sec.offsetTop - 160) current = sec.getAttribute('id');
+  });
+  navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
+}, { passive: true });
+
+// ══ WEIGHT TRANSFER DEMO ══
 const physicsStates = {
-  neutral: {
-    fl:25,fr:25,rl:25,rr:25,
-    explain:"Coasting with balanced weight distribution. All four tyres share the load evenly. This is your baseline — any input shifts this balance immediately."
-  },
-  braking: {
-    fl:38,fr:38,rl:12,rr:12,
-    explain:"Hard braking transfers weight sharply to the front. Front tyres gain grip — great for stopping. Rear tyres unload — this is why snap oversteer can occur when you combine hard braking with a steering input. Never combine hard braking with full steering lock."
-  },
-  acceleration: {
-    fl:14,fr:14,rl:36,rr:36,
-    explain:"Full throttle transfers weight rearward. Rear tyres gain grip, helping power delivery. But the front lightens — understeer risk, especially in tight corners. In RWD: too much throttle too early = rear has too much power and not enough cornering grip. It steps out."
-  },
-  cornering: {
-    fl:14,fr:32,rl:18,rr:36,
-    explain:"Cornering left transfers weight to the right via centrifugal force. Outside (right) tyres carry the majority of the load. This is why the outside front-right and rear-right tyres work hardest in a left-hand corner. Inside tyres unload and contribute less grip — the car rolls onto the outside rubber."
-  }
+  neutral:      { fl:25,fr:25,rl:25,rr:25, explain:"Coasting with balanced weight distribution. All four tyres share the load evenly. This is your baseline — any input shifts this balance immediately." },
+  braking:      { fl:38,fr:38,rl:12,rr:12, explain:"Hard braking transfers weight sharply to the front. Front tyres gain grip — great for stopping. Rear tyres unload — this is why snap oversteer can occur when you combine hard braking with a steering input. Never combine hard braking with full steering lock." },
+  acceleration: { fl:14,fr:14,rl:36,rr:36, explain:"Full throttle transfers weight rearward. Rear tyres gain grip, helping power delivery. But the front lightens — understeer risk, especially in tight corners. In RWD: too much throttle too early = rear has too much power and not enough cornering grip. It steps out." },
+  cornering:    { fl:14,fr:32,rl:18,rr:36, explain:"Cornering left transfers weight to the right via centrifugal force. Outside (right) tyres carry the majority of the load. This is why the outside front-right and rear-right tyres work hardest in a left-hand corner. Inside tyres unload and contribute less grip." }
 };
-
 function setPhysics(mode, btn) {
   document.querySelectorAll('.phys-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   const s = physicsStates[mode];
   ['fl','fr','rl','rr'].forEach(pos => {
     const pct = s[pos];
-    const circle = document.getElementById('t' + pos);
-    const label = document.getElementById('p' + pos);
+    const circle = document.getElementById('t'+pos);
+    const label  = document.getElementById('p'+pos);
     label.textContent = pct + '%';
     const size = 56 + (pct - 12) * 1.4;
-    circle.style.width = size + 'px';
+    circle.style.width  = size + 'px';
     circle.style.height = size + 'px';
-    circle.style.margin = '0 auto ' + Math.max(0, (80 - size) / 2) + 'px';
+    circle.style.margin = '0 auto ' + Math.max(0,(80-size)/2) + 'px';
     if (pct >= 32) {
       circle.style.borderColor = 'var(--red)';
-      circle.style.background = 'rgba(232,38,58,' + (0.05 + Math.min(1,(pct-25)/20)*0.2) + ')';
+      circle.style.background  = 'rgba(232,38,58,'+(0.06+Math.min(1,(pct-25)/20)*0.2)+')';
     } else if (pct <= 14) {
       circle.style.borderColor = 'var(--gray2)';
-      circle.style.background = 'transparent';
+      circle.style.background  = 'transparent';
     } else {
       circle.style.borderColor = 'var(--amber)';
-      circle.style.background = 'rgba(245,166,35,0.07)';
+      circle.style.background  = 'rgba(245,166,35,0.08)';
     }
   });
-  document.getElementById('phys-explain').textContent = s.explain;
+  const explain = document.getElementById('phys-explain');
+  explain.style.opacity = '0';
+  setTimeout(() => { explain.textContent = s.explain; explain.style.opacity = '1'; }, 150);
 }
 
-// ═══ PARAM ACCORDION ═══
+// ══ ACCORDIONS ══
 function toggleParam(el) {
   const wasOpen = el.classList.contains('open');
   document.querySelectorAll('.param.open').forEach(p => p.classList.remove('open'));
   if (!wasOpen) el.classList.add('open');
 }
-
-// ═══ PROBLEM ACCORDION ═══
 function toggleProblem(el) {
   const wasOpen = el.classList.contains('open');
   document.querySelectorAll('.problem-item.open').forEach(p => p.classList.remove('open'));
   if (!wasOpen) el.classList.add('open');
 }
 
-// ═══ SLIDERS ═══
-function updateSlider(track, valId, min, max, unit, e) {
-  const rect = track.getBoundingClientRect();
-  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-  const val = min + (max - min) * pct;
-  track.querySelector('.slider-fill').style.width = (pct * 100) + '%';
-  track.querySelector('.slider-thumb').style.left = (pct * 100) + '%';
-  document.getElementById(valId).textContent = Math.round(val) + ' ' + unit;
-}
-function updateSliderCamber(track, valId, min, max, e) {
-  const rect = track.getBoundingClientRect();
-  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-  const val = min + (max - min) * pct;
-  track.querySelector('.slider-fill').style.width = (pct * 100) + '%';
-  track.querySelector('.slider-thumb').style.left = (pct * 100) + '%';
-  document.getElementById(valId).textContent = val.toFixed(1) + '°';
-}
-function updateBrakeBias(track, valId, e) {
-  const rect = track.getBoundingClientRect();
-  const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
-  const frontPct = Math.round(50 + pct * 25);
-  track.querySelector('.slider-fill').style.width = (pct * 100) + '%';
-  track.querySelector('.slider-thumb').style.left = (pct * 100) + '%';
-  document.getElementById(valId).textContent = frontPct + '% Front';
+// ══ DRAGGABLE SLIDERS ══
+function initSliders() {
+  document.querySelectorAll('.slider-track').forEach(track => {
+    const fill   = track.querySelector('.slider-fill');
+    const thumb  = track.querySelector('.slider-thumb');
+    if (!fill || !thumb) return;
+
+    // Read config from data attributes; fall back to onclick-based mode
+    const mode   = track.dataset ? track.dataset.mode : null;
+    const targetId = track.dataset ? track.dataset.target : null;
+    const min    = track.dataset ? parseFloat(track.dataset.min || 0)  : 0;
+    const max    = track.dataset ? parseFloat(track.dataset.max || 100): 100;
+    const unit   = track.dataset ? (track.dataset.unit || '') : '';
+    const initP  = track.dataset ? parseFloat(track.dataset.init || 50)/100 : parseFloat(fill.style.width)/100;
+
+    function applyPct(pct) {
+      pct = Math.max(0, Math.min(1, pct));
+      fill.style.width  = (pct*100)+'%';
+      thumb.style.left  = (pct*100)+'%';
+      if (!targetId) return;
+      const el = document.getElementById(targetId);
+      if (!el) return;
+      if (mode === 'brake') {
+        el.textContent = Math.round(50 + pct*25) + '% Front';
+      } else if (unit === 'deg') {
+        el.textContent = (min + (max-min)*pct).toFixed(1) + '°';
+      } else {
+        el.textContent = Math.round(min + (max-min)*pct) + (unit ? ' '+unit : '');
+      }
+    }
+
+    applyPct(isNaN(initP) ? parseFloat(fill.style.width)/100 : initP);
+
+    let dragging = false;
+    function getPct(clientX) {
+      const r = track.getBoundingClientRect();
+      return (clientX - r.left) / r.width;
+    }
+    thumb.addEventListener('mousedown',  e => { dragging = true; e.preventDefault(); });
+    document.addEventListener('mousemove', e => { if (dragging) applyPct(getPct(e.clientX)); });
+    document.addEventListener('mouseup',   () => { dragging = false; });
+    thumb.addEventListener('touchstart',  e => { dragging = true; }, { passive: true });
+    document.addEventListener('touchmove', e => { if (dragging) applyPct(getPct(e.touches[0].clientX)); }, { passive: true });
+    document.addEventListener('touchend',  () => { dragging = false; });
+    track.addEventListener('click', e => { if (e.target !== thumb) applyPct(getPct(e.clientX)); });
+  });
 }
 
-// ═══ CAR PROFILE SELECTOR ═══
+// ══ CAR PROFILE SELECTOR ══
 function setCarProfile(id, btn) {
   document.querySelectorAll('.cs-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   document.querySelectorAll('.car-profile').forEach(p => p.classList.remove('show'));
-  document.getElementById('profile-' + id).classList.add('show');
+  const profile = document.getElementById('profile-'+id);
+  profile.classList.add('show');
+  // Animate bars on show
+  requestAnimationFrame(() => {
+    profile.querySelectorAll('.cp-bar').forEach(bar => {
+      const target = bar.style.width;
+      bar.style.width = '0%';
+      requestAnimationFrame(() => { bar.style.width = target; });
+    });
+  });
 }
 
-// ═══ SCROLL REVEAL ═══
-const revealSelectors = [
-  '.concept-card', '.dt-card', '.cue-item', '.flag-entry',
-  '.priority-item', '.assist-card', '.term-item', '.step',
-  '.param', '.phil-card', '.problem-item', '.cp-row', '.reveal'
+// ══ SCROLL REVEAL ══
+const revealSel = [
+  '.concept-card','.dt-card','.cue-item','.flag-entry',
+  '.priority-item','.assist-card','.step','.param',
+  '.phil-card','.problem-item','.reveal'
 ];
-document.querySelectorAll(revealSelectors.join(',')).forEach(el => {
+document.querySelectorAll(revealSel.join(',')).forEach(el => {
   if (!el.classList.contains('reveal')) el.classList.add('reveal');
 });
-const revealObs = new IntersectionObserver(entries => {
+const obs = new IntersectionObserver(entries => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-      revealObs.unobserve(e.target);
-    }
+    if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
   });
-}, { threshold: 0.06, rootMargin: '0px 0px -16px 0px' });
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+}, { threshold: 0.05, rootMargin: '0px 0px -16px 0px' });
+document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-// ═══ NAV ACTIVE STATE ═══
-const navLinks = document.querySelectorAll('.nav-link');
-window.addEventListener('scroll', () => {
-  let current = '';
-  document.querySelectorAll('section[id]').forEach(s => {
-    if (window.scrollY >= s.offsetTop - 150) current = s.getAttribute('id');
-  });
-  navLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + current));
-}, { passive: true });
-
-// ═══ TERM TOOLTIP FLIP ═══
+// ══ TERM TOOLTIP FLIP ══
 document.querySelectorAll('.term-item.has-detail').forEach(item => {
   item.addEventListener('mouseenter', () => {
-    item.classList.toggle('flip', item.getBoundingClientRect().top < 270);
+    item.classList.toggle('flip', item.getBoundingClientRect().top < 300);
   });
 });
 
-// ═══ QUIZ ═══
+// ══ QUIZ ══
 const QUIZ = [
-  {
-    q: "You brake hard for a corner and the front wheels lock up. What happens to the car?",
-    opts: ["You stop harder and faster", "You lose all steering — the car slides straight on", "The rear steps out in oversteer", "Nothing — the car still turns normally"],
-    ans: 1,
-    explain: "A locked wheel creates sliding friction, which is less effective than rolling friction. A non-rotating front tyre cannot generate lateral grip at all — turning the wheel does nothing. You slide straight regardless of steering input. This is why threshold braking (staying just below lock) is the goal."
-  },
-  {
-    q: "What does the traction budget mean in driving?",
-    opts: ["How much fuel the car has left", "Each tyre has 100% total grip — spent on braking, cornering, or acceleration", "How many laps your tyres will last", "The total power output of the engine"],
-    ans: 1,
-    explain: "Each tyre provides a maximum total force in any direction — like a budget. Use 80% on braking and only 20% remains for turning. Demand 100% braking AND 100% cornering simultaneously and the tyre exceeds its budget — it gives up. This is the foundation of all car control."
-  },
-  {
-    q: "In a rear-wheel-drive car, you apply full throttle mid-corner while still pointing at the apex. What happens?",
-    opts: ["The car accelerates cleanly out", "The rear tyres spin — the rear steps out in oversteer", "The front pushes wide in understeer", "Nothing — throttle has no effect while cornering"],
-    ans: 1,
-    explain: "RWD rear tyres must provide cornering grip AND drive force simultaneously. Too much throttle overwhelms their traction budget. The rear loses lateral grip and swings out. Fix: feed throttle progressively only once the car is pointing toward the exit and steering angle is being unwound."
-  },
-  {
-    q: "A blue flag is shown to you during a race. What does it mean?",
-    opts: ["Wet conditions ahead — slow down", "A lead-lap car is approaching — move aside", "The session is about to be stopped", "You have a mechanical problem — pit next lap"],
-    ans: 1,
-    explain: "Blue flags are shown to a lapped car being approached by a lead-lap car. You must move aside within three blue flags or receive a time penalty. The battle is not between you and the leader — do not fight it. Yield cleanly and let them through."
-  },
-  {
-    q: "What is a late apex and why is it usually faster?",
-    opts: ["Braking later than normal to gain time", "Turning in later so you reach full throttle sooner on exit", "Using the full width of the kerbing at the apex", "Waiting until the last moment to change gear"],
-    ans: 1,
-    explain: "Late apex means turning in past the geometric midpoint of the corner. This straightens the exit sooner, allowing earlier throttle application. A driver who reaches full throttle just three car-lengths before you compounds that advantage on every single lap. Exit speed matters far more than entry speed."
-  },
-  {
-    q: "Under hard braking, weight transfers forward. What specific risk does this create for an RWD car?",
-    opts: ["Understeer because the front is overloaded", "Snap oversteer because the rear unloads and loses grip", "Loss of engine braking effectiveness", "Overheating the front brake discs"],
-    ans: 1,
-    explain: "During braking, weight moves forward. The rear tyres unload significantly — they have less grip. In RWD, those same rear tyres also need to provide lateral grip for cornering. An unloaded rear tyre can snap sideways very quickly, especially if you combine hard braking with a steering input at the same time."
-  },
-  {
-    q: "What is the correct order to remove driving assists when improving your skills?",
-    opts: ["Remove all assists at once and lower the AI difficulty significantly", "Keep all assists on for as long as possible", "Stability Control first, then TC, then ABS", "Remove ABS first as it is the easiest to learn without"],
-    ans: 2,
-    explain: "The step-down method builds each skill independently. Stability Control first — you learn to catch slides. Then TC — you learn smooth throttle on corner exit. Then ABS — you learn threshold braking. Each step builds a neural pathway. Removing all at once overwhelms the driver and teaches nothing effectively."
-  },
-  {
-    q: "A yellow flag is shown in Sector 2 during your lap. What should you do?",
-    opts: ["Slow down across the entire circuit", "Slow down specifically in Sector 2 — the hazard is there", "Pit immediately on your next lap", "Only slow down if you can see the actual incident with your own eyes"],
-    ans: 1,
-    explain: "Yellow flags are sector-specific. The hazard is located in that specific sector. You must reduce speed and be prepared for avoiding action in that sector only. Overtaking is prohibited through the yellow sector. Modern sims display this as a coloured sector indicator — read the sector, not just the flag colour."
-  },
-  {
-    q: "You are following another car closely in its slipstream. What is the aerodynamic effect on your car?",
-    opts: ["You gain more downforce — the car ahead creates a funnel effect", "Your downforce is reduced — dirty air disrupts airflow over your wings", "Your car becomes more stable because the air is pre-cleared", "No significant aerodynamic effect — only applies at very high speeds"],
-    ans: 1,
-    explain: "The car ahead disrupts and heats the air behind it — this is dirty air. Your front wing and diffuser need clean, undisturbed airflow to generate downforce. In dirty air, your downforce decreases, braking distances increase, and tyres overheat faster. This is why overtaking is genuinely difficult in modern F1 — and why leaving a gap is important for tyre preservation."
-  },
-  {
-    q: "Your car's rear begins to slide mid-corner. What is the correct immediate response?",
-    opts: ["Lift off the throttle sharply to transfer weight back to the rear", "Brake firmly to stabilise the car", "Steer into the slide (countersteer) and modulate throttle smoothly", "Floor the throttle to pull the car straight with engine power"],
-    ans: 2,
-    explain: "Countersteering — steering in the same direction the rear is sliding — is the correct response. Lifting sharply transfers weight forward, further unloading the rear and making the slide worse. Hard braking can lock the fronts and cause a spin. The correct technique: steer into it, ease off throttle smoothly, wait for grip to return, then carefully resume."
-  }
+  { q:"You brake hard for a corner and the front wheels lock up. What happens to the car?", opts:["You stop harder and faster","You lose all steering — the car slides straight on","The rear steps out in oversteer","Nothing — the car still turns normally"], ans:1, explain:"A locked wheel creates sliding friction, which is less effective than rolling friction. A non-rotating front tyre cannot generate lateral grip at all — turning the wheel does nothing. You slide straight regardless of steering input. This is why threshold braking (staying just below lock) is the goal." },
+  { q:"What does the traction budget mean in driving?", opts:["How much fuel the car has left","Each tyre has 100% total grip — spent on braking, cornering, or acceleration","How many laps your tyres will last","The total power output of the engine"], ans:1, explain:"Each tyre provides a maximum total force in any direction — like a budget. Use 80% on braking and only 20% remains for turning. Demand 100% braking AND 100% cornering simultaneously and the tyre exceeds its budget — it gives up. This is the foundation of all car control." },
+  { q:"In a rear-wheel-drive car, you apply full throttle mid-corner while still pointing at the apex. What happens?", opts:["The car accelerates cleanly out","The rear tyres spin — the rear steps out in oversteer","The front pushes wide in understeer","Nothing — throttle has no effect while cornering"], ans:1, explain:"RWD rear tyres must provide cornering grip AND drive force simultaneously. Too much throttle overwhelms their traction budget. The rear loses lateral grip and swings out. Fix: feed throttle progressively only once the car is pointing toward the exit and steering angle is being unwound." },
+  { q:"A blue flag is shown to you during a race. What does it mean?", opts:["Wet conditions ahead — slow down","A lead-lap car is approaching — move aside","The session is about to be stopped","You have a mechanical problem — pit next lap"], ans:1, explain:"Blue flags are shown to a lapped car being approached by a lead-lap car. You must move aside within three blue flags or receive a time penalty. The battle is not between you and the leader — do not fight it. Yield cleanly and let them through." },
+  { q:"What is a late apex and why is it usually faster?", opts:["Braking later than normal to gain time","Turning in later so you reach full throttle sooner on exit","Using the full width of the kerbing at the apex","Waiting until the last moment to change gear"], ans:1, explain:"Late apex means turning in past the geometric midpoint of the corner. This straightens the exit sooner, allowing earlier throttle application. A driver who reaches full throttle just three car-lengths before you compounds that advantage on every single lap. Exit speed matters far more than entry speed." },
+  { q:"Under hard braking, weight transfers forward. What specific risk does this create for an RWD car?", opts:["Understeer because the front is overloaded","Snap oversteer because the rear unloads and loses grip","Loss of engine braking effectiveness","Overheating the front brake discs"], ans:1, explain:"During braking, weight moves forward. The rear tyres unload significantly — they have less grip. In RWD, those same rear tyres also need to provide lateral grip for cornering. An unloaded rear tyre can snap sideways very quickly, especially if you combine hard braking with a steering input at the same time." },
+  { q:"What is the correct order to remove driving assists when improving your skills?", opts:["Remove all assists at once and lower the AI difficulty significantly","Keep all assists on for as long as possible","Stability Control first, then TC, then ABS","Remove ABS first as it is the easiest to learn without"], ans:2, explain:"The step-down method builds each skill independently. Stability Control first — you learn to catch slides. Then TC — you learn smooth throttle on corner exit. Then ABS — you learn threshold braking. Each step builds a neural pathway. Removing all at once overwhelms the driver and teaches nothing effectively." },
+  { q:"A yellow flag is shown in Sector 2 during your lap. What should you do?", opts:["Slow down across the entire circuit","Slow down specifically in Sector 2 — the hazard is there","Pit immediately on your next lap","Only slow down if you can see the actual incident with your own eyes"], ans:1, explain:"Yellow flags are sector-specific. The hazard is located in that specific sector. You must reduce speed and be prepared for avoiding action in that sector only. Overtaking is prohibited through the yellow sector. Modern sims display this as a coloured sector indicator — read the sector, not just the flag colour." },
+  { q:"You are following another car closely in its slipstream. What is the aerodynamic effect on your car?", opts:["You gain more downforce — the car ahead creates a funnel effect","Your downforce is reduced — dirty air disrupts airflow over your wings","Your car becomes more stable because the air is pre-cleared","No significant aerodynamic effect — only applies at very high speeds"], ans:1, explain:"The car ahead disrupts and heats the air behind it — this is dirty air. Your front wing and diffuser need clean, undisturbed airflow to generate downforce. In dirty air, your downforce decreases, braking distances increase, and tyres overheat faster. This is why overtaking is genuinely difficult in modern F1 — and why leaving a gap is important for tyre preservation." },
+  { q:"Your car's rear begins to slide mid-corner. What is the correct immediate response?", opts:["Lift off the throttle sharply to transfer weight back to the rear","Brake firmly to stabilise the car","Steer into the slide (countersteer) and modulate throttle smoothly","Floor the throttle to pull the car straight with engine power"], ans:2, explain:"Countersteering — steering in the same direction the rear is sliding — is the correct response. Lifting sharply transfers weight forward, further unloading the rear and making the slide worse. Hard braking can lock the fronts and cause a spin. The correct technique: steer into it, ease off throttle smoothly, wait for grip to return, then carefully resume." }
 ];
 
+const LETTERS = ['A','B','C','D'];
 let answers = new Array(QUIZ.length).fill(null);
 let answered = new Array(QUIZ.length).fill(false);
+
+function updateQuizProgress() {
+  const count = answered.filter(Boolean).length;
+  const pct   = (count / QUIZ.length) * 100;
+  const fill  = document.getElementById('quiz-progress-fill');
+  const label = document.getElementById('quiz-progress-label');
+  if (fill)  fill.style.width  = pct + '%';
+  if (label) label.textContent = count + ' / ' + QUIZ.length + ' answered';
+}
 
 function buildQuiz() {
   const c = document.getElementById('quiz-container');
@@ -1268,15 +1313,18 @@ function buildQuiz() {
     const div = document.createElement('div');
     div.className = 'quiz-q';
     div.innerHTML =
-      '<div class="q-text">Q' + (qi+1) + '. ' + item.q + '</div>' +
-      '<div class="q-options" id="opts-' + qi + '">' +
+      '<div class="q-num">Q'+(qi+1)+' of '+QUIZ.length+'</div>'+
+      '<div class="q-text">'+item.q+'</div>'+
+      '<div class="q-options">'+
       item.opts.map((o, i) =>
-        '<button class="q-opt" onclick="answerQ(' + qi + ',' + i + ')" id="opt-' + qi + '-' + i + '">' + o + '</button>'
-      ).join('') +
-      '</div>' +
-      '<div class="q-feedback" id="fb-' + qi + '"></div>';
+        '<button class="q-opt" onclick="answerQ('+qi+','+i+')" id="opt-'+qi+'-'+i+'">'+
+        '<span class="q-opt-letter">'+LETTERS[i]+'</span>'+o+'</button>'
+      ).join('')+
+      '</div>'+
+      '<div class="q-feedback" id="fb-'+qi+'"></div>';
     c.appendChild(div);
   });
+  updateQuizProgress();
 }
 
 function answerQ(qi, selected) {
@@ -1285,21 +1333,21 @@ function answerQ(qi, selected) {
   answers[qi] = selected;
   const correct = QUIZ[qi].ans;
   for (let i = 0; i < QUIZ[qi].opts.length; i++) {
-    const btn = document.getElementById('opt-' + qi + '-' + i);
+    const btn = document.getElementById('opt-'+qi+'-'+i);
     btn.classList.add('disabled');
     if (i === correct) btn.classList.add('correct');
     else if (i === selected && selected !== correct) btn.classList.add('wrong');
   }
-  const fb = document.getElementById('fb-' + qi);
-  fb.className = 'q-feedback show ' + (selected === correct ? 'ok' : 'no');
-  fb.innerHTML = '<strong>' + (selected === correct ? '✓ Correct' : '✗ Incorrect') + '</strong> — ' + QUIZ[qi].explain;
-  if (answered.every(Boolean)) showScore();
+  const fb = document.getElementById('fb-'+qi);
+  const ok = selected === correct;
+  fb.className = 'q-feedback show ' + (ok ? 'ok' : 'no');
+  fb.innerHTML = '<strong>'+(ok ? '✓ Correct' : '✗ Incorrect')+'</strong> — '+QUIZ[qi].explain;
+  updateQuizProgress();
+  if (answered.every(Boolean)) setTimeout(showScore, 500);
 }
 
 function showScore() {
-  const score = answers.filter((a, i) => a === QUIZ[i].ans).length;
-  const el = document.getElementById('quiz-score');
-  const rst = document.getElementById('quiz-reset');
+  const score = answers.filter((a,i) => a === QUIZ[i].ans).length;
   const msgs = [
     'Keep studying — revisit Chapters 1–3 on physics and traction.',
     'Getting there — focus on the physics and traction chapters.',
@@ -1307,22 +1355,34 @@ function showScore() {
     'Strong knowledge — you understand car behaviour very well.',
     'Excellent — a complete understanding across all areas.'
   ];
-  el.innerHTML = score + ' / ' + QUIZ.length + ' correct<span>' + msgs[Math.min(Math.floor(score/2), 4)] + '</span>';
-  el.classList.add('show');
+  const scoreEl = document.getElementById('quiz-score');
+  const numEl   = document.getElementById('score-num-el');
+  const msgEl   = document.getElementById('score-msg-el');
+  const barEl   = document.getElementById('score-bar-fill');
+  const rst     = document.getElementById('quiz-reset');
+  if (numEl) numEl.textContent = score + ' / ' + QUIZ.length;
+  if (msgEl) msgEl.textContent = msgs[Math.min(Math.floor(score/2), 4)];
+  if (scoreEl) { scoreEl.classList.add('show'); scoreEl.scrollIntoView({behavior:'smooth',block:'nearest'}); }
   if (rst) rst.classList.add('show');
+  setTimeout(() => { if (barEl) barEl.style.width = ((score/QUIZ.length)*100)+'%'; }, 200);
 }
 
 function resetQuiz() {
-  answers = new Array(QUIZ.length).fill(null);
+  answers  = new Array(QUIZ.length).fill(null);
   answered = new Array(QUIZ.length).fill(false);
-  const el = document.getElementById('quiz-score');
-  const rst = document.getElementById('quiz-reset');
-  if (el) el.classList.remove('show');
-  if (rst) rst.classList.remove('show');
+  const scoreEl = document.getElementById('quiz-score');
+  const barEl   = document.getElementById('score-bar-fill');
+  const rst     = document.getElementById('quiz-reset');
+  if (barEl)   barEl.style.width = '0%';
+  if (scoreEl) scoreEl.classList.remove('show');
+  if (rst)     rst.classList.remove('show');
   buildQuiz();
 }
 
+// ══ INIT ══
 buildQuiz();
+initSliders();
 </script>
+
 </body>
 </html>

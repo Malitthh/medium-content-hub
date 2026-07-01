@@ -1,5 +1,5 @@
 # The Complete Fintech Domain Guide for SDETs
-### From Zero to Interview-Ready — A Practical Reference
+### A Practical Reference
 
 ---
 
@@ -1445,5 +1445,5 @@ Turquoise           → Pan-European MTF                 Order routing, best exe
 
 ---
 
-*Guide prepared for NinjaTrader & LSEG interview preparation | Capital Markets + SDET Domain Reference*
+*Guide prepared for Capital Markets + SDET Domain Reference*
 *Last updated: July 2026*

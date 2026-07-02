@@ -156,6 +156,92 @@ CT  = The timezone the highway is in (Chicago)
 
 </details>
 
+<details>
+<summary>&#129300; Why are there two "opens" (5 PM &amp; 8:30 AM) and two "closes" (3 PM &amp; 4 PM)? (click to expand)</summary>
+
+Great question — this trips up almost everyone at first. There are **two different layers** running on top of each other. Think of it like a shopping mall and the individual stores inside it.
+
+---
+
+### The Two Layers
+
+```
+LAYER 1 — GLOBEX (The Mall itself)
+  The electronic trading platform — when the building is open
+
+  Opens:  Sunday  5:00 PM CT  ← the whole trading week begins
+  Closes: Friday  4:00 PM CT  ← the whole trading week ends
+
+────────────────────────────────────────────────────────────
+
+LAYER 2 — RTH (The stores inside the mall)
+  The main active trading session running inside Globex
+
+  Opens:  8:30 AM CT  (Mon–Fri)  ← serious trading begins
+  Closes: 3:00 PM CT  (Mon–Fri)  ← serious trading ends
+```
+
+---
+
+### What a Typical Weekday Looks Like (Monday–Thursday)
+
+```
+12:00 AM ── Globex running quietly overnight (ETH)
+             Low volume, algorithms, Asian/European markets active
+
+ 8:30 AM ── RTH OPENS  ◄ main session begins
+             US traders fully active, economic news released,
+             high volume, tight spreads, most market movement
+
+ 3:00 PM ── RTH CLOSES ◄ settlement price locked in
+             P&L calculated, daily mark-to-market runs,
+             batch reports fire
+
+ 3:00 PM ── ETH resumes (post-market wind-down)
+   to        Light trading continues
+ 4:00 PM ── Brief daily maintenance break
+
+ 5:00 PM ── Globex reopens for the next day's overnight session
+             Cycle repeats
+```
+
+---
+
+### Why Friday Is Different
+
+```
+3:00 PM Friday  →  RTH ends as normal (settlement price set)
+3:00–4:00 PM   →  One final hour of ETH (low volume wind-down)
+4:00 PM Friday  →  Globex shuts entirely for the weekend
+                   No trading until Sunday 5:00 PM
+```
+
+| Time | Event |
+|---|---|
+| 3:00 PM Friday | RTH ends — week's settlement price locked |
+| 3:00–4:00 PM | Final ETH hour — thin, low volume |
+| 4:00 PM Friday | Globex closes — market completely dark |
+| 5:00 PM Sunday | Globex reopens — new week begins |
+
+---
+
+### Why This Matters as an SDET
+
+| Time | What to Test |
+|---|---|
+| **5:00 PM Sunday** | Does the platform reconnect cleanly to Globex? Does the chart resume from the correct last price? |
+| **8:30 AM CT** | Can the platform handle the burst of volume at the open? Order execution under high load? |
+| **3:00 PM CT** | Settlement runs correctly? P&L calculated accurately? Daily reports fire on time? |
+| **4:00 PM Friday** | Weekly rollup correct? Weekend maintenance window behaviour? |
+
+---
+
+### One-Line Summary
+
+> **5 PM and 8:30 AM are not two competing "opens"** — the 5 PM open is the electronic platform waking up for the week, and 8:30 AM is the main trading session starting within it. Same idea on the close — 3 PM ends the serious trading, 4 PM on Fridays shuts everything down for the weekend.
+
+</details>
+
 ---
 
 ## 3. Financial Instruments Deep Dive
@@ -1516,5 +1602,5 @@ Turquoise           → Pan-European MTF                 Order routing, best exe
 
 ---
 
-*Guide Capital Markets + SDET Domain Reference*
+*Guide prepared for Capital Markets + SDET Domain Reference*
 *Last updated: July 2026*

@@ -1,5 +1,4 @@
-# The Complete Fintech Domain Guide for SDETs
-### A Practical Reference
+# The Complete Fintech Domain Guide for SDETs - A Practical Reference
 
 ---
 
@@ -84,6 +83,78 @@ Key times to know as a tester:
 - Market Close (3:00 PM CT) → Settlement, P&L calculations run
 - Overnight    (ETH)        → Low liquidity, different behavior
 ```
+
+<details>
+<summary>&#128218; What do CT, RTH, and ETH actually mean? (click to expand)</summary>
+
+### CT — Central Time
+
+The **US Central Time Zone**, where Chicago is located. Since CME Group (the exchange NinjaTrader users trade on) is based in Chicago, all futures market hours are expressed in CT.
+
+| Season | Abbreviation | UTC Offset |
+|---|---|---|
+| Winter (Nov–Mar) | CST — Central Standard Time | UTC−6 |
+| Summer (Mar–Nov) | CDT — Central Daylight Time | UTC−5 |
+
+**For you in Sri Lanka (IST = UTC+5:30):**
+
+| Market Event | CT Time | Sri Lanka Time (Winter) | Sri Lanka Time (Summer) |
+|---|---|---|---|
+| Globex Open | 5:00 PM CT (Sunday) | 4:30 AM IST (Monday) | 3:30 AM IST (Monday) |
+| RTH Open | 8:30 AM CT | 8:00 PM IST | 7:00 PM IST |
+| RTH Close | 3:00 PM CT | 2:30 AM IST (next day) | 1:30 AM IST (next day) |
+| Globex Close | 4:00 PM CT (Friday) | 3:30 AM IST (Saturday) | 2:30 AM IST (Saturday) |
+
+---
+
+### RTH — Regular Trading Hours
+
+The **core daily trading session** — when the majority of traders are active, volume is highest, and official settlement prices are determined.
+
+```
+RTH for ES / NQ Futures:  8:30 AM – 3:00 PM CT  (Monday–Friday)
+RTH for US Equities:      9:30 AM – 4:00 PM ET  (New York time — note ET not CT)
+```
+
+**What makes RTH important:**
+- All major economic data releases happen here (jobs report, CPI, Fed rate decisions)
+- Institutional traders are fully active — banks, hedge funds, prop desks
+- Bid/ask spreads are tightest — highest liquidity, most realistic fills
+- Highest message volume on the exchange — most test risk for latency and order execution
+- Official **settlement price** is set at the close (3:00 PM CT)
+
+---
+
+### ETH — Extended Trading Hours
+
+Everything **outside RTH** — the overnight and pre/post-market sessions. For futures, this window covers roughly 3:00 PM CT through to 8:30 AM CT the following morning. Because futures trade nearly 23 hours a day, ETH is actually the longer session.
+
+```
+Post-market:  3:00 PM – 4:00 PM CT   (immediately after RTH close)
+Overnight:    4:00 PM – 8:30 AM CT   (the bulk of ETH)
+Pre-market:   8:00 AM – 8:30 AM CT   (just before RTH resumes)
+```
+
+**What makes ETH different to test:**
+- Much lower volume and liquidity — price moves can be exaggerated on thin order books
+- Mostly algorithmic traders and international participants (Asia and Europe sessions)
+- News from Asian and European markets can move prices significantly
+- Wider bid/ask spreads — DOM looks very different to RTH
+- Platform behaviour can differ: some brokers apply different margin requirements overnight
+
+---
+
+### Quick Mental Model
+
+```
+RTH = Rush hour on a highway — busy, fast, high stakes
+ETH = Late-night highway — quiet, fewer cars, but still open
+CT  = The timezone the highway is in (Chicago)
+```
+
+**As an SDET:** Always confirm whether a test scenario falls in RTH or ETH — they produce very different system behaviour. Convert CT to IST before scheduling any live-market-dependent test runs.
+
+</details>
 
 ---
 
@@ -1445,5 +1516,5 @@ Turquoise           → Pan-European MTF                 Order routing, best exe
 
 ---
 
-*Guide prepared for Capital Markets + SDET Domain Reference*
+*Guide Capital Markets + SDET Domain Reference*
 *Last updated: July 2026*

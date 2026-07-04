@@ -1,5 +1,5 @@
 # RegTech Domain Guide for SDETs
-### Regulatory Technology — Cube, Compliance & Regulatory Intelligence
+### Regulatory Technology — Compliance & Regulatory Intelligence
 
 ---
 

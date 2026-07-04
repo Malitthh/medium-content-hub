@@ -1,4 +1,5 @@
-# The Complete Fintech Domain Guide for SDETs - A Practical Reference
+# The Complete Fintech Domain Guide for SDETs
+### A Practical Reference
 
 ---
 

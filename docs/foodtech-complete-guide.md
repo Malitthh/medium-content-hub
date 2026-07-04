@@ -1,5 +1,5 @@
 # Food Service & Supply Chain Technology Guide for SDETs
-### Sysco Labs, B2B Commerce & Food Distribution Technology
+### B2B Commerce & Food Distribution Technology
 
 ---
 
